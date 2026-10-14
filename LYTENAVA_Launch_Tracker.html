@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>LYTENAVA · Launch tracker</title>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1520'/%3E%3Cpath d='M4 16c4-6.4 8-9.6 12-9.6S24 9.6 28 16c-4 6.4-8 9.6-12 9.6S8 22.4 4 16z' fill='none' stroke='%233f9ecb' stroke-width='2.2'/%3E%3Ccircle cx='16' cy='16' r='4.6' fill='%233f9ecb'/%3E%3Ccircle cx='14.4' cy='14.4' r='1.5' fill='%230d1520'/%3E%3C/svg%3E" rel="icon"/>
+<meta content="#0d1520" name="theme-color"/>
+<style>
+:root{
+  --fondo:#0d1520; --tarjeta:#151f2d; --tarjeta2:#1a2534; --linea:#26364a;
+  --tinta:#e7eef6; --gris:#8ea4bb;
+  --azul:#3f9ecb; --azul-hondo:#1d5f85;
+  --ambar:#d9a03c; --ambar-suave:#2a2418; --naranja:#e0894a;
+  --correccion:#e0655f;
+  --dato:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --texto:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--tinta);font-family:var(--texto);
+     line-height:1.62;font-size:16.5px;
+     background-image:radial-gradient(ellipse 80% 50% at 50% -10%,#16283a 0%,transparent 70%)}
+.envoltorio{width:min(1560px,94vw);margin:0 auto;padding:36px 0 80px}
+@media(max-width:900px){.envoltorio{width:calc(100vw - 34px)}}
+header{border-bottom:1px solid var(--linea);padding-bottom:20px;margin-bottom:30px;
+     position:relative}
+header::after{content:"";position:absolute;left:0;bottom:-1px;width:74px;height:3px;
+     background:var(--azul)}
+.marca{display:flex;align-items:center;gap:11px;margin-bottom:13px}
+.marca svg.icono{width:31px;height:31px;flex:none}
+.marca .nom{font-family:var(--dato);font-size:12.5px;letter-spacing:.19em;
+     text-transform:uppercase;color:var(--gris)}
+.eyebrow{font-family:var(--dato);font-size:11px;letter-spacing:.16em;
+     text-transform:uppercase;color:var(--gris);margin:0 0 6px}
+h1{font-size:35px;margin:0 0 7px;letter-spacing:-.022em;font-weight:600;
+     display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.bandera{width:29px;height:17.5px;border-radius:2px;flex:none;
+     box-shadow:0 1px 5px rgba(0,0,0,.5)}
+.sub{color:var(--gris);margin:0;font-size:15.5px;max-width:64ch}
+.fuentes{margin:11px 0 0;font-family:var(--dato);font-size:12.5px;letter-spacing:.03em;color:var(--gris)}
+.fuentes a{color:var(--azul);text-decoration:none;border-bottom:1px solid rgba(63,158,203,.35);padding-bottom:1px}
+.fuentes a:hover{border-bottom-color:var(--azul)}
+h2{font-size:23px;margin:48px 0 16px;letter-spacing:-.012em;font-weight:600}
+h2::before{content:"";display:inline-block;width:16px;height:2px;
+     background:var(--azul);vertical-align:middle;margin-right:9px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.kpi{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;
+     padding:16px 18px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+     background:var(--azul-hondo)}
+.kpi .et{font-family:var(--dato);font-size:11.5px;letter-spacing:.11em;
+     text-transform:uppercase;color:var(--gris)}
+.kpi .n{font-family:var(--dato);font-size:34px;font-weight:600;line-height:1.15;
+     margin-top:5px;color:var(--azul)}
+.kpi .pie{font-size:13.5px;color:var(--gris);margin-top:3px}
+.kpi .n.provisional{color:var(--ambar)}
+.caja{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;
+     padding:20px;margin-top:16px;overflow-x:auto}
+.caja svg{width:100%;max-width:1240px;height:auto;display:block;margin:0 auto}
+.marca svg.icono,h1 svg.bandera{max-width:none}
+.eje{font-family:var(--dato);font-size:12.5px;fill:var(--gris)}
+.eje2{font-family:var(--dato);font-size:12.5px;fill:var(--naranja)}
+.valor{font-family:var(--dato);font-size:14px;fill:var(--tinta);font-weight:600}
+.previo{font-family:var(--dato);font-size:11.5px;fill:var(--correccion);
+     text-decoration:line-through}
+.leyenda{font-size:13px;fill:var(--gris);font-family:var(--texto)}
+.previo-l{fill:var(--correccion);text-decoration:line-through;font-family:var(--dato)}
+table{border-collapse:collapse;width:100%;font-family:var(--dato);font-size:15px}
+th{text-align:right;padding:11px 11px;border-bottom:1px solid var(--azul-hondo);
+   font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris);
+   font-weight:600;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{text-align:right;padding:10px 11px;border-bottom:1px solid var(--linea);white-space:nowrap}
+tbody tr:hover{background:var(--tarjeta2)}
+.tag{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;
+     border-radius:3px;font-weight:600}
+.tag.f{background:rgba(63,158,203,.16);color:var(--azul)}
+.tag.p{background:rgba(217,160,60,.16);color:var(--ambar)}
+.tachado{color:var(--correccion);text-decoration:line-through;font-size:13px}
+.nota{background:var(--tarjeta);border:1px solid var(--linea);
+     border-left:3px solid var(--azul);border-radius:0 7px 7px 0;
+     padding:16px 21px;margin-top:14px}
+.nota.aviso{border-left-color:var(--ambar)}
+.nota h3{margin:0 0 8px;font-size:16px;font-weight:600;color:var(--azul);
+     font-family:var(--dato);letter-spacing:.03em}
+.nota p{margin:0 0 9px;color:#cddbe9}.nota p:last-child{margin:0}
+.rev{font-family:var(--dato);font-size:14px;padding:10px 0;
+     border-bottom:1px solid var(--linea)}
+.rev:last-child{border:0}
+.rev .m{font-weight:600;display:inline-block;min-width:74px;color:var(--azul)}
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--linea);
+     font-size:13px;color:var(--gris)}
+::selection{background:var(--azul-hondo);color:#fff}
+a{color:var(--azul)}
+@media(max-width:620px){h1{font-size:24px}.kpi .n{font-size:26px}}
+@media(prefers-reduced-motion:no-preference){
+  .kpi,.caja,.nota{animation:sube .45s ease-out both}
+  @keyframes sube{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+}
+
+/* Cabecera Hero Encuadrada */
+header.cabecera-hero{
+  background:linear-gradient(180deg,#142030 0%,#0f1722 100%);
+  border:1px solid var(--linea);border-radius:10px;
+  padding:20px 24px 16px;margin-bottom:16px;position:relative;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+}
+header.cabecera-hero::after{display:none}
+.cabecera-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(38,54,74,.6)}
+.cabecera-marca{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.badge-marca{font-family:var(--dato);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(63,158,203,.16);color:var(--azul);padding:3px 9px;border-radius:4px;border:1px solid rgba(63,158,203,.35)}
+.marca-sub{font-size:13px;color:var(--gris)}
+.btn-inicio-otlk{font-family:var(--dato);font-size:12px;color:var(--tinta);text-decoration:none;padding:6px 14px;background:var(--tarjeta2);border:1px solid var(--linea);border-radius:6px;display:inline-flex;align-items:center;gap:6px;transition:all .15s ease;font-weight:600}
+.btn-inicio-otlk:hover{background:rgba(63,158,203,.2);border-color:var(--azul);color:#fff}
+.cabecera-medio{margin-bottom:12px}
+.cabecera-tit-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.cabecera-tit-wrap h1{font-size:32px;margin:0;font-weight:600;letter-spacing:-.02em}
+.badge-status-activo{font-family:var(--dato);font-size:11.5px;padding:3px 10px;border-radius:12px;background:rgba(79,178,134,.16);color:#6fcf9f;border:1px solid rgba(79,178,134,.4);display:inline-flex;align-items:center;gap:5px}
+.cabecera-desc{color:#b6c9dc;font-size:14.5px;margin:0;line-height:1.5;max-width:none}
+.cabecera-sync-bar{display:flex;flex-wrap:wrap;gap:18px;padding-top:10px;border-top:1px solid rgba(38,54,74,.4);font-size:12.5px;color:var(--gris);font-family:var(--dato)}
+.sync-item{display:inline-flex;align-items:center;gap:6px}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#4fb286;display:inline-block}
+.sync-dot-gen{background:var(--azul)}
+
+/* Pestañas destacadas interactivas con banderas e iconos */
+.pestanas-sticky{position:-webkit-sticky;position:sticky;top:0;z-index:1000;
+  background:rgba(13,21,32,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  padding:6px 0 10px;margin:14px 0 18px;border-bottom:1px solid var(--linea)}
+.pestanas-wrap{background:var(--tarjeta);border:1px solid var(--linea);border-radius:8px;padding:4px;overflow-x:auto;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.pestanas{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0;width:100%}
+.pestanas button{width:100%;justify-content:center;text-align:center;background:transparent;border:1px solid transparent;border-radius:6px;color:var(--gris);
+  font:600 16px var(--texto);padding:12px 16px;cursor:pointer;transition:all .18s ease;display:inline-flex;align-items:center;gap:11px;white-space:nowrap}
+.pestanas button:hover{color:#fff;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
+.pestanas button[aria-selected=true]{color:#fff;background:rgba(63,158,203,.22);border-color:var(--azul);box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.pestanas .cuenta{font-family:var(--dato);font-size:12px;font-weight:700;background:rgba(217,160,60,.25);color:var(--ambar);border:1px solid rgba(217,160,60,.4);border-radius:10px;padding:2px 8px;margin-left:4px}
+.pestanas button[aria-selected=true] .cuenta{background:var(--ambar);color:#0d1520;border-color:var(--ambar)}
+.bandera-tab{width:28px;height:17px;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.6);flex-shrink:0;vertical-align:middle;display:inline-block}
+.icono-tab{width:20px;height:20px;vertical-align:middle;flex-shrink:0;opacity:.85}
+.pestanas button[aria-selected=true] .icono-tab{opacity:1;color:var(--azul)}
+
+section[role=tabpanel]{display:none}
+section[role=tabpanel].activa{display:block}
+h2 .cuenta{font-family:var(--dato);font-size:13px;background:var(--azul-hondo);color:#fff;border-radius:9px;padding:1px 8px;vertical-align:middle}
+h3{font-size:16px;margin:18px 0 8px;font-weight:600}
+.g{color:var(--gris)} .peq{font-size:13px} .nw{white-space:nowrap} .mono{font-family:var(--dato)}
+.mal-t{color:var(--correccion)}
+code{font-family:var(--dato);font-size:13px;background:var(--tarjeta2);padding:1px 5px;border-radius:3px}
+
+/* Mini dashboard */
+.kpis-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0 6px}
+.kpi-card{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;padding:14px 16px;position:relative;overflow:hidden}
+.kpi-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:var(--azul-hondo)}
+.kpi-et{font-family:var(--dato);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.kpi-val{font-family:var(--dato);font-size:28px;font-weight:600;line-height:1.2;margin:4px 0 2px;color:var(--azul)}
+.kpi-val.kpi-destacado{font-size:22px;color:var(--ambar)}
+.kpi-ud{font-size:16px;font-weight:400;color:var(--gris)}
+.kpi-sub{font-size:12.5px;color:var(--gris)}
+
+/* Pipeline visual de canal */
+.pipeline-canal{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0 24px}
+.paso-pipe{background:var(--tarjeta);border:1px solid var(--linea);border-top:3px solid var(--gris);border-radius:6px;padding:10px 12px}
+.paso-pipe.ok{border-top-color:#4fb286}
+.paso-pipe.prog{border-top-color:var(--ambar)}
+.paso-pipe.esp{border-top-color:var(--gris);opacity:.85}
+.pipe-num{font-size:10.5px;text-transform:uppercase;font-family:var(--dato);color:var(--gris);letter-spacing:.05em}
+.pipe-tit{font-size:13.5px;font-weight:600;margin:3px 0;color:#fff}
+.pipe-det{font-size:12px;color:var(--gris);line-height:1.35}
+
+/* Barra de filtros interactivos */
+.barra-filtros{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0 14px;padding:10px 14px;
+  background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px}
+.busc-input{flex:1;min-width:210px;background:var(--tarjeta2);border:1px solid var(--linea);border-radius:5px;
+  padding:7px 12px;color:var(--tinta);font:14px var(--texto);outline:none;transition:border-color .15s}
+.busc-input:focus{border-color:var(--azul)}
+.btn-filtro{background:var(--tarjeta2);border:1px solid var(--linea);border-radius:5px;padding:6px 12px;
+  color:var(--gris);font:600 12px var(--dato);cursor:pointer;transition:all .15s ease}
+.btn-filtro:hover,.btn-filtro.activo{background:rgba(63,158,203,.18);border-color:var(--azul);color:var(--azul)}
+
+.hitos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.hito{background:var(--tarjeta);border:1px solid var(--linea);border-left:3px solid var(--gris);border-radius:7px;padding:13px 15px}
+.hito.hecho{border-left-color:#4fb286}.hito.en_curso{border-left-color:var(--ambar)}
+.h-tit{font-weight:600;margin-bottom:6px}.h-det{font-size:13.5px;color:var(--gris);margin-top:7px;line-height:1.45}
+.chip{display:inline-block;font:600 11px var(--dato);letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.chip.ok{background:rgba(79,178,134,.16);color:#6fcf9f}
+.chip.prog{background:rgba(217,160,60,.16);color:var(--ambar)}
+.chip.esp{background:rgba(142,164,187,.14);color:var(--gris)}
+.chip.mal{background:rgba(224,101,95,.16);color:var(--correccion)}
+.tabla{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;margin-top:12px;overflow-x:auto}
+.tabla table{font-family:var(--texto);font-size:14.5px}
+.tabla td{white-space:normal;vertical-align:top}
+.tabla th,.tabla td{text-align:left}
+td.izq{text-align:left}
+tr.imp td{background:rgba(224,101,95,.05)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px}
+.pistas{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;margin-top:12px}
+.pista{background:var(--tarjeta);border:1px solid var(--linea);border-left:3px solid var(--ambar);border-radius:7px;padding:14px 18px}
+.pista.confirmada{border-left-color:#4fb286}.pista.descartada,.pista.en_espera{border-left-color:var(--gris);opacity:.85}
+.pista h3{margin:8px 0}.pista p{margin:0 0 7px;font-size:14.5px}
+.p-cab{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px}
+
+/* Paneles ejecutivos de canal y bloques */
+.panel-canal{background:var(--tarjeta);border:1px solid var(--linea);border-radius:8px;padding:18px 20px;margin-bottom:14px;position:relative}
+.panel-canal-cab{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid var(--linea)}
+.panel-canal-tit{font-size:15px;font-weight:600;color:var(--tinta);margin:0;display:flex;align-items:center;gap:7px}
+.panel-canal-desc{font-size:13.5px;color:var(--gris);margin:0 0 12px;line-height:1.45}
+.panel-dato-fila{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(38,54,74,.4);font-size:13.5px}
+.panel-dato-fila:last-child{border-bottom:0}
+.panel-dato-et{color:var(--gris);min-width:130px}
+.panel-dato-val{color:var(--tinta);font-weight:500;text-align:right}
+.badge-pildora{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11.5px;font-family:var(--dato);background:var(--tarjeta2);border:1px solid var(--linea);color:var(--gris)}
+.badge-pildora.ok{border-color:rgba(79,178,134,.4);color:#6fcf9f;background:rgba(79,178,134,.1)}
+.badge-pildora.prog{border-color:rgba(217,160,60,.4);color:var(--ambar);background:rgba(217,160,60,.1)}
+.badge-pildora.esp{border-color:rgba(142,164,187,.4);color:var(--gris);background:rgba(142,164,187,.08)}
+.lista-chips-wrap{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.caja-subtabla{background:var(--tarjeta2);border:1px solid var(--linea);border-radius:6px;padding:12px 14px;margin-top:10px}
+.caja-subtabla h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--gris);font-family:var(--dato)}
+.grid-vacantes-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
+.kpi-vacante{background:var(--tarjeta2);border:1px solid var(--linea);border-radius:6px;padding:9px 12px;text-align:center}
+.kpi-vacante-n{font-size:22px;font-family:var(--dato);font-weight:600;color:var(--azul)}
+.kpi-vacante-et{font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:.05em}
+.subtarjeta{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;padding:14px 16px;margin-bottom:14px}
+.subtarjeta h3{margin:0 0 10px;font-size:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.ok-t{color:#6fcf9f}
+
+@media(max-width:768px){
+  .cols,.pistas,.pipeline-canal{grid-template-columns:1fr}
+  .pestanas{display:flex;overflow-x:auto}
+  .pestanas button{flex:1 0 auto;min-width:130px;padding:9px 12px;font-size:13.5px}
+}
+/* Robustez en móvil: los hijos de las rejillas pueden encogerse y sus tablas hacen scroll dentro */
+.cols>*,.hitos>*,.pistas>*,.kpis-mini>*{min-width:0}
+.cols{grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr))}
+.pistas{grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))}
+/* Secciones plegables (pestaña EE.UU.) */
+details.plegable{border-bottom:1px solid var(--linea);margin:6px 0}
+details.plegable>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px}
+details.plegable>summary::-webkit-details-marker{display:none}
+details.plegable>summary h2{margin:22px 0 14px;flex:1}
+details.plegable>summary::after{content:"▸";color:var(--gris);font-size:18px;transition:transform .15s;margin-right:6px}
+details.plegable[open]>summary::after{transform:rotate(90deg)}
+details.plegable>summary:hover h2{color:var(--azul)}
+.plegable-cuerpo{padding-bottom:18px}
+.plegar-ctrl{display:flex;gap:8px;justify-content:flex-end;margin:10px 0 0}
+.plegar-ctrl button{background:var(--tarjeta);border:1px solid var(--linea);color:var(--gris);border-radius:5px;padding:5px 11px;font:600 12.5px var(--texto);cursor:pointer}
+.plegar-ctrl button:hover{color:var(--tinta);border-color:var(--azul)}
+</style></head><body><div class="envoltorio">
+<header class="cabecera-hero">
+<div class="cabecera-top">
+<div class="cabecera-marca"><span class="badge-marca">LYTENAVA · COMMUNITY TRACKER</span> <span class="marca-sub">Independent, built from public sources · not affiliated with Outlook Therapeutics</span></div>
+
+</div>
+<div class="cabecera-medio">
+<div class="cabecera-tit-wrap">
+<h1>LYTENAVA · Launch tracker</h1>
+
+</div>
+<p class="cabecera-desc">Unified view of public procurement, pricing, payer reimbursement and the commercial channel in the US, the UK and Europe.</p>
+</div>
+<div class="cabecera-sync-bar">
+
+
+<div class="sync-item"><strong>Data refreshed:</strong> 2026-10-14 12:17 UTC</div>
+</div>
+</header>
+<div class="kpis-mini">
+<div class="kpi-card">
+<div class="kpi-et">Official WAC (US)</div>
+<div class="kpi-val">$485</div>
+<div class="kpi-sub">per vial · list price, not net</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-et">NHS vials (England)</div>
+<div class="kpi-val">419 <span class="kpi-ud">cumulative</span></div>
+<div class="kpi-sub">£196,930 at list price · 11 months · run rate 636/year</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-et">Payers (US)</div>
+<div class="kpi-val">3 <span class="kpi-ud">of 9</span></div>
+<div class="kpi-sub">1 covered · 2 prior authorization or under review</div>
+</div>
+<div class="kpi-card">
+<div class="kpi-et">Open positions</div>
+<div class="kpi-val">8 <span class="kpi-ud">on the website</span></div>
+<div class="kpi-sub">+1 listed only on job boards · peak 21</div>
+</div>
+</div>
+<div class="pestanas-sticky"><div class="pestanas-wrap"><nav class="pestanas" role="tablist"><button aria-selected="false" data-p="resumen" role="tab"><svg class="icono-tab" fill="currentColor" viewbox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM13 9a1 1 0 00-1 1v6a1 1 0 001 1h3a1 1 0 001-1v-6a1 1 0 00-1-1h-3z"></path></svg> <span>Summary</span></button><button aria-selected="false" data-p="eeuu" role="tab"><svg class="bandera-tab" viewbox="0 0 30 18"><rect fill="#b22234" height="18" width="30"></rect><path d="M0 2.77h30M0 5.54h30M0 8.31h30M0 11.08h30M0 13.85h30M0 16.62h30" stroke="#fff" stroke-width="1.38"></path><rect fill="#3c3b6e" height="9.7" width="12"></rect><g fill="#fff"><circle cx="3" cy="2.5" r="0.7"></circle><circle cx="6" cy="2.5" r="0.7"></circle><circle cx="9" cy="2.5" r="0.7"></circle><circle cx="4.5" cy="4.8" r="0.7"></circle><circle cx="7.5" cy="4.8" r="0.7"></circle><circle cx="3" cy="7.2" r="0.7"></circle><circle cx="6" cy="7.2" r="0.7"></circle><circle cx="9" cy="7.2" r="0.7"></circle></g></svg> <span>US</span></button><button aria-selected="false" data-p="uk" role="tab"><svg class="bandera-tab" viewbox="0 0 30 18"><clippath id="ukclip"><rect height="18" rx="2" width="30"></rect></clippath><g clip-path="url(#ukclip)"><rect fill="#012169" height="18" width="30"></rect><path d="M0 0l30 18M30 0L0 18" stroke="#fff" stroke-width="3.5"></path><path d="M0 0l30 18M30 0L0 18" stroke="#c8102e" stroke-width="2"></path><path d="M15 0v18M0 9h30" stroke="#fff" stroke-width="5.5"></path><path d="M15 0v18M0 9h30" stroke="#c8102e" stroke-width="3.2"></path></g></svg> <span>United Kingdom</span></button><button aria-selected="false" data-p="europa" role="tab"><svg class="bandera-tab" viewbox="0 0 30 18"><rect fill="#003399" height="18" rx="2" width="30"></rect><circle cx="15" cy="9" fill="none" r="4.8" stroke="#ffcc00" stroke-dasharray="1.3 1.2" stroke-width="1.2"></circle></svg> <span>Europe &amp; rest of world</span></button><button aria-selected="false" data-p="pistas" role="tab"><svg class="icono-tab" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" fill-rule="evenodd"></path></svg> <span>Leads</span><span class="cuenta">11</span></button></nav></div></div>
+<section id="resumen" role="tabpanel">
+<h2>Launch milestones</h2>
+<div class="hitos"><div class="hito hecho"><div class="h-tit">FDA approval</div><span class="chip ok">done</span><div class="h-det">BLA761320 · Jul 24, 2026</div></div><div class="hito hecho"><div class="h-tit">NDC code</div><span class="chip ok">done</span><div class="h-det">82491-025-10 · launch date declared Jul 16, 2026</div></div><div class="hito hecho"><div class="h-tit">List price (WAC)</div><span class="chip ok">done</span><div class="h-det">$485 per vial (8-K of Sep 16, 2026)</div></div><div class="hito en_curso"><div class="h-tit">J-code (CMS)</div><span class="chip prog">in progress</span><div class="h-det">HCPCS application filed Oct 1, 2026. Preliminary decision expected around January 2027; effective Apr 1, 2027 if granted.</div></div><div class="hito en_curso"><div class="h-tit">Payers</div><span class="chip prog">in progress</span><div class="h-det">1 covered, 2 prior authorization or under review, 6 with no mention or not yet checked</div></div><div class="hito en_curso"><div class="h-tit">Product in channel (US)</div><span class="chip prog">in progress</span><div class="h-det">Company states: available before the end of 2026. The product website still shows 'coming soon'.</div></div><div class="hito pendiente"><div class="h-tit">Medicaid</div><span class="chip esp">pending</span><div class="h-det">not registered in the rebate program</div></div><div class="hito pendiente"><div class="h-tit">Federal price (VA)</div><span class="chip esp">pending</span><div class="h-det">not listed in TPharmPrices2026-10-01.xlsx</div></div><div class="hito hecho"><div class="h-tit">United Kingdom (NHS)</div><span class="chip ok">done</span><div class="h-det">46 vials in 07/2026 (provisional) · 419 cumulative (includes 4 provisional months)</div></div><div class="hito en_curso"><div class="h-tit">Europe</div><span class="chip prog">in progress</span><div class="h-det">On sale: United Kingdom, Germany, Austria. Next: Netherlands (early 2027), Switzerland (2027)</div></div></div>
+<h2>Upcoming data releases</h2>
+<div class="tabla"><table><thead><tr><th>Source</th><th>When</th><th>What it covers</th></tr></thead><tbody><tr><td class="izq">NHS (England)</td><td class="izq">Month 08/2026, provisional release around 10/2026</td><td class="izq g">Provisional data is published around the 23rd–24th of each month.</td></tr><tr><td class="izq">Medicaid MDRP</td><td class="izq">Weekly (Mondays)</td><td class="izq g">New products added to the rebate program.</td></tr><tr><td class="izq">VA FSS</td><td class="izq">Monthly (1st)</td><td class="izq g">Federal price list.</td></tr><tr><td class="izq">CMS files</td><td class="izq">Quarterly (January, April, July, October)</td><td class="izq g">NDC-HCPCS crosswalk, payment limits and OPPS Addendum B.</td></tr><tr><td class="izq">CMS J-code</td><td class="izq">Preliminary decision around January 2027</td><td class="izq g">Effective Apr 1, 2027 if granted.</td></tr><tr><td class="izq">Medicaid SDUD</td><td class="izq">Quarterly, ~6 months behind</td><td class="izq g">Q4 2026 would be published around May 2027.</td></tr><tr><td class="izq">NHS final</td><td class="izq">July 2027</td><td class="izq g">Annual refresh: provisional months become final.</td></tr></tbody></table></div>
+
+</section><section id="eeuu" role="tabpanel">
+<p class="g">Data refreshed 2026-10-14 08:47 UTC. SEC filings: <a href="SEC_Filings_Index.html">SEC filings index</a>.</p>
+<div class="plegar-ctrl"><button onclick="plegarTodo(true)" type="button">Expand all</button><button onclick="plegarTodo(false)" type="button">Collapse all</button></div><details class="plegable" open=""><summary><h2>US channel and rollout · Commercial pipeline</h2></summary><div class="plegable-cuerpo">
+<div class="pipeline-canal"><div class="paso-pipe ok">
+<div class="pipe-num">Step 1</div>
+<div class="pipe-tit">FDA approval</div>
+<div class="pipe-det">BLA761320 · Jul 24, 2026</div>
+</div><div class="paso-pipe ok">
+<div class="pipe-num">Step 2</div>
+<div class="pipe-tit">NDC code</div>
+<div class="pipe-det">82491-025-10</div>
+</div><div class="paso-pipe ok">
+<div class="pipe-num">Step 3</div>
+<div class="pipe-tit">DailyMed label</div>
+<div class="pipe-det">v2 (Sep 15, 2026)</div>
+</div><div class="paso-pipe prog">
+<div class="pipe-num">Step 4</div>
+<div class="pipe-tit">Distribution</div>
+<div class="pipe-det">Partner: Cencora (8-K Aug 12); no orders visible</div>
+</div><div class="paso-pipe prog">
+<div class="pipe-num">Step 5</div>
+<div class="pipe-tit">Medicaid rebates</div>
+<div class="pipe-det">Awaiting weekly listing</div>
+</div><div class="paso-pipe prog">
+<div class="pipe-num">Step 6</div>
+<div class="pipe-tit">J-code (CMS)</div>
+<div class="pipe-det">HCPCS application filed Oct 1, 2026</div>
+</div><div class="paso-pipe esp">
+<div class="pipe-num">Step 7</div>
+<div class="pipe-tit">Commercial rollout</div>
+<div class="pipe-det">Website shows 'coming soon'</div>
+</div></div>
+</div></details><details class="plegable" open=""><summary><h2>Payers</h2></summary><div class="plegable-cuerpo">
+
+<div class="barra-filtros">
+<input class="busc-input" id="busc-pagadores" oninput="filtrarTablaGenerica('tabla-pagadores', this.value)" placeholder="🔍 Filter payers (UHC, Aetna, Cigna, Texas, Medicare...)..." type="text"/>
+<span class="g peq">9 payers covered</span>
+</div><div class="tabla" id="tabla-pagadores"><table><thead><tr><th>Payer</th><th>Status</th><th>Effective</th><th>Details</th></tr></thead><tbody><tr><td class="izq"><strong>Centene (Superior HealthPlan, Texas)</strong><div class="g peq">Ambetter, Medicaid and CHIP</div></td><td><span class="chip ok">covered</span></td><td class="nw">Dec 1, 2026</td><td class="izq">Superior's notice (Sep 29) adds LYTENAVA as an approved indication for neovascular AMD effective Dec 1, 2026. The PDF published today is still the previous version (last revised 03.26.26, no LYTENAVA); authorization criteria will follow when the new version is published.<div class="g peq">Covered option, not preferred: repackaged Avastin remains covered (max dose 1.25 mg)</div><div class="peq"><a href="https://www.superiorhealthplan.com/newsroom/eff-12012026-pharmacy-and-biopharmacy-policies-09292026.html" rel="noopener" target="_blank">Superior HealthPlan policy CP.PHAR.93 (bevacizumab); version with LYTENAVA effective Dec 1, 2026</a></div></td></tr><tr><td class="izq"><strong>Aetna (CVS Health)</strong><div class="g peq">Commercial and Medicare</div></td><td><span class="chip prog">prior authorization</span></td><td class="nw">Sep 1, 2026</td><td class="izq">Prior authorization required since Sep 1, 2026.<div class="g peq">No policy or preference versus Avastin on record: prior authorization only</div><div class="peq"><a href="https://www.aetna.com/content/dam/aetna/pdfs/olu/officelink-updates-october-2026-olu.pdf" rel="noopener" target="_blank">OfficeLink Updates, October 2026 (national prior-authorization list)</a></div></td></tr><tr><td class="izq"><strong>UnitedHealthcare</strong><div class="g peq">Commercial, Community Plan (Medicaid), Medicare Advantage and Individual &amp; Family</div></td><td><span class="chip prog">under review</span></td><td class="nw">Oct 1, 2026</td><td class="izq">LYTENAVA is under 'Review at Launch' in all four lines: Commercial and Individual &amp; Family since the September bulletin, Community Plan and Medicare Advantage since the October one. No coverage policy yet.<div class="g peq">No dedicated policy. Avastin is listed as an alternative to try before aflibercept biosimilars (excluded by UHC from Jan 1, 2027)</div><div class="peq"><a href="https://www.uhcprovider.com/content/dam/provider/docs/public/resources/news/2026/sdub/med-benefit-specialty-drug-update-bulletin-september-2026.pdf" rel="noopener" target="_blank">Medical Benefit Specialty Medication Update Bulletin (September and October 2026)</a></div></td></tr><tr><td class="izq"><strong>Centene (PA Health &amp; Wellness, Pennsylvania)</strong><div class="g peq">Medicaid and Ambetter (Pennsylvania)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">October 2025 version, no mention of LYTENAVA.<div class="g peq">Covers off-label intravitreal bevacizumab for nAMD (max dose 2.5 mg)</div><div class="peq"><a href="https://www.pahealthwellness.com/content/dam/centene/Pennsylvania/policies/pharmacy-policies/Bevacizumab%20_Avastin%20and%20biosimilars_v2.2025.pdf" rel="noopener" target="_blank">Bevacizumab (Avastin and biosimilars) v2.2025</a></div></td></tr><tr><td class="izq"><strong>Cigna</strong><div class="g peq">Commercial</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">No mention of LYTENAVA as of Oct 13, 2026.<div class="g peq">All three policies cite bevacizumab (Avastin) but not LYTENAVA</div><div class="peq"><a href="https://a.static.cigna.com/assets/chcp/pdf/coveragePolicies/pharmacy/ip_0540_coveragepositioncriteria_aflibercept.pdf" rel="noopener" target="_blank">Criteria IP 0540 (aflibercept), IP 0542 (faricimab), IP 0543 (ranibizumab)</a></div></td></tr><tr><td class="izq"><strong>Premera Blue Cross</strong><div class="g peq">Commercial (US Northwest)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">Jan 1, 2027</td><td class="izq">2027 version already published with no mention of LYTENAVA (cites bevacizumab 74 times).<div class="g peq"></div><div class="peq"><a href="https://www.premera.com/medicalpolicies/5.01.620_2027-01-01.pdf" rel="noopener" target="_blank">Policy 5.01.620 (intravitreal anti-VEGF), version effective Jan 1, 2027</a></div></td></tr><tr><td class="izq"><strong>Excellus BlueCross BlueShield</strong><div class="g peq">Commercial and Medicare (New York)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">No mention of LYTENAVA as of Oct 13, 2026.<div class="g peq"></div><div class="peq"><a href="https://provider.excellusbcbs.com/documents/d/global/ophthalmic-vascular-endothelial-growth-factor-vegf-inhibitor-policy-pdf" rel="noopener" target="_blank">Ophthalmic VEGF Inhibitor policy (04/2026)</a></div></td></tr><tr><td class="izq"><strong>Humana</strong><div class="g peq">Medicare Advantage</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">Prior authorization for bevacizumab, including ophthalmic use. No mention of LYTENAVA as of Oct 13, 2026.<div class="g peq"></div><div class="peq"><a href="https://assets.humana.com/is/content/humana/HU_P1009_Bevacizumab_0131324pdf" rel="noopener" target="_blank">Pharmacy policy HU_P1009 Bevacizumab (Avastin, Mvasi, Zirabev, Alymsys, Vegzelma)</a></div></td></tr><tr><td class="izq"><strong>Elevance (Anthem, Wellpoint, Empire)</strong><div class="g peq">Commercial, Medicaid and Medicare Advantage (all subsidiaries)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">A single document covers Anthem, Wellpoint (Medicaid) and Empire. The 2024 version does not mention LYTENAVA. It requires step therapy: preferred agents first. In the last table included (Oct 30, 2023), Avastin is preferred and Eylea, Lucentis, Vabysmo, Byooviz, Cimerli and Beovu are non-preferred. The current preferred-drug list is no longer inside the PDF but on a separate page the document links to.<div class="g peq">Avastin preferred (2023 table); oncology bevacizumab biosimilars were removed from ophthalmic step therapy</div><div class="peq"><a href="https://files.providernews.anthem.com/5655/CC-0072-VEGF-Inhibitors-(final).pdf" rel="noopener" target="_blank">Clinical criteria CC-0072 'Vascular Endothelial Growth Factor (VEGF) Inhibitors' (published Oct 23, 2024; formerly ING-CC-0072), common to all subsidiaries</a></div></td></tr></tbody></table></div>
+</div></details><details class="plegable"><summary><h2>CMS and reimbursement</h2></summary><div class="plegable-cuerpo">
+<div class="nota"><p>Until it has its own J-code, LYTENAVA is billed with generic codes (J3490, J3590 or C9399). If it appears in an NDC-HCPCS crosswalk or in Addendum B, it will show which code and price Medicare pays.</p></div>
+<div class="cols">
+<div class="panel-canal">
+<div class="panel-canal-cab">
+<h3 class="panel-canal-tit">📁 Quarterly CMS files checked (Medicare)</h3>
+<span class="chip esp">3 ZIP files</span>
+</div>
+<p class="panel-canal-desc">Direct search for NDC 82491 in the official CMS ZIP files for Part B ASP pricing and hospital OPPS.</p>
+<div class="tabla"><table><thead><tr><th>Quarterly file</th><th>Latest published</th><th>Mentions</th><th>Checked</th></tr></thead><tbody><tr><td class="izq"><strong>NDC-HCPCS crosswalk (ASP/OPPS)</strong></td><td class="izq"><a href="https://www.cms.gov/files/zip/october-2026-ndc-hcpcs-crosswalk-final.zip" rel="noopener" target="_blank">october-2026-ndc-hcpcs-crosswalk-final.zip</a></td><td><span class="g">none</span></td><td class="nw g">2026-10-13</td></tr><tr><td class="izq"><strong>Part B payment limits (ASP)</strong></td><td class="izq"><a href="https://www.cms.gov/files/zip/october-2026-medicare-part-b-payment-limit-files-final.zip" rel="noopener" target="_blank">october-2026-medicare-part-b-payment-limit-files-final.zip</a></td><td><span class="g">none</span></td><td class="nw g">2026-10-13</td></tr><tr><td class="izq"><strong>OPPS Addendum B (hospital outpatient)</strong></td><td class="izq"><a href="https://www.cms.gov/files/zip/october-2026-opps-addendum-b.zip" rel="noopener" target="_blank">october-2026-opps-addendum-b.zip</a></td><td><span class="g">none</span></td><td class="nw g">2026-10-13</td></tr></tbody></table></div>
+</div>
+<div class="panel-canal">
+<div class="panel-canal-cab">
+<h3 class="panel-canal-tit">📋 HCPCS applications and public CMS agendas</h3>
+<span class="chip esp">Agendas &amp; meetings</span>
+</div>
+<p class="panel-canal-desc">Status of J-code applications and key Medicare portals, to spot permanent coding decisions.</p>
+<div class="caja-subtabla">
+<h4>HCPCS applications reviewed</h4>
+<div class="tabla"><table><thead><tr><th>HCPCS quarterly summary</th><th>Mentions</th></tr></thead><tbody><tr><td class="izq"><a href="https://www.cms.gov/files/document/2026-hcpcs-application-summary-quarter-1-2026-drugs-biologicals.pdf" rel="noopener" target="_blank">HCPCS drug applications summary 2026Q1</a></td><td><span class="g">none</span></td></tr><tr><td class="izq"><a href="https://www.cms.gov/files/document/2026-hcpcs-application-summary-quarter-2-2026-drugs-biologicals.pdf" rel="noopener" target="_blank">HCPCS drug applications summary 2026Q2</a></td><td><span class="g">none</span></td></tr><tr><td class="izq"><a href="https://www.cms.gov/files/document/2026-hcpcs-application-summary-quarter-3-2026-drugs-biologicals.pdf" rel="noopener" target="_blank">HCPCS drug applications summary 2026Q3</a></td><td><span class="g">none</span></td></tr></tbody></table></div>
+</div>
+
+</div>
+</div>
+</div></details><details class="plegable"><summary><h2>Medicaid</h2></summary><div class="plegable-cuerpo">
+<div class="cols">
+<div class="panel-canal">
+<div class="panel-canal-cab">
+<h3 class="panel-canal-tit">🏛️ Medicaid Drug Rebate Program (MDRP) listing</h3>
+<span class="chip prog">Registration pending</span>
+</div>
+<p class="panel-canal-desc">Listing in the <em>Medicaid Drug Rebate Program</em> is the earliest official signal of the US launch: it enables purchase by state programs and activates the rebate agreement.</p>
+<div class="panel-dato-fila"><span class="panel-dato-et">Catalog status</span> <span class="panel-dato-val"><span class="chip esp">Not registered yet</span> (labeler 82491 absent from the quarterly file, updated Aug 13, 2026, and from the weekly additions)</span></div>
+<div class="panel-dato-fila" style="flex-direction:column;align-items:flex-start;gap:6px">
+<span class="panel-dato-et">Weekly CMS additions checked (latest 3):</span>
+<div class="lista-chips-wrap"><span class="badge-pildora esp">09-21-2026 to 09-27-2026</span> <span class="badge-pildora esp">09-28-2026 to 10-04-2026</span> <span class="badge-pildora esp">10-05-2026 to 10-11-2026</span></div>
+</div>
+<div class="panel-dato-fila"><span class="panel-dato-et">Official source</span> <span class="panel-dato-val"><a href="https://www.medicaid.gov/medicaid/prescription-drugs/medicaid-drug-rebate-program/index.html" rel="noopener" target="_blank">Medicaid.gov MDRP ↗</a></span></div>
+</div>
+<div class="panel-canal">
+<div class="panel-canal-cab">
+<h3 class="panel-canal-tit">📊 Units reimbursed by state (SDUD)</h3>
+<span class="chip esp">No reimbursements (~2Q lag)</span>
+</div>
+<p class="panel-canal-desc"><em>State Drug Utilization Data</em>: measures actual consumption of vials dispensed and billed to Medicaid in each US state. Published quarterly, usually 1–2 quarters behind.</p>
+<div class="panel-dato-fila"><span class="panel-dato-et">Recorded utilization</span> <span class="panel-dato-val"><strong>No rows for labeler 82491</strong> in the published datasets</span></div>
+<div class="panel-dato-fila"><span class="panel-dato-et">Datasets checked</span> <span class="panel-dato-val mono">2025: through 2025Q4, 2026: through 2026Q1</span></div>
+<div class="panel-dato-fila"><span class="panel-dato-et">Official source</span> <span class="panel-dato-val"><a href="https://data.medicaid.gov/" rel="noopener" target="_blank">Data.Medicaid.gov SDUD ↗</a></span></div>
+</div>
+</div>
+</div></details><details class="plegable"><summary><h2>Federal pricing and channel</h2></summary><div class="plegable-cuerpo">
+<div class="cols">
+<div class="panel-canal">
+<div class="panel-canal-cab">
+<h3 class="panel-canal-tit">🎖️ Veterans Affairs (VA · FSS) · Federal price</h3>
+<span class="chip esp">Not on the list</span>
+</div>
+<p class="panel-canal-desc">The Department of Veterans Affairs publishes the <em>Federal Supply Schedule (FSS)</em> monthly. Once LYTENAVA appears there, it will reveal the first public institutional price versus the WAC ($485).</p>
+<div class="panel-dato-fila"><span class="panel-dato-et">VA catalog status</span> <span class="panel-dato-val"><span class="chip esp">Not listed yet</span></span></div>
+<div class="panel-dato-fila"><span class="panel-dato-et">Monthly file checked</span> <span class="panel-dato-val"><a href="https://department.va.gov/procurement-acquisition-and-logistics/wp-content/uploads/sites/56/2026/10/TPharmPrices2026-10-01.xlsx" rel="noopener" target="_blank">📄 TPharmPrices2026-10-01.xlsx</a> <span class="g peq">(3684 KB)</span></span></div>
+
+</div>
+<div class="panel-canal">
+<div class="panel-canal-cab">
+<h3 class="panel-canal-tit">🌐 Digital presence and commercial website</h3>
+<span class="chip prog">Coming soon</span>
+</div>
+<p class="panel-canal-desc">Status of the official product website and reserved domains: ordering portals, Cencora distribution or patient-access hubs.</p>
+<div class="panel-dato-fila"><span class="panel-dato-et">Main domain</span> <span class="panel-dato-val"><a href="https://www.lytenava.com/" rel="noopener" target="_blank">lytenava.com</a> — <span class="chip prog">Coming soon</span></span></div>
+
+<div class="panel-dato-fila" style="flex-direction:column;align-items:flex-start;gap:6px">
+<span class="panel-dato-et">Reserved satellite domains:</span>
+<div class="lista-chips-wrap"><span class="badge-pildora esp">www.lytenavahcp.com · parked</span> <span class="badge-pildora esp">www.lytenava.us · parked</span></div>
+</div>
+</div>
+</div>
+</div></details><details class="plegable"><summary><h2>Team (open positions)</h2></summary><div class="plegable-cuerpo">
+<div class="grid-vacantes-kpis">
+<div class="kpi-vacante"><div class="kpi-vacante-n">9</div><div class="kpi-vacante-et">Open positions</div></div>
+<div class="kpi-vacante"><div class="kpi-vacante-n">19</div><div class="kpi-vacante-et">Withdrawn positions</div></div>
+<div class="kpi-vacante"><div class="kpi-vacante-n">21</div><div class="kpi-vacante-et">Historical peak</div></div>
+</div>
+<div class="caja" style="margin-top:0"><svg aria-label="Vacantes abiertas por fecha" role="img" style="max-width:560px" viewbox="0 0 560 110"><rect fill="var(--azul)" height="18.1" rx="2" width="51.2" x="14.4" y="71.9"></rect><text class="valor" text-anchor="middle" x="40.0" y="67.9">5</text><text class="eje" text-anchor="middle" x="40.0" y="105">Jul 10</text><rect fill="var(--azul)" height="47.0" rx="2" width="51.2" x="94.4" y="43.0"></rect><text class="valor" text-anchor="middle" x="120.0" y="39.0">13</text><text class="eje" text-anchor="middle" x="120.0" y="105">Aug 11</text><rect fill="var(--azul)" height="76.0" rx="2" width="51.2" x="174.4" y="14.0"></rect><text class="valor" text-anchor="middle" x="200.0" y="10.0">21</text><text class="eje" text-anchor="middle" x="200.0" y="105">Aug 31</text><rect fill="var(--azul)" height="76.0" rx="2" width="51.2" x="254.4" y="14.0"></rect><text class="valor" text-anchor="middle" x="280.0" y="10.0">21</text><text class="eje" text-anchor="middle" x="280.0" y="105">Sep 8</text><rect fill="var(--azul)" height="36.2" rx="2" width="51.2" x="334.4" y="53.8"></rect><text class="valor" text-anchor="middle" x="360.0" y="49.8">10</text><text class="eje" text-anchor="middle" x="360.0" y="105">Oct 1</text><rect fill="var(--azul)" height="29.0" rx="2" width="51.2" x="414.4" y="61.0"></rect><text class="valor" text-anchor="middle" x="440.0" y="57.0">8</text><text class="eje" text-anchor="middle" x="440.0" y="105">Oct 9</text><rect fill="var(--azul)" height="29.0" rx="2" width="51.2" x="494.4" y="61.0"></rect><text class="valor" text-anchor="middle" x="520.0" y="57.0">8</text><text class="eje" text-anchor="middle" x="520.0" y="105">Oct 13</text></svg></div>
+<div class="cols" style="margin-top:14px">
+<div class="subtarjeta">
+<h3>Open positions (9) <span class="chip prog">Actively recruiting</span></h3>
+<div class="tabla"><table><thead><tr><th>Position</th><th>First seen</th><th>Source</th></tr></thead><tbody><tr><td class="izq">Senior Legal Counsel US<div class="g peq">$215,000-$255,000 + bonus 20-25% · Reports to: general counsel</div></td><td class="nw">≤2026-09-08</td><td class="g nw">Website</td></tr><tr><td class="izq">Director, Quality Systems and GxP Compliance<div class="g peq">$180,000-$220,000 + bonus 20% · Reports to: vp, quality assurance</div></td><td class="nw">≤2026-09-08</td><td class="g nw">Website</td></tr><tr><td class="izq">Access &amp; Reimbursement Manager (ARM) – Southeast<div class="g peq">Territory: GA, NC, SC, TN, AL, MS · $95,000-$170,000 + bonus 10-20% · Reports to: sr. director, patient access &amp; national field reimbursement</div></td><td class="nw">≤2026-09-08</td><td class="g nw">Website</td></tr><tr><td class="izq">Access &amp; Reimbursement Manager (ARM) – Upper Midwest / Plains<div class="g peq">Territory: MN, IA, MO, KS, NE, ND, SD · $95,000-$170,000 + bonus 10-20% · Reports to: sr. director, patient access &amp; national field reimbursement</div></td><td class="nw">≤2026-09-08</td><td class="g nw">Website</td></tr><tr><td class="izq">Access &amp; Reimbursement Manager (ARM) – South Central<div class="g peq">Territory: TX, OK, LA, AR · $95,000-$170,000 + bonus 10-20% · Reports to: sr. director, patient access &amp; national field reimbursement</div></td><td class="nw">≤2026-09-08</td><td class="g nw">Website</td></tr><tr><td class="izq">IT Manager (Remote)<div class="g peq">$130,000-$160,000 + bonus 10-15% · Reports to: vp &amp; head of information technology</div></td><td class="nw">≤2026-09-03</td><td class="g nw">Website</td></tr><tr><td class="izq">Associate Director, HR Business Partner &amp; Employee Experience<div class="g peq">Listed only on a job board (New Jersey, remote); not on the company website.</div></td><td class="nw">2026-10-13</td><td class="g nw">Job board</td></tr><tr><td class="izq">Financial Planning and Analysis Manager<div class="g peq">$110,000-$145,000 + bonus 15% · Reports to: senior director, commercial finance</div></td><td class="nw">2026-10-01</td><td class="g nw">Website</td></tr><tr><td class="izq">Medical Manager Germany<div class="g peq">Reports to: medical lead, europe dotted line to general manager, europe</div></td><td class="nw">2026-10-01</td><td class="g nw">Website</td></tr></tbody></table></div>
+</div>
+<div class="subtarjeta">
+<h3>Recently withdrawn <span class="chip esp">History</span></h3>
+<div class="tabla"><table><thead><tr><th>Position</th><th>Withdrawn</th></tr></thead><tbody><tr><td class="izq">National Sales Director – West</td><td class="nw">2026-10-09</td></tr><tr><td class="izq">Director, Supply Chain</td><td class="nw">2026-10-09</td></tr><tr><td class="izq">ARM – Northeast</td><td class="nw">2026-10-09</td></tr><tr><td class="izq">ARM – Mid-Atlantic / DMV</td><td class="nw">2026-10-09</td></tr><tr><td class="izq">ARM – Southwest (job board only)</td><td class="nw">2026-10-09</td></tr><tr><td class="izq">VP, Accounting</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Accounting Manager</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Corporate Paralegal</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Head of Employee Experience and HR Partnerships</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Head of Business Engagement — Strategic Accounts, GPO and Contracting</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">National Sales Director – East</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">ARM – Florida</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">ARM – Great Lakes</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">ARM – West</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Director, Trade &amp; Distribution</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Global Medical Lead</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Regulatory Lead</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Medical Affairs Manager (UK)</td><td class="nw">2026-10-01</td></tr><tr><td class="izq">Key Account Manager (UK)</td><td class="nw">2026-10-01</td></tr></tbody></table></div>
+</div>
+</div>
+<div class="subtarjeta" style="margin-top:14px"><h3>Appointments announced by the company <span class="chip ok">Press release / 8-K</span></h3><div class="tabla"><table><thead><tr><th>Date</th><th>Position</th><th>Source</th></tr></thead><tbody><tr><td class="nw">Oct 9, 2026</td><td class="izq"><strong>Chief Commercial Officer</strong> Greg DiPasquale</td><td class="izq g">Press release, Oct 9, 2026</td></tr><tr><td class="nw">Aug 27, 2026</td><td class="izq"><strong>Chief Financial Officer</strong> Kevin Lundquist</td><td class="izq g">8-K, Aug 27, 2026</td></tr></tbody></table></div><p class="g peq">Other senior commercial hires are visible on professional networks but are not listed here.</p></div>
+<div class="nota"><h3>Field structure (Oct 13, 2026)</h3><p>ARMs are field roles (50–70% travel) reporting to the Senior Director of Patient Access &amp; National Field Reimbursement. Their job is reimbursement support for practice administrators, billing and clinical teams, not selling. The field team is organized into Key Account Managers, Business Engagement Managers and Field Reimbursement/ARMs.</p><p><strong>ARM territories still posted:</strong></p><ul><li><strong>Southeast</strong>: GA, NC, SC, TN, AL, MS</li><li><strong>South Central</strong>: TX, OK, LA, AR</li><li><strong>Upper Midwest / Plains</strong>: MN, IA, MO, KS, NE, ND, SD</li></ul><p class="g peq">Withdrawn (probably filled): Northeast, Mid-Atlantic / DMV, Florida, Great Lakes, West, Southwest.</p></div>
+
+</div></details><details class="plegable"><summary><h2>Regulatory</h2></summary><div class="plegable-cuerpo">
+<div class="cols">
+<div>
+<div class="subtarjeta">
+<h3>🏛️ FDA approval · BLA761320 <span class="chip ok">Approved</span></h3>
+<div class="tabla"><table><thead><tr><th>Official document</th><th>Date</th></tr></thead><tbody><tr><td class="izq"><a href="https://www.accessdata.fda.gov/drugsatfda_docs/nda/2026/761320Orig1s000TOC.html" rel="noopener" target="_blank">Review</a></td><td class="nw">Aug 24, 2026</td></tr><tr><td class="izq"><a href="https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2026/761320Orig1s000ltr.pdf" rel="noopener" target="_blank">Letter</a></td><td class="nw">Jul 28, 2026</td></tr><tr><td class="izq"><a href="https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/761320s000lbl.pdf" rel="noopener" target="_blank">Label</a></td><td class="nw">Jul 27, 2026</td></tr></tbody></table></div>
+</div>
+<div class="subtarjeta">
+<h3>📦 Packaging and commercial presentation <span class="chip ok">openFDA</span></h3>
+<div class="tabla"><table><thead><tr><th>Package NDC</th><th>Presentation</th><th>Commercial start</th></tr></thead><tbody><tr><td class="mono">82491-025-10</td><td class="izq">1 VIAL, GLASS in 1 CARTON (82491-025-10)  / 1 INJECTION in 1 VIAL, GLASS</td><td class="nw">Jul 16, 2026</td></tr></tbody></table></div>
+</div>
+<div class="subtarjeta">
+<h3>📄 Official label <span class="chip ok">DailyMed</span></h3>
+<div class="tabla"><table><thead><tr><th>Official label (SPL)</th><th>Version</th><th>Published</th></tr></thead><tbody><tr><td class="izq"><a href="https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7f9a3014-b3d4-4943-a83a-92a77d8f947c" rel="noopener" target="_blank">Label (DailyMed)</a></td><td>v2</td><td class="nw">Sep 15, 2026</td></tr></tbody></table></div>
+</div>
+</div>
+<div>
+<div class="subtarjeta">
+<h3>🔬 Key clinical trials <span class="chip ok">ClinicalTrials</span></h3>
+<div class="tabla"><table><thead><tr><th>NCT</th><th>Study / Acronym</th><th>Status</th><th>Estimated end</th></tr></thead><tbody><tr><td class="mono"><a href="https://clinicaltrials.gov/study/NCT03834753" rel="noopener" target="_blank">NCT03834753</a></td><td class="izq">A Clinical Effectiveness Study Examining the Efficacy and Safety of ON</td><td>COMPLETED</td><td class="nw">2021-07-08</td></tr><tr><td class="mono"><a href="https://clinicaltrials.gov/study/NCT03844074" rel="noopener" target="_blank">NCT03844074</a></td><td class="izq">A Clinical Effectiveness Study Examining the Efficacy and Safety of ON</td><td>COMPLETED</td><td class="nw">2020-08-13</td></tr><tr><td class="mono"><a href="https://clinicaltrials.gov/study/NCT04516278" rel="noopener" target="_blank">NCT04516278</a></td><td class="izq">A 3-month Study to Assess the Safety of ONS-5010 in Subjects With Visu</td><td>COMPLETED</td><td class="nw">2021-02-10</td></tr><tr><td class="mono"><a href="https://clinicaltrials.gov/study/NCT05112861" rel="noopener" target="_blank">NCT05112861</a></td><td class="izq">NORSE SEVEN</td><td>ACTIVE_NOT_RECRUITING</td><td class="nw">2027-12</td></tr><tr><td class="mono"><a href="https://clinicaltrials.gov/study/NCT06190093" rel="noopener" target="_blank">NCT06190093</a></td><td class="izq">A 3-month Study to Assess the Safety and Effectiveness of ONS-5010 in </td><td>COMPLETED</td><td class="nw">2024-12-05</td></tr></tbody></table></div>
+</div>
+<div class="subtarjeta">
+
+
+</div>
+</div>
+</div>
+</div></details></section><section id="uk" role="tabpanel"><p class="g">Data refreshed 2026-10-14 08:46 UTC · source: NHSBSA SCMD (England). Measures stock issued by hospital pharmacies, not injections administered.</p>
+<div class="kpis">
+<div class="kpi"><div class="et">Latest month</div>
+<div class="n provisional">46</div>
+<div class="pie">07/2026 · provisional</div></div>
+<div class="kpi"><div class="et">Cumulative</div><div class="n">419</div>
+<div class="pie">7 final months, 4 provisional</div></div>
+<div class="kpi"><div class="et">Main center</div><div class="n">57%</div>
+<div class="pie">RWE · University Hospitals of Leicester NHS Trust</div></div>
+<div class="kpi"><div class="et">Distinct centers</div><div class="n">10</div>
+<div class="pie">have ever ordered the product</div></div>
+<div class="kpi"><div class="et">Annualized rate</div>
+<div class="n">636</div>
+<div class="pie">vials/year based on the last 3 months · £298,920 at list price</div></div>
+<div class="kpi"><div class="et">Implied price</div>
+<div class="n">£470</div>
+<div class="pie">per vial · stable, conversion validated</div></div>
+</div>
+
+
+<div class="nota aviso"><strong>Notes on the data.</strong> NHSBSA SCMD records stock issued by hospital pharmacies in England, not injections administered. Months marked provisional are estimates: they can move when the annual final data is published (July 2027); in the only comparison available so far, provisional figures moved by ~28% on average. With so few centers, one hospital can move the national total, so read the Rest column as well as the total. Indicative cost is list price, not net of confidential discounts and rebates: it shows trend, not company revenue.</div><h2>Monthly series</h2>
+<div class="caja"><svg aria-label="Viales por mes y acumulado" role="img" viewbox="0 0 1240 440" xmlns="http://www.w3.org/2000/svg">
+<defs><pattern height="6" id="prov" patterntransform="rotate(45)" patternunits="userSpaceOnUse" width="6"><rect fill="var(--ambar-suave)" height="6" width="6"></rect><line stroke="var(--ambar)" stroke-width="3" x1="0" x2="0" y="0" y2="6"></line></pattern></defs>
+<line stroke="var(--linea)" stroke-width="1" x1="58" x2="1176" y1="374.0" y2="374.0"></line>
+<text class="eje" text-anchor="end" x="49" y="378.0">0</text>
+<line stroke="var(--linea)" stroke-width="1" x1="58" x2="1176" y1="287.5" y2="287.5"></line>
+<text class="eje" text-anchor="end" x="49" y="291.5">22</text>
+<line stroke="var(--linea)" stroke-width="1" x1="58" x2="1176" y1="201.0" y2="201.0"></line>
+<text class="eje" text-anchor="end" x="49" y="205.0">44</text>
+<line stroke="var(--linea)" stroke-width="1" x1="58" x2="1176" y1="114.5" y2="114.5"></line>
+<text class="eje" text-anchor="end" x="49" y="118.5">65</text>
+<line stroke="var(--linea)" stroke-width="1" x1="58" x2="1176" y1="28.0" y2="28.0"></line>
+<text class="eje" text-anchor="end" x="49" y="32.0">87</text>
+<rect fill="var(--azul)" height="47.5" rx="2" width="54.0" x="81.8" y="326.5"><title>202509: 12 vials (final)</title></rect>
+<text class="valor" text-anchor="middle" x="108.8" y="319.5">12</text>
+<text class="previo" text-anchor="middle" x="108.8" y="306.5">16</text>
+<text class="eje" text-anchor="middle" x="108.8" y="394">09/25</text>
+<rect fill="var(--azul)" height="59.4" rx="2" width="54.0" x="183.5" y="314.6"><title>202510: 15 vials (final)</title></rect>
+<text class="valor" text-anchor="middle" x="210.5" y="307.6">15</text>
+<text class="eje" text-anchor="middle" x="210.5" y="394">10/25</text>
+<rect fill="var(--azul)" height="182.3" rx="2" width="54.0" x="285.1" y="191.7"><title>202511: 46 vials (final)</title></rect>
+<text class="valor" text-anchor="middle" x="312.1" y="184.7">46</text>
+<text class="eje" text-anchor="middle" x="312.1" y="394">11/25</text>
+<rect fill="var(--azul)" height="107.0" rx="2" width="54.0" x="386.7" y="267.0"><title>202512: 27 vials (final)</title></rect>
+<text class="valor" text-anchor="middle" x="413.7" y="260.0">27</text>
+<text class="eje" text-anchor="middle" x="413.7" y="394">12/25</text>
+<rect fill="var(--azul)" height="107.0" rx="2" width="54.0" x="488.4" y="267.0"><title>202601: 27 vials (final)</title></rect>
+<text class="valor" text-anchor="middle" x="515.4" y="260.0">27</text>
+<text class="previo" text-anchor="middle" x="515.4" y="247.0">19</text>
+<text class="eje" text-anchor="middle" x="515.4" y="394">01/26</text>
+<rect fill="var(--azul)" height="95.1" rx="2" width="54.0" x="590.0" y="278.9"><title>202602: 24 vials (final)</title></rect>
+<text class="valor" text-anchor="middle" x="617.0" y="271.9">24</text>
+<text class="previo" text-anchor="middle" x="617.0" y="258.9">12</text>
+<text class="eje" text-anchor="middle" x="617.0" y="394">02/26</text>
+<rect fill="var(--azul)" height="257.6" rx="2" width="54.0" x="691.6" y="116.4"><title>202603: 65 vials (final)</title></rect>
+<text class="valor" text-anchor="middle" x="718.6" y="109.4">65</text>
+<text class="eje" text-anchor="middle" x="718.6" y="394">03/26</text>
+<rect fill="url(#prov)" height="174.3" rx="2" width="54.0" x="793.3" y="199.7"><title>202604: 44 vials (provisional)</title></rect>
+<text class="valor" text-anchor="middle" x="820.3" y="192.7">44</text>
+<text class="eje" text-anchor="middle" x="820.3" y="394">04/26</text>
+<rect fill="url(#prov)" height="154.5" rx="2" width="54.0" x="894.9" y="219.5"><title>202605: 39 vials (provisional)</title></rect>
+<text class="valor" text-anchor="middle" x="921.9" y="212.5">39</text>
+<text class="eje" text-anchor="middle" x="921.9" y="394">05/26</text>
+<rect fill="url(#prov)" height="293.2" rx="2" width="54.0" x="996.5" y="80.8"><title>202606: 74 vials (provisional)</title></rect>
+<text class="valor" text-anchor="middle" x="1023.5" y="73.8">74</text>
+<text class="eje" text-anchor="middle" x="1023.5" y="394">06/26</text>
+<rect fill="url(#prov)" height="182.3" rx="2" width="54.0" x="1098.2" y="191.7"><title>202607: 46 vials (provisional)</title></rect>
+<text class="valor" text-anchor="middle" x="1125.2" y="184.7">46</text>
+<text class="eje" text-anchor="middle" x="1125.2" y="394">07/26</text>
+<polyline fill="none" opacity=".85" points="312.1,277.6 413.7,257.8 515.4,241.9 617.0,271.0 718.6,220.8 820.3,198.3 921.9,178.5 1023.5,166.6 1125.2,164.0" stroke="var(--azul)" stroke-dasharray="5 4" stroke-width="1.8"></polyline>
+<polyline fill="none" points="108.8,364.8 210.5,353.4 312.1,318.2 413.7,297.5 515.4,276.9 617.0,258.5 718.6,208.8 820.3,175.2 921.9,145.4 1023.5,88.8 1125.2,53.6" stroke="var(--naranja)" stroke-width="2.2"></polyline>
+<circle cx="108.8" cy="364.8" fill="var(--naranja)" r="3.4"><title>Cumulative 12</title></circle>
+<circle cx="210.5" cy="353.4" fill="var(--naranja)" r="3.4"><title>Cumulative 27</title></circle>
+<circle cx="312.1" cy="318.2" fill="var(--naranja)" r="3.4"><title>Cumulative 73</title></circle>
+<circle cx="413.7" cy="297.5" fill="var(--naranja)" r="3.4"><title>Cumulative 100</title></circle>
+<circle cx="515.4" cy="276.9" fill="var(--naranja)" r="3.4"><title>Cumulative 127</title></circle>
+<circle cx="617.0" cy="258.5" fill="var(--naranja)" r="3.4"><title>Cumulative 151</title></circle>
+<circle cx="718.6" cy="208.8" fill="var(--naranja)" r="3.4"><title>Cumulative 216</title></circle>
+<circle cx="820.3" cy="175.2" fill="var(--naranja)" r="3.4"><title>Cumulative 260</title></circle>
+<circle cx="921.9" cy="145.4" fill="var(--naranja)" r="3.4"><title>Cumulative 299</title></circle>
+<circle cx="1023.5" cy="88.8" fill="var(--naranja)" r="3.4"><title>Cumulative 373</title></circle>
+<circle cx="1125.2" cy="53.6" fill="var(--naranja)" r="3.4"><title>Cumulative 419</title></circle>
+<text class="eje2" x="1185" y="378.0">0</text>
+<text class="eje2" x="1185" y="291.5">113</text>
+<text class="eje2" x="1185" y="205.0">226</text>
+<text class="eje2" x="1185" y="118.5">339</text>
+<text class="eje2" x="1185" y="32.0">453</text>
+<rect fill="var(--azul)" height="13" rx="2" width="13" x="58" y="411"></rect><text class="leyenda" x="77" y="422">Final data</text>
+<rect fill="url(#prov)" height="13" rx="2" width="13" x="198" y="411"></rect><text class="leyenda" x="217" y="422">Provisional, still revisable</text>
+<line stroke="var(--azul)" stroke-dasharray="5 4" stroke-width="1.8" x1="388" x2="414" y1="417" y2="417"></line><text class="leyenda" x="421" y="422">3-month average</text>
+<text class="leyenda previo-l" x="548" y="422">000</text><text class="leyenda" x="580" y="422">what the provisional figure showed</text>
+</svg></div>
+<div class="caja"><table>
+<thead><tr><th>Month</th><th>Status</th><th>Vials</th><th>Var.</th>
+<th>Cum.</th><th>Indicative cost</th><th>Centers</th></tr></thead>
+<tbody><tr><td>09/2025</td><td><span class="tag f">final</span></td><td><strong>12</strong> <span class="tachado">16</span></td><td></td><td>12</td><td>£5,640</td><td>2</td></tr><tr><td>10/2025</td><td><span class="tag f">final</span></td><td><strong>15</strong> </td><td>+3</td><td>27</td><td>£7,050</td><td>2</td></tr><tr><td>11/2025</td><td><span class="tag f">final</span></td><td><strong>46</strong> </td><td>+31</td><td>73</td><td>£21,620</td><td>2</td></tr><tr><td>12/2025</td><td><span class="tag f">final</span></td><td><strong>27</strong> </td><td>-19</td><td>100</td><td>£12,690</td><td>3</td></tr><tr><td>01/2026</td><td><span class="tag f">final</span></td><td><strong>27</strong> <span class="tachado">19</span></td><td>+0</td><td>127</td><td>£12,690</td><td>5</td></tr><tr><td>02/2026</td><td><span class="tag f">final</span></td><td><strong>24</strong> <span class="tachado">12</span></td><td>-3</td><td>151</td><td>£11,280</td><td>4</td></tr><tr><td>03/2026</td><td><span class="tag f">final</span></td><td><strong>65</strong> </td><td>+41</td><td>216</td><td>£30,550</td><td>6</td></tr><tr><td>04/2026</td><td><span class="tag p">provisional</span></td><td><strong>44</strong> </td><td>-21</td><td>260</td><td>£20,680</td><td>8</td></tr><tr><td>05/2026</td><td><span class="tag p">provisional</span></td><td><strong>39</strong> </td><td>-5</td><td>299</td><td>£18,330</td><td>5</td></tr><tr><td>06/2026</td><td><span class="tag p">provisional</span></td><td><strong>74</strong> </td><td>+35</td><td>373</td><td>£34,780</td><td>5</td></tr><tr><td>07/2026</td><td><span class="tag p">provisional</span></td><td><strong>46</strong> </td><td>-28</td><td>419</td><td>£21,620</td><td>7</td></tr></tbody></table></div>
+<h2>Market context: intravitreal anti-VEGF</h2><div class="caja"><table><thead><tr><th>Month</th><th>LYTENAVA</th><th>Total anti-VEGF*</th><th>Share</th><th>Anti-VEGF centers</th><th>LYTENAVA centers</th></tr></thead><tbody><tr><td>09/25</td><td>£5,640</td><td>£84,160,209</td><td><strong>0.007%</strong></td><td>111</td><td>2</td></tr><tr><td>10/25</td><td>£7,050</td><td>£87,759,756</td><td><strong>0.008%</strong></td><td>110</td><td>2</td></tr><tr><td>11/25</td><td>£21,620</td><td>£74,342,006</td><td><strong>0.029%</strong></td><td>111</td><td>2</td></tr><tr><td>12/25</td><td>£12,690</td><td>£80,052,272</td><td><strong>0.016%</strong></td><td>111</td><td>3</td></tr><tr><td>01/26</td><td>£12,690</td><td>£79,533,292</td><td><strong>0.016%</strong></td><td>109</td><td>5</td></tr><tr><td>02/26</td><td>£11,280</td><td>£75,255,139</td><td><strong>0.015%</strong></td><td>110</td><td>4</td></tr><tr><td>03/26</td><td>£30,550</td><td>£83,688,993</td><td><strong>0.037%</strong></td><td>110</td><td>6</td></tr><tr><td>04/26</td><td>£20,680</td><td>£78,192,796</td><td><strong>0.026%</strong></td><td>109</td><td>8</td></tr><tr><td>05/26</td><td>£18,330</td><td>£76,476,687</td><td><strong>0.024%</strong></td><td>111</td><td>5</td></tr><tr><td>06/26</td><td>£34,780</td><td>£86,155,196</td><td><strong>0.040%</strong></td><td>110</td><td>5</td></tr><tr><td>07/26</td><td>£21,620</td><td>£87,518,473</td><td><strong>0.025%</strong></td><td>110</td><td>7</td></tr></tbody></table></div><div class="nota"><p>*Aflibercept, ranibizumab, faricimab and brolucizumab dispensed by English hospital pharmacies, at list cost (not comparable in units). Share and center penetration give the real scale of the launch. Off-label (compounded) bevacizumab does not appear in this source.</p></div>
+<h2>Where growth comes from</h2>
+<div class="caja"><table>
+<thead><tr><th>Month</th><th>Total</th><th title="University Hospitals of Leicester NHS Trust">RWE</th>
+<th>Rest</th><th>Centers</th><th style="text-align:left">New this month</th></tr></thead>
+<tbody><tr><td>09/25</td><td><strong>12</strong></td><td>0</td><td>12</td><td>2</td><td style="text-align:left"><span style="color:var(--azul)">RDE RWJ</span></td></tr><tr><td>10/25</td><td><strong>15</strong></td><td>14</td><td>1</td><td>2</td><td style="text-align:left"><span style="color:var(--azul)">RWE</span></td></tr><tr><td>11/25</td><td><strong>46</strong></td><td>42</td><td>4</td><td>2</td><td style="text-align:left">·</td></tr><tr><td>12/25</td><td><strong>27</strong></td><td>20</td><td>7</td><td>3</td><td style="text-align:left"><span style="color:var(--azul)">RJL</span></td></tr><tr><td>01/26</td><td><strong>27</strong></td><td>20</td><td>7</td><td>5</td><td style="text-align:left"><span style="color:var(--azul)">RWA</span></td></tr><tr><td>02/26</td><td><strong>24</strong></td><td>19</td><td>5</td><td>4</td><td style="text-align:left"><span style="color:var(--azul)">RAS</span></td></tr><tr><td>03/26</td><td><strong>65</strong></td><td>42</td><td>23</td><td>6</td><td style="text-align:left"><span style="color:var(--azul)">RJ1</span></td></tr><tr><td>04/26</td><td><strong>44</strong></td><td>15</td><td>29</td><td>8</td><td style="text-align:left"><span style="color:var(--azul)">RWY</span></td></tr><tr><td>05/26</td><td><strong>39</strong></td><td>20</td><td>19</td><td>5</td><td style="text-align:left">·</td></tr><tr><td>06/26</td><td><strong>74</strong></td><td>29</td><td>45</td><td>5</td><td style="text-align:left"><span style="color:var(--azul)">RBT</span></td></tr><tr><td>07/26</td><td><strong>46</strong></td><td>18</td><td>28</td><td>7</td><td style="text-align:left"><span style="color:var(--azul)">RX1</span></td></tr></tbody></table></div>
+<div class="nota"><p>The main center accounts for 57% of the whole period. The <em>Rest</em> column shows whether growth is broadening or depends on a single hospital; <em>New</em> shows whether the adopter base is growing.</p></div>
+<h2>Breakdown by center (ODS code)</h2>
+<div class="caja"><table>
+<thead><tr><th>Month</th><th title="University Hospitals of Leicester NHS Trust">RWE</th><th title="Guy'S And St Thomas' NHS Foundation Trust">RJ1</th><th title="Stockport NHS Foundation Trust">RWJ</th><th title="East Suffolk And North Essex NHS Foundation Trust">RDE</th><th title="Northern Lincolnshire And Goole NHS Foundation Trust">RJL</th><th title="Hull University Teaching Hospitals NHS Trust">RWA</th><th title="The Hillingdon Hospitals NHS Foundation Trust">RAS</th><th title="Nottingham University Hospitals NHS Trust">RX1</th><th title="Calderdale And Huddersfield NHS Foundation Trust">RWY</th><th title="Mid Cheshire Hospitals NHS Foundation Trust">RBT</th><th>Total</th></tr></thead>
+<tbody><tr><td>09/25</td><td>·</td><td>·</td><td>11</td><td>1</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td><strong>12</strong></td></tr><tr><td>10/25</td><td>14</td><td>·</td><td>1</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td><strong>15</strong></td></tr><tr><td>11/25</td><td>42</td><td>·</td><td>4</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td><strong>46</strong></td></tr><tr><td>12/25</td><td>20</td><td>·</td><td>4</td><td>·</td><td>3</td><td>·</td><td>·</td><td>·</td><td>·</td><td>·</td><td><strong>27</strong></td></tr><tr><td>01/26</td><td>20</td><td>·</td><td>1</td><td>4</td><td>-1</td><td>3</td><td>·</td><td>·</td><td>·</td><td>·</td><td><strong>27</strong></td></tr><tr><td>02/26</td><td>19</td><td>·</td><td>·</td><td>·</td><td>2</td><td>2</td><td>1</td><td>·</td><td>·</td><td>·</td><td><strong>24</strong></td></tr><tr><td>03/26</td><td>42</td><td>15</td><td>2</td><td>2</td><td>3</td><td>1</td><td>·</td><td>·</td><td>·</td><td>·</td><td><strong>65</strong></td></tr><tr><td>04/26</td><td>15</td><td>9</td><td>6</td><td>5</td><td>3</td><td>4</td><td>1</td><td>·</td><td>1</td><td>·</td><td><strong>44</strong></td></tr><tr><td>05/26</td><td>20</td><td>8</td><td>3</td><td>·</td><td>·</td><td>1</td><td>7</td><td>·</td><td>·</td><td>·</td><td><strong>39</strong></td></tr><tr><td>06/26</td><td>29</td><td>37</td><td>4</td><td>·</td><td>3</td><td>·</td><td>·</td><td>·</td><td>·</td><td>1</td><td><strong>74</strong></td></tr><tr><td>07/26</td><td>18</td><td>14</td><td>7</td><td>3</td><td>1</td><td>1</td><td>·</td><td>2</td><td>·</td><td>·</td><td><strong>46</strong></td></tr></tbody></table>
+<div style="margin-top:16px;font-size:13.5px;color:var(--gris);line-height:1.8">
+<span style="font-family:var(--dato);color:var(--azul)">RWE</span>  University Hospitals of Leicester NHS Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RJ1</span>  Guy'S And St Thomas' NHS Foundation Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RWJ</span>  Stockport NHS Foundation Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RDE</span>  East Suffolk And North Essex NHS Foundation Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RJL</span>  Northern Lincolnshire And Goole NHS Foundation Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RWA</span>  Hull University Teaching Hospitals NHS Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RAS</span>  The Hillingdon Hospitals NHS Foundation Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RX1</span>  Nottingham University Hospitals NHS Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RWY</span>  Calderdale And Huddersfield NHS Foundation Trust<br/><span style="font-family:var(--dato);color:var(--azul)">RBT</span>  Mid Cheshire Hospitals NHS Foundation Trust
+</div></div>
+<h2>Revision log</h2>
+<div class="caja"><div class="rev"><span class="m">02/2026</span> <span class="tachado">12</span> → <strong>24</strong> vials <span style="color:var(--gris)">consolidated to final · detected 2026-08-25</span></div><div class="rev"><span class="m">01/2026</span> <span class="tachado">19</span> → <strong>27</strong> vials <span style="color:var(--gris)">consolidated to final · detected 2026-08-25</span></div><div class="rev"><span class="m">09/2025</span> <span class="tachado">16</span> → <strong>12</strong> vials <span style="color:var(--gris)">consolidated to final · detected 2026-08-25</span></div></div>
+</section><section id="europa" role="tabpanel">
+<div class="nota"><p>10-year exclusivity in 31 countries (EU + United Kingdom). According to the company, Europe is ~1/4 of the US or less by 2030, accelerating with the prefilled syringe (late 2028 or 2029). Current revenue is marginal. The company mentions inbound interest from partners in LatAm, Asia and MENA, with no agreements announced.</p></div>
+<div class="tabla"><table><thead><tr><th>Country</th><th>Status</th><th>Since</th><th>Partner</th><th>Note</th></tr></thead><tbody><tr><td class="izq"><strong>United Kingdom</strong></td><td><span class="chip ok">on sale</span></td><td class="nw">2025-06</td><td class="izq">Direct</td><td class="izq g">NICE TA1022 at £470 per vial. The UK was never a compounding market (&lt;9%); the constraint is care capacity.</td></tr><tr><td class="izq"><strong>Germany</strong></td><td><span class="chip ok">on sale</span></td><td class="nw">2025-06</td><td class="izq">Direct</td><td class="izq g">Compounded bevacizumab is the legal standard of care. Real-world study under way; Medical Manager position open (Bavaria).</td></tr><tr><td class="izq"><strong>Austria</strong></td><td><span class="chip ok">on sale</span></td><td class="nw">2026-01</td><td class="izq">Direct</td><td class="izq g"></td></tr><tr><td class="izq"><strong>Netherlands</strong></td><td><span class="chip mal">delayed</span></td><td class="nw">early 2027</td><td class="izq">Direct</td><td class="izq g">Delayed from 2026 (September 2026 investor presentation). To be the European distribution hub.</td></tr><tr><td class="izq"><strong>Switzerland</strong></td><td><span class="chip prog">planned</span></td><td class="nw">2027</td><td class="izq">Mediconsult AG (exclusive)</td><td class="izq g"></td></tr><tr><td class="izq"><strong>China</strong></td><td><span class="chip esp">no date</span></td><td class="nw">—</td><td class="izq">JV with Syntone (20% Outlook, no royalties)</td><td class="izq g">Source: 10-Q of Aug 15, 2026.</td></tr></tbody></table></div>
+
+</section><section id="pistas" role="tabpanel"><p class="g">Things that are not announced but leave a trail. Level: <em>verified</em> (primary source), <em>indication</em> (consistent but not proven) or <em>unconfirmed</em>. Leads are never deleted, only closed. Spot something we missed or disagree with a lead? We would love to hear it.</p>
+<div class="barra-filtros">
+  <input type="text" id="busc-pistas" class="busc-input" placeholder="🔍 Filter leads by text, title, area or ID..." oninput="filtrarPistas()">
+  <button class="btn-filtro btn-filtro-pista activo" onclick="filtrarPistasEstado('todas', this)">All (13)</button>
+  <button class="btn-filtro btn-filtro-pista" onclick="filtrarPistasEstado('abierta', this)">Open (11)</button>
+  <button class="btn-filtro btn-filtro-pista" onclick="filtrarPistasEstado('confirmada', this)">Confirmed (1)</button>
+  <button class="btn-filtro btn-filtro-pista" onclick="filtrarPistasEstado('en_espera', this)">On hold (1)</button>
+</div>
+<div class="pistas" id="grid-pistas"><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-001</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Channel · Oct 13, 2026</span></div>
+<h3>The product website (lytenava.com) has no ordering, access program or HCP section yet</h3>
+<p>Only FAQ, prescribing information and safety, with a &quot;further information coming soon&quot; notice. lytenavahcp.com and lytenava.us are parked domains.</p>
+<p><strong>What it would mean:</strong> A section on ordering, distributors, copay or a reimbursement hub would mean the product is about to enter the channel.</p>
+<p><strong>What to watch:</strong> Changes in the site&#x27;s links, or new ordering / reimbursement wording.</p>
+<p class="peq"><a href="https://www.lytenava.com/" rel="noopener" target="_blank">source</a></p></div><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-002</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Channel · Oct 13, 2026</span></div>
+<h3>Cencora is a named distribution partner</h3>
+<p>Cencora (formerly AmerisourceBergen) is the parent of ASD Healthcare and Besse Medical, specialty distributors that serve retina clinics.</p>
+<p><strong>What it would mean:</strong> The first real orders will likely flow through them. Their catalogs are behind logins, so they cannot be monitored from outside.</p>
+<p><strong>What to watch:</strong> Practice or billing-consultant notes explaining how to order it; the company publishing a &quot;how to order&quot; page.</p>
+<p class="peq">Source: 8-K, Exhibit 99.1 of Aug 12, 2026 (risk factors: &quot;our distribution partners, including Cencora&quot;)</p></div><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-003</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Reimbursement · Oct 13, 2026</span></div>
+<h3>Medicaid: LYTENAVA is not yet listed in the rebate program (MDRP)</h3>
+<p>For Medicaid to pay for it, the company must list it in the MDRP. The listing carries the market date declared by the company.</p>
+<p><strong>What it would mean:</strong> Its appearance would be an early, official U.S. launch signal, ahead of any sales data.</p>
+<p><strong>What to watch:</strong> Weekly additions and the quarterly file (labeler 82491 not present up to the Oct 4, 2026 update).</p>
+<p class="peq">Source: data.medicaid.gov, &#x27;Drug Products in the MDRP&#x27; (2026 Q2) and weekly additions since April</p></div><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-004</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Pricing · Oct 13, 2026</span></div>
+<h3>Veterans Affairs (VA/FSS): LYTENAVA is not on the federal price list</h3>
+<p>Branded-drug makers must list products on the Federal Supply Schedule to sell to the federal government, with mandatory &#x27;Big Four&#x27; price ceilings.</p>
+<p><strong>What it would mean:</strong> When it appears it will give the first public discounted price (a clue to net price versus the $485 WAC).</p>
+<p><strong>What to watch:</strong> The monthly VA pharmaceutical price file.</p>
+<p class="peq">Source: VA National Acquisition Center, TPharmPrices of Oct 1, 2026 (43,225 lines; oncology bevacizumab biosimilars are listed)</p></div><div class="pista abierta" data-estado="abierta" data-nivel="indicio">
+<div class="p-cab"><span class="mono g">P-006</span> <span class="chip prog">indication</span> <span class="chip prog">open</span> <span class="g">Team · Oct 9, 2026</span></div>
+<h3>Field vacancies are being withdrawn: the commercial team is filling up</h3>
+<p>Open positions on the company&#x27;s careers page went from 21 (Sep 8) to 10 (Oct 1) and 8 (Oct 9). Withdrawn: East and West national sales leadership, most Account Reimbursement Managers (ARM), Trade &amp; Distribution and Supply Chain. Three ARM roles remain. At least one field ARM has been confirmed in post since October.</p>
+<p><strong>What it would mean:</strong> Fits the &#x27;full team by January 2027&#x27; message. A job posting disappearing does not prove a hire.</p>
+<p><strong>What to watch:</strong> Company announcements and the careers page.</p>
+<p class="peq">Source: Company careers page (Sep 8, Oct 1, Oct 9)</p></div><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-007</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Team · Oct 9, 2026</span></div>
+<h3>Senior commercial and medical-affairs hires in October</h3>
+<p>A National Sales Director and a Head of Global Medical Affairs appear to have joined in October 2026, with commercial backgrounds in ophthalmology and a stated focus on buy-and-bill and Medicare/Medicaid reimbursement. These are not (yet) confirmed in company filings.</p>
+<p><strong>What it would mean:</strong> The commercial and physician-relations structure is being assembled ahead of launch.</p>
+<p><strong>What to watch:</strong> A press release, the website&#x27;s leadership page or the 10-K.</p>
+<p class="peq">Source: Public professional information (not a company filing)</p></div><div class="pista abierta" data-estado="abierta" data-nivel="indicio">
+<div class="p-cab"><span class="mono g">P-008</span> <span class="chip prog">indication</span> <span class="chip prog">open</span> <span class="g">Corporate · Oct 9, 2026</span></div>
+<h3>An FP&amp;A job posting asks for support on M&amp;A, licensing and co-promotion deals</h3>
+<p>The posting mentions analysis for M&amp;A, licensing and &#x27;co-promote deals&#x27;.</p>
+<p><strong>What it would mean:</strong> Consistent with the 10-Q (selling ex-U.S. rights as a financing route). It does not prove a deal is under way.</p>
+<p><strong>What to watch:</strong> An 8-K announcing an agreement; the December 10-K.</p>
+<p class="peq">Source: FP&amp;A Manager posting on the company&#x27;s careers page</p></div><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-009</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Physicians · Oct 9, 2026</span></div>
+<h3>The AAO cites the fragile supply of repackaged Avastin as an argument for LYTENAVA</h3>
+<p>It also warns of higher patient copays, step therapy and administrative burden while there is no J-code.</p>
+<p><strong>What it would mean:</strong> The first published clinical-logistics argument in favor from the medical society; the brake is still economic.</p>
+<p><strong>What to watch:</strong> Congress programs (ASRS, Retina Society, Angiogenesis in February).</p>
+<p class="peq">Source: AAO 2026 Daily (Oct 9)</p></div><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-010</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Reimbursement · Oct 13, 2026</span></div>
+<h3>2027 policies already written without LYTENAVA (Premera)</h3>
+<p>Premera&#x27;s 2027 anti-VEGF policy is published and does not include LYTENAVA.</p>
+<p><strong>What it would mean:</strong> Regional payers will lag: the normal pattern is to wait for the J-code and for the product to be on the market.</p>
+<p><strong>What to watch:</strong> Other payers&#x27; 2027 anti-VEGF policy updates.</p>
+<p class="peq">Source: Premera policy 5.01.620, effective Jan 1, 2027</p></div><div class="pista abierta" data-estado="abierta" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-012</span> <span class="chip ok">verified</span> <span class="chip prog">open</span> <span class="g">Team · Oct 13, 2026</span></div>
+<h3>Harrow looks like a talent pool for the commercial team</h3>
+<p>The Chief Commercial Officer announced on Oct 9 previously led commercial at Harrow. Other recent commercial hires appear to share that background (not verifiable from filings).</p>
+<p><strong>What it would mean:</strong> A commercial team that has worked together, with ophthalmology launch and buy-and-bill experience, can start faster. Harrow sells in the same channel, so more moves from there would be worth noting.</p>
+<p><strong>What to watch:</strong> Where the next field and director hires come from.</p>
+<p class="peq">Source: Company press release (Oct 9, 2026) and public professional information</p></div><div class="pista abierta" data-estado="abierta" data-nivel="indicio">
+<div class="p-cab"><span class="mono g">P-013</span> <span class="chip prog">indication</span> <span class="chip prog">open</span> <span class="g">Channel · Oct 13, 2026</span></div>
+<h3>Someone leads the patient-support hub since August, but the hub is not public yet</h3>
+<p>A senior patient-access and field-reimbursement leader appears to have been in post since August 2026. lytenava.com still has no phone number, copay program or enrollment form.</p>
+<p><strong>What it would mean:</strong> The hub (benefit verification, copay, prior authorization) is usually the last thing published before selling. Its appearance on the website would mark the commercial start.</p>
+<p><strong>What to watch:</strong> New wording on the product site: &#x27;copay&#x27;, &#x27;patient support&#x27;, &#x27;benefit verification&#x27;, &#x27;hub&#x27;.</p>
+<p class="peq">Source: Public professional information and lytenava.com</p></div><div class="pista en_espera" data-estado="en_espera" data-nivel="sin_confirmar">
+<div class="p-cab"><span class="mono g">P-011</span> <span class="chip esp">unconfirmed</span> <span class="chip esp">on hold</span> <span class="g">Physicians · Oct 13, 2026</span></div>
+<h3>Open Payments: company payments to physicians (education, speaking, consulting)</h3>
+<p>2026 data is published around June 2027.</p>
+<p><strong>What it would mean:</strong> It will show how many retina specialists the company has contacted and how intensively: an indirect measure of commercial effort.</p>
+<p><strong>What to watch:</strong> Check in June 2027.</p>
+<p class="peq">Source: openpaymentsdata.cms.gov</p></div><div class="pista confirmada" data-estado="confirmada" data-nivel="verificado">
+<div class="p-cab"><span class="mono g">P-005</span> <span class="chip ok">verified</span> <span class="chip ok">confirmed</span> <span class="g">Reimbursement · Oct 13, 2026</span></div>
+<h3>There is no pass-through C-code for LYTENAVA: a consultancy article is mistaken</h3>
+<p>No CMS file of October 2026 mentions LYTENAVA, bevacizumab-vikg or NDC 82491. The only bevacizumab C-code is C9257 (Avastin 0.25 mg, Genentech), paying about $1.89 per unit: roughly $9.4 for a 1.25 mg dose in the hospital outpatient setting. That is the likely origin of the confusion.</p>
+<p><strong>What it would mean:</strong> Until a J-code exists, LYTENAVA is billed with generic codes (J3490/J3590/C9399), as Aetna, UHC and the AAO have already indicated.</p>
+<p><strong>What to watch:</strong> Closed for now; we will reopen it if it shows up in a later CMS quarterly file.</p>
+<p class="peq">Source: CMS October 2026: OPPS Addendum B (Sep 28), ASP and OPPS NDC-HCPCS crosswalks, Part B payment limit file</p></div></div></section>
+<footer>Data from public sources (FDA, CMS, Medicaid, VA, NHSBSA, payer and company websites, SEC EDGAR). NHS cost is list price. Independent community project, not affiliated with Outlook Therapeutics. Nothing on this page is investment advice: do your own due diligence.</footer>
+</div><script>
+(function(){
+  var bs=[].slice.call(document.querySelectorAll('.pestanas button'));
+  function ver(id){
+    if(!document.getElementById(id)) id='resumen';
+    bs.forEach(function(b){b.setAttribute('aria-selected', b.dataset.p===id?'true':'false');});
+    [].slice.call(document.querySelectorAll('section[role=tabpanel]')).forEach(function(s){
+      s.classList.toggle('activa', s.id===id);});
+  }
+  bs.forEach(function(b){b.addEventListener('click',function(){history.replaceState(null,'','#'+b.dataset.p);ver(b.dataset.p);});});
+  ver((location.hash||'#resumen').slice(1));
+
+  window.filtrarTablaGenerica = function(idTabla, val){
+    var q = (val||'').toLowerCase();
+    var tb = document.getElementById(idTabla);
+    if(!tb) return;
+    tb.querySelectorAll('tbody tr').forEach(function(tr){
+      tr.style.display = (!q || tr.innerText.toLowerCase().indexOf(q) >= 0) ? '' : 'none';
+    });
+  };
+
+  window.plegarTodo = function(abrir){
+    document.querySelectorAll('section.activa details.plegable').forEach(function(d){d.open = abrir;});
+  };
+
+  window._filtroEstadoPista = 'todas';
+  window.filtrarPistasEstado = function(st, btn){
+    if(btn){
+      document.querySelectorAll('.btn-filtro-pista').forEach(function(b){b.classList.remove('activo');});
+      btn.classList.add('activo');
+      window._filtroEstadoPista = st;
+    }
+    window.filtrarPistas();
+  };
+
+  window.filtrarPistas = function(){
+    var q = (document.getElementById('busc-pistas') ? document.getElementById('busc-pistas').value : '').toLowerCase();
+    var st = window._filtroEstadoPista || 'todas';
+    document.querySelectorAll('.pistas .pista').forEach(function(c){
+      var mEstado = (st==='todas') || (c.getAttribute('data-estado') === st);
+      var mTexto = !q || c.innerText.toLowerCase().indexOf(q) >= 0;
+      c.style.display = (mEstado && mTexto) ? '' : 'none';
+    });
+  };
+})();
+</script></body></html>
