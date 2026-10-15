@@ -39,7 +39,7 @@
     - Cost to borrow         : 3.1%
     - Recent FTDs            : 0 shares
     - Off-exchange volume    : 71.0% (20-session avg 65.2%, +5.8 pp)
-    - Trades bid/mid/ask     : 20% / 59% / 20% (2026-10-14)
+    - Trades bid/mid/ask     : 18% / 63% / 19% (2026-10-14)
 
   OPTIONS (session 2026-10-14):
     - Open interest          : 52,606 calls vs 5,168 puts
@@ -118,7 +118,7 @@ DATA FRESHNESS
   FINRA short volume             2026-10-14   OK
   Borrow fee (IBKR)              2026-10-15   OK
   Short interest (bi-monthly)    2026-09-30   OK
-  Fails to deliver (SEC)         2026-09-14   OK
+  Fails to deliver (SEC)         2026-09-30   OK
   Exchange volume (ChartExchange) 2026-10-14   OK
   Options (OI & volume)          2026-10-14   OK
   SEC filings (EDGAR)            2026-10-15   OK

@@ -6,293 +6,1410 @@
 <link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1520'/%3E%3Cpath d='M4 16c4-6.4 8-9.6 12-9.6S24 9.6 28 16c-4 6.4-8 9.6-12 9.6S8 22.4 4 16z' fill='none' stroke='%233f9ecb' stroke-width='2.2'/%3E%3Ccircle cx='16' cy='16' r='4.6' fill='%233f9ecb'/%3E%3Ccircle cx='14.4' cy='14.4' r='1.5' fill='%230d1520'/%3E%3C/svg%3E" rel="icon"/>
 <meta content="#0d1520" name="theme-color"/>
 <style>
-:root{
-  --fondo:#0d1520; --tarjeta:#151f2d; --tarjeta2:#1a2534; --linea:#26364a;
-  --tinta:#e7eef6; --gris:#8ea4bb;
-  --azul:#3f9ecb; --azul-hondo:#1d5f85;
-  --ambar:#d9a03c; --ambar-suave:#2a2418; --naranja:#e0894a;
-  --correccion:#e0655f;
-  --dato:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-  --texto:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+:root {
+  --fondo: #0b111a;
+  --tarjeta: #111a28;
+  --tarjeta2: #162438;
+  --tarjeta-hover: #1c2e47;
+  --linea: #1e2c3f;
+  --linea-glow: rgba(56, 189, 248, 0.4);
+  --tinta: #f1f5f9;
+  --gris: #8ea4bb;
+  --gris-claro: #cbd5e1;
+  --azul: #38bdf8;
+  --azul-hondo: #0284c7;
+  --verde: #10b981;
+  --ambar: #f59e0b;
+  --ambar-suave: #2a2418;
+  --naranja: #fb923c;
+  --morado: #c084fc;
+  --correccion: #ef4444;
+  --dato: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --texto: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--fondo);color:var(--tinta);font-family:var(--texto);
-     line-height:1.62;font-size:16.5px;
-     background-image:radial-gradient(ellipse 80% 50% at 50% -10%,#16283a 0%,transparent 70%)}
-.envoltorio{width:min(1560px,94vw);margin:0 auto;padding:36px 0 80px}
-@media(max-width:900px){.envoltorio{width:calc(100vw - 34px)}}
-header{border-bottom:1px solid var(--linea);padding-bottom:20px;margin-bottom:30px;
-     position:relative}
-header::after{content:"";position:absolute;left:0;bottom:-1px;width:74px;height:3px;
-     background:var(--azul)}
-.marca{display:flex;align-items:center;gap:11px;margin-bottom:13px}
-.marca svg.icono{width:31px;height:31px;flex:none}
-.marca .nom{font-family:var(--dato);font-size:12.5px;letter-spacing:.19em;
-     text-transform:uppercase;color:var(--gris)}
-.eyebrow{font-family:var(--dato);font-size:11px;letter-spacing:.16em;
-     text-transform:uppercase;color:var(--gris);margin:0 0 6px}
-h1{font-size:35px;margin:0 0 7px;letter-spacing:-.022em;font-weight:600;
-     display:flex;align-items:center;gap:13px;flex-wrap:wrap}
-.bandera{width:29px;height:17.5px;border-radius:2px;flex:none;
-     box-shadow:0 1px 5px rgba(0,0,0,.5)}
-.sub{color:var(--gris);margin:0;font-size:15.5px;max-width:64ch}
-.fuentes{margin:11px 0 0;font-family:var(--dato);font-size:12.5px;letter-spacing:.03em;color:var(--gris)}
-.fuentes a{color:var(--azul);text-decoration:none;border-bottom:1px solid rgba(63,158,203,.35);padding-bottom:1px}
-.fuentes a:hover{border-bottom-color:var(--azul)}
-h2{font-size:23px;margin:48px 0 16px;letter-spacing:-.012em;font-weight:600}
-h2::before{content:"";display:inline-block;width:16px;height:2px;
-     background:var(--azul);vertical-align:middle;margin-right:9px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-.kpi{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;
-     padding:16px 18px;position:relative;overflow:hidden}
-.kpi::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;
-     background:var(--azul-hondo)}
-.kpi .et{font-family:var(--dato);font-size:11.5px;letter-spacing:.11em;
-     text-transform:uppercase;color:var(--gris)}
-.kpi .n{font-family:var(--dato);font-size:34px;font-weight:600;line-height:1.15;
-     margin-top:5px;color:var(--azul)}
-.kpi .pie{font-size:13.5px;color:var(--gris);margin-top:3px}
-.kpi .n.provisional{color:var(--ambar)}
-.caja{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;
-     padding:20px;margin-top:16px;overflow-x:auto}
-.caja svg{width:100%;max-width:1240px;height:auto;display:block;margin:0 auto}
-.marca svg.icono,h1 svg.bandera{max-width:none}
-.eje{font-family:var(--dato);font-size:12.5px;fill:var(--gris)}
-.eje2{font-family:var(--dato);font-size:12.5px;fill:var(--naranja)}
-.valor{font-family:var(--dato);font-size:14px;fill:var(--tinta);font-weight:600}
-.previo{font-family:var(--dato);font-size:11.5px;fill:var(--correccion);
-     text-decoration:line-through}
-.leyenda{font-size:13px;fill:var(--gris);font-family:var(--texto)}
-.previo-l{fill:var(--correccion);text-decoration:line-through;font-family:var(--dato)}
-table{border-collapse:collapse;width:100%;font-family:var(--dato);font-size:15px}
-th{text-align:right;padding:11px 11px;border-bottom:1px solid var(--azul-hondo);
-   font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris);
-   font-weight:600;white-space:nowrap}
-th:first-child,td:first-child{text-align:left}
-td{text-align:right;padding:10px 11px;border-bottom:1px solid var(--linea);white-space:nowrap}
-tbody tr:hover{background:var(--tarjeta2)}
-.tag{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;
-     border-radius:3px;font-weight:600}
-.tag.f{background:rgba(63,158,203,.16);color:var(--azul)}
-.tag.p{background:rgba(217,160,60,.16);color:var(--ambar)}
-.tachado{color:var(--correccion);text-decoration:line-through;font-size:13px}
-.nota{background:var(--tarjeta);border:1px solid var(--linea);
-     border-left:3px solid var(--azul);border-radius:0 7px 7px 0;
-     padding:16px 21px;margin-top:14px}
-.nota.aviso{border-left-color:var(--ambar)}
-.nota h3{margin:0 0 8px;font-size:16px;font-weight:600;color:var(--azul);
-     font-family:var(--dato);letter-spacing:.03em}
-.nota p{margin:0 0 9px;color:#cddbe9}.nota p:last-child{margin:0}
-.rev{font-family:var(--dato);font-size:14px;padding:10px 0;
-     border-bottom:1px solid var(--linea)}
-.rev:last-child{border:0}
-.rev .m{font-weight:600;display:inline-block;min-width:74px;color:var(--azul)}
-footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--linea);
-     font-size:13px;color:var(--gris)}
-::selection{background:var(--azul-hondo);color:#fff}
-a{color:var(--azul)}
-@media(max-width:620px){h1{font-size:24px}.kpi .n{font-size:26px}}
-@media(prefers-reduced-motion:no-preference){
-  .kpi,.caja,.nota{animation:sube .45s ease-out both}
-  @keyframes sube{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--texto);
+  line-height: 1.62;
+  font-size: 15.5px;
+  background-image: radial-gradient(ellipse 80% 50% at 50% -10%, #16283a 0%, transparent 70%);
+  min-height: 100vh;
+}
+.envoltorio {
+  width: min(1560px, 94vw);
+  margin: 0 auto;
+  padding: 24px 0 70px;
+}
+@media (max-width: 900px) {
+  .envoltorio { width: calc(100vw - 32px); padding: 18px 0 50px; }
 }
 
-/* Cabecera Hero Encuadrada */
-header.cabecera-hero{
-  background:linear-gradient(180deg,#142030 0%,#0f1722 100%);
-  border:1px solid var(--linea);border-radius:10px;
-  padding:20px 24px 16px;margin-bottom:16px;position:relative;
-  box-shadow:0 4px 20px rgba(0,0,0,.25);
+/* CABECERA HERO EJECUTIVA */
+header.cabecera-hero {
+  background: linear-gradient(180deg, #131e2c 0%, #0d1522 100%);
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  padding: 20px 24px 18px;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
 }
-header.cabecera-hero::after{display:none}
-.cabecera-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(38,54,74,.6)}
-.cabecera-marca{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.badge-marca{font-family:var(--dato);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(63,158,203,.16);color:var(--azul);padding:3px 9px;border-radius:4px;border:1px solid rgba(63,158,203,.35)}
-.marca-sub{font-size:13px;color:var(--gris)}
-.btn-inicio-otlk{font-family:var(--dato);font-size:12px;color:var(--tinta);text-decoration:none;padding:6px 14px;background:var(--tarjeta2);border:1px solid var(--linea);border-radius:6px;display:inline-flex;align-items:center;gap:6px;transition:all .15s ease;font-weight:600}
-.btn-inicio-otlk:hover{background:rgba(63,158,203,.2);border-color:var(--azul);color:#fff}
-.cabecera-medio{margin-bottom:12px}
-.cabecera-tit-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
-.cabecera-tit-wrap h1{font-size:32px;margin:0;font-weight:600;letter-spacing:-.02em}
-.badge-status-activo{font-family:var(--dato);font-size:11.5px;padding:3px 10px;border-radius:12px;background:rgba(79,178,134,.16);color:#6fcf9f;border:1px solid rgba(79,178,134,.4);display:inline-flex;align-items:center;gap:5px}
-.cabecera-desc{color:#b6c9dc;font-size:14.5px;margin:0;line-height:1.5;max-width:none}
-.cabecera-sync-bar{display:flex;flex-wrap:wrap;gap:18px;padding-top:10px;border-top:1px solid rgba(38,54,74,.4);font-size:12.5px;color:var(--gris);font-family:var(--dato)}
-.sync-item{display:inline-flex;align-items:center;gap:6px}
-.sync-dot{width:7px;height:7px;border-radius:50%;background:#4fb286;display:inline-block}
-.sync-dot-gen{background:var(--azul)}
-
-/* Pestañas destacadas interactivas con banderas e iconos */
-.pestanas-sticky{position:-webkit-sticky;position:sticky;top:0;z-index:1000;
-  background:rgba(13,21,32,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  padding:6px 0 10px;margin:14px 0 18px;border-bottom:1px solid var(--linea)}
-.pestanas-wrap{background:var(--tarjeta);border:1px solid var(--linea);border-radius:8px;padding:4px;overflow-x:auto;box-shadow:0 2px 10px rgba(0,0,0,.3)}
-.pestanas{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0;width:100%}
-.pestanas button{width:100%;justify-content:center;text-align:center;background:transparent;border:1px solid transparent;border-radius:6px;color:var(--gris);
-  font:600 16px var(--texto);padding:12px 16px;cursor:pointer;transition:all .18s ease;display:inline-flex;align-items:center;gap:11px;white-space:nowrap}
-.pestanas button:hover{color:#fff;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
-.pestanas button[aria-selected=true]{color:#fff;background:rgba(63,158,203,.22);border-color:var(--azul);box-shadow:0 2px 10px rgba(0,0,0,.4)}
-.pestanas .cuenta{font-family:var(--dato);font-size:12px;font-weight:700;background:rgba(217,160,60,.25);color:var(--ambar);border:1px solid rgba(217,160,60,.4);border-radius:10px;padding:2px 8px;margin-left:4px}
-.pestanas button[aria-selected=true] .cuenta{background:var(--ambar);color:#0d1520;border-color:var(--ambar)}
-.bandera-tab{width:28px;height:17px;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.6);flex-shrink:0;vertical-align:middle;display:inline-block}
-.icono-tab{width:20px;height:20px;vertical-align:middle;flex-shrink:0;opacity:.85}
-.pestanas button[aria-selected=true] .icono-tab{opacity:1;color:var(--azul)}
-
-section[role=tabpanel]{display:none}
-section[role=tabpanel].activa{display:block}
-h2 .cuenta{font-family:var(--dato);font-size:13px;background:var(--azul-hondo);color:#fff;border-radius:9px;padding:1px 8px;vertical-align:middle}
-h3{font-size:16px;margin:18px 0 8px;font-weight:600}
-.g{color:var(--gris)} .peq{font-size:13px} .nw{white-space:nowrap} .mono{font-family:var(--dato)}
-.mal-t{color:var(--correccion)}
-code{font-family:var(--dato);font-size:13px;background:var(--tarjeta2);padding:1px 5px;border-radius:3px}
-
-/* Mini dashboard */
-.kpis-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0 6px}
-.kpi-card{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;padding:14px 16px;position:relative;overflow:hidden}
-.kpi-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:var(--azul-hondo)}
-.kpi-et{font-family:var(--dato);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
-.kpi-val{font-family:var(--dato);font-size:28px;font-weight:600;line-height:1.2;margin:4px 0 2px;color:var(--azul)}
-.kpi-val.kpi-destacado{font-size:22px;color:var(--ambar)}
-.kpi-ud{font-size:16px;font-weight:400;color:var(--gris)}
-.kpi-sub{font-size:12.5px;color:var(--gris)}
-
-/* Pipeline visual de canal */
-.pipeline-canal{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0 24px}
-.paso-pipe{background:var(--tarjeta);border:1px solid var(--linea);border-top:3px solid var(--gris);border-radius:6px;padding:10px 12px}
-.paso-pipe.ok{border-top-color:#4fb286}
-.paso-pipe.prog{border-top-color:var(--ambar)}
-.paso-pipe.esp{border-top-color:var(--gris);opacity:.85}
-.pipe-num{font-size:10.5px;text-transform:uppercase;font-family:var(--dato);color:var(--gris);letter-spacing:.05em}
-.pipe-tit{font-size:13.5px;font-weight:600;margin:3px 0;color:#fff}
-.pipe-det{font-size:12px;color:var(--gris);line-height:1.35}
-
-/* Barra de filtros interactivos */
-.barra-filtros{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0 14px;padding:10px 14px;
-  background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px}
-.busc-input{flex:1;min-width:210px;background:var(--tarjeta2);border:1px solid var(--linea);border-radius:5px;
-  padding:7px 12px;color:var(--tinta);font:14px var(--texto);outline:none;transition:border-color .15s}
-.busc-input:focus{border-color:var(--azul)}
-.btn-filtro{background:var(--tarjeta2);border:1px solid var(--linea);border-radius:5px;padding:6px 12px;
-  color:var(--gris);font:600 12px var(--dato);cursor:pointer;transition:all .15s ease}
-.btn-filtro:hover,.btn-filtro.activo{background:rgba(63,158,203,.18);border-color:var(--azul);color:var(--azul)}
-
-.hitos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.hito{background:var(--tarjeta);border:1px solid var(--linea);border-left:3px solid var(--gris);border-radius:7px;padding:13px 15px}
-.hito.hecho{border-left-color:#4fb286}.hito.en_curso{border-left-color:var(--ambar)}
-.h-tit{font-weight:600;margin-bottom:6px}.h-det{font-size:13.5px;color:var(--gris);margin-top:7px;line-height:1.45}
-.chip{display:inline-block;font:600 11px var(--dato);letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap}
-.chip.ok{background:rgba(79,178,134,.16);color:#6fcf9f}
-.chip.prog{background:rgba(217,160,60,.16);color:var(--ambar)}
-.chip.esp{background:rgba(142,164,187,.14);color:var(--gris)}
-.chip.mal{background:rgba(224,101,95,.16);color:var(--correccion)}
-.tabla{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;margin-top:12px;overflow-x:auto}
-.tabla table{font-family:var(--texto);font-size:14.5px}
-.tabla td{white-space:normal;vertical-align:top}
-.tabla th,.tabla td{text-align:left}
-td.izq{text-align:left}
-tr.imp td{background:rgba(224,101,95,.05)}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px}
-.pistas{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:14px;margin-top:12px}
-.pista{background:var(--tarjeta);border:1px solid var(--linea);border-left:3px solid var(--ambar);border-radius:7px;padding:14px 18px}
-.pista.confirmada{border-left-color:#4fb286}.pista.descartada,.pista.en_espera{border-left-color:var(--gris);opacity:.85}
-.pista h3{margin:8px 0}.pista p{margin:0 0 7px;font-size:14.5px}
-.p-cab{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:13px}
-
-/* Paneles ejecutivos de canal y bloques */
-.panel-canal{background:var(--tarjeta);border:1px solid var(--linea);border-radius:8px;padding:18px 20px;margin-bottom:14px;position:relative}
-.panel-canal-cab{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding-bottom:9px;border-bottom:1px solid var(--linea)}
-.panel-canal-tit{font-size:15px;font-weight:600;color:var(--tinta);margin:0;display:flex;align-items:center;gap:7px}
-.panel-canal-desc{font-size:13.5px;color:var(--gris);margin:0 0 12px;line-height:1.45}
-.panel-dato-fila{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(38,54,74,.4);font-size:13.5px}
-.panel-dato-fila:last-child{border-bottom:0}
-.panel-dato-et{color:var(--gris);min-width:130px}
-.panel-dato-val{color:var(--tinta);font-weight:500;text-align:right}
-.badge-pildora{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11.5px;font-family:var(--dato);background:var(--tarjeta2);border:1px solid var(--linea);color:var(--gris)}
-.badge-pildora.ok{border-color:rgba(79,178,134,.4);color:#6fcf9f;background:rgba(79,178,134,.1)}
-.badge-pildora.prog{border-color:rgba(217,160,60,.4);color:var(--ambar);background:rgba(217,160,60,.1)}
-.badge-pildora.esp{border-color:rgba(142,164,187,.4);color:var(--gris);background:rgba(142,164,187,.08)}
-.lista-chips-wrap{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-.caja-subtabla{background:var(--tarjeta2);border:1px solid var(--linea);border-radius:6px;padding:12px 14px;margin-top:10px}
-.caja-subtabla h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--gris);font-family:var(--dato)}
-.grid-vacantes-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:12px}
-.kpi-vacante{background:var(--tarjeta2);border:1px solid var(--linea);border-radius:6px;padding:9px 12px;text-align:center}
-.kpi-vacante-n{font-size:22px;font-family:var(--dato);font-weight:600;color:var(--azul)}
-.kpi-vacante-et{font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:.05em}
-.subtarjeta{background:var(--tarjeta);border:1px solid var(--linea);border-radius:7px;padding:14px 16px;margin-bottom:14px}
-.subtarjeta h3{margin:0 0 10px;font-size:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
-.ok-t{color:#6fcf9f}
-
-@media(max-width:768px){
-  .cols,.pistas,.pipeline-canal{grid-template-columns:1fr}
-  .pestanas{display:flex;overflow-x:auto}
-  .pestanas button{flex:1 0 auto;min-width:130px;padding:9px 12px;font-size:13.5px}
+header.cabecera-hero:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(56, 189, 248, 0.1);
 }
-/* Robustez en móvil: los hijos de las rejillas pueden encogerse y sus tablas hacen scroll dentro */
-.cols>*,.hitos>*,.pistas>*,.kpis-mini>*{min-width:0}
-.cols{grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr))}
-.pistas{grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))}
-/* Secciones plegables (pestaña EE.UU.) */
-details.plegable{border-bottom:1px solid var(--linea);margin:6px 0}
-details.plegable>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px}
-details.plegable>summary::-webkit-details-marker{display:none}
-details.plegable>summary h2{margin:22px 0 14px;flex:1}
-details.plegable>summary::after{content:"▸";color:var(--gris);font-size:18px;transition:transform .15s;margin-right:6px}
-details.plegable[open]>summary::after{transform:rotate(90deg)}
-details.plegable>summary:hover h2{color:var(--azul)}
-.plegable-cuerpo{padding-bottom:18px}
-.plegar-ctrl{display:flex;gap:8px;justify-content:flex-end;margin:10px 0 0}
-.plegar-ctrl button{background:var(--tarjeta);border:1px solid var(--linea);color:var(--gris);border-radius:5px;padding:5px 11px;font:600 12.5px var(--texto);cursor:pointer}
-.plegar-ctrl button:hover{color:var(--tinta);border-color:var(--azul)}
+.cabecera-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(30, 44, 63, 0.7);
+}
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  flex-shrink: 0;
+}
+.ticker-pill {
+  font-size: 0.72rem;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--azul);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  font-family: var(--dato);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.badge-marca {
+  font-family: var(--dato);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--azul);
+  padding: 3px 9px;
+  border-radius: 4px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-nav {
+  background: var(--tarjeta2);
+  border: 1px solid var(--linea);
+  color: var(--tinta);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-nav:hover {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: var(--azul);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+.cabecera-medio {
+  margin-bottom: 12px;
+}
+.cabecera-tit-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.cabecera-tit-wrap h1 {
+  font-size: 30px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+.badge-status-activo {
+  font-family: var(--dato);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 11px;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 8px #34d399;
+  animation: pulsoLive 2s infinite;
+}
+@keyframes pulsoLive {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+.cabecera-desc {
+  color: #b6c9dc;
+  font-size: 14.5px;
+  margin: 0;
+  line-height: 1.5;
+  max-width: none;
+}
+.cabecera-sync-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(30, 44, 63, 0.6);
+  font-size: 12.5px;
+  color: var(--gris);
+  font-family: var(--dato);
+}
+.sync-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.sync-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  display: inline-block;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+.sync-dot-gen {
+  background: var(--azul);
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+}
+
+/* MINI DASHBOARD KPIS SUPERIORES */
+.kpis-mini {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 14px 0 18px;
+}
+@media (max-width: 1024px) {
+  .kpis-mini { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .kpis-mini { grid-template-columns: 1fr; }
+}
+.kpi-card {
+  background: linear-gradient(135deg, var(--tarjeta) 0%, rgba(17, 26, 40, 0.85) 100%);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 15px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--azul-hondo);
+  transition: background 0.2s ease;
+}
+.kpi-card:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.22), 0 0 16px rgba(56, 189, 248, 0.15);
+}
+.kpi-card:hover::before {
+  background: var(--azul);
+}
+.kpi-card.c-verde::before { background: var(--verde); }
+.kpi-card.c-ambar::before { background: var(--ambar); }
+.kpi-card.c-morado::before { background: var(--morado); }
+.kpi-et {
+  font-family: var(--dato);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gris);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.kpi-val {
+  font-family: var(--dato);
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 5px 0 2px;
+  color: var(--azul);
+}
+.kpi-val.c-verde { color: #34d399; }
+.kpi-val.c-ambar { color: #fbbf24; }
+.kpi-val.c-morado { color: #c084fc; }
+.kpi-ud {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--gris);
+}
+.kpi-sub {
+  font-size: 12.5px;
+  color: var(--gris);
+  line-height: 1.4;
+}
+
+/* PESTAÑAS STICKY CON BANDERAS E ICONOS */
+.pestanas-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(11, 17, 26, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 6px 0 12px;
+  margin: 10px 0 20px;
+  border-bottom: 1px solid var(--linea);
+}
+.pestanas-wrap {
+  background: var(--tarjeta);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 6px;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+.pestanas {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin: 0;
+  width: 100%;
+}
+.pestanas button {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--gris);
+  font: 700 15.5px var(--texto);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+.pestanas button:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+.pestanas button[aria-selected=true] {
+  color: #fff;
+  background: rgba(56, 189, 248, 0.18);
+  border-color: var(--azul);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.22);
+}
+.pestanas .cuenta {
+  font-family: var(--dato);
+  font-size: 11.5px;
+  font-weight: 700;
+  background: rgba(245, 158, 11, 0.22);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 10px;
+  padding: 1px 7px;
+  margin-left: 2px;
+}
+.pestanas button[aria-selected=true] .cuenta {
+  background: var(--ambar);
+  color: #0b111a;
+  border-color: var(--ambar);
+}
+.bandera-tab {
+  width: 38px;
+  height: 24px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+  vertical-align: middle;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.pestanas button:hover .bandera-tab {
+  transform: scale(1.05);
+}
+.icono-tab {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+.pestanas button[aria-selected=true] .icono-tab {
+  opacity: 1;
+  color: var(--azul);
+}
+
+/* BANNERS POR PAÍS */
+.seccion-cab-pais {
+  background: linear-gradient(135deg, rgba(22, 36, 56, 0.8) 0%, rgba(13, 21, 34, 0.95) 100%);
+  border: 1px solid var(--linea);
+  border-left: 4px solid var(--azul);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 14px 0 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  transition: all 0.2s ease;
+}
+.seccion-cab-pais:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  border-left-color: var(--azul);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(56, 189, 248, 0.1);
+}
+.seccion-cab-pais .bandera-seccion {
+  width: 56px;
+  height: 36px;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+.seccion-cab-pais h2 {
+  margin: 0 0 4px;
+  font-size: 21px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.seccion-cab-pais h2::before { display: none; }
+.seccion-cab-pais p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--gris);
+  line-height: 1.45;
+}
+
+section[role=tabpanel] { display: none; }
+section[role=tabpanel].activa { display: block; }
+h2 {
+  font-size: 22px;
+  margin: 36px 0 16px;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+  color: #fff;
+}
+h2::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--azul);
+  vertical-align: middle;
+  margin-right: 10px;
+}
+h2 .cuenta {
+  font-family: var(--dato);
+  font-size: 13px;
+  background: var(--azul-hondo);
+  color: #fff;
+  border-radius: 9px;
+  padding: 1px 8px;
+  vertical-align: middle;
+}
+h3 { font-size: 16px; margin: 18px 0 8px; font-weight: 600; color: #fff; }
+
+/* HITOS (TAB RESUMEN) */
+.hitos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.hito {
+  background: linear-gradient(135deg, var(--tarjeta) 0%, rgba(17, 26, 40, 0.9) 100%);
+  border: 1px solid var(--linea);
+  border-left: 3px solid var(--gris);
+  border-radius: 9px;
+  padding: 15px 18px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+.hito.hecho { border-left-color: var(--verde); }
+.hito.en_curso { border-left-color: var(--ambar); }
+.hito.pendiente { border-left-color: var(--gris); }
+.hito:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.22), 0 0 16px rgba(56, 189, 248, 0.14);
+}
+.hito.hecho:hover { border-left-color: var(--verde); }
+.hito.en_curso:hover { border-left-color: var(--ambar); }
+.h-tit {
+  font-weight: 700;
+  font-size: 15.5px;
+  margin-bottom: 7px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.h-det {
+  font-size: 13.5px;
+  color: var(--gris);
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+/* CHIPS & TAGS */
+.chip {
+  display: inline-block;
+  font: 700 11px var(--dato);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2.5px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.chip.ok {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.chip.prog {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+.chip.esp {
+  background: rgba(142, 164, 187, 0.14);
+  color: var(--gris);
+  border: 1px solid rgba(142, 164, 187, 0.25);
+}
+.chip.mal {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+.tag {
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-family: var(--dato);
+}
+.tag.f {
+  background: rgba(56, 189, 248, 0.16);
+  color: var(--azul);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+.tag.p {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* TABLAS EJECUTIVAS */
+.tabla, .caja {
+  background: var(--tarjeta);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  margin-top: 14px;
+  overflow-x: auto;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+.tabla:hover, .caja:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--dato);
+  font-size: 14.5px;
+}
+th {
+  text-align: right;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--linea);
+  background: rgba(22, 36, 56, 0.6);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--gris);
+  font-weight: 700;
+  white-space: nowrap;
+}
+th:first-child, td:first-child { text-align: left; }
+td {
+  text-align: right;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--linea);
+  white-space: nowrap;
+  color: var(--tinta);
+  transition: background 0.15s ease;
+}
+tbody tr:hover td {
+  background: var(--tarjeta2);
+  color: #fff;
+}
+tbody tr:last-child td { border-bottom: none; }
+.tabla table { font-family: var(--texto); font-size: 14.5px; }
+.tabla td { white-space: normal; vertical-align: top; }
+.tabla th, .tabla td { text-align: left; }
+td.izq { text-align: left; }
+td.nw { white-space: nowrap; }
+.tachado { color: var(--correccion); text-decoration: line-through; font-size: 13px; }
+
+/* PIPELINE VISUAL DE CANAL (EE.UU.) */
+.pipeline-canal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin: 14px 0 24px;
+}
+@media (max-width: 1200px) {
+  .pipeline-canal { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+.paso-pipe {
+  background: linear-gradient(135deg, var(--tarjeta) 0%, rgba(17, 26, 40, 0.85) 100%);
+  border: 1px solid var(--linea);
+  border-top: 3px solid var(--gris);
+  border-radius: 8px;
+  padding: 12px 14px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.paso-pipe.ok { border-top-color: var(--verde); }
+.paso-pipe.prog { border-top-color: var(--ambar); }
+.paso-pipe.esp { border-top-color: var(--gris); opacity: 0.85; }
+.paso-pipe:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.22), 0 0 14px rgba(56, 189, 248, 0.12);
+}
+.paso-pipe.ok:hover { border-top-color: var(--verde); }
+.paso-pipe.prog:hover { border-top-color: var(--ambar); }
+.pipe-num {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  font-family: var(--dato);
+  color: var(--gris);
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+.pipe-tit {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 4px 0 2px;
+  color: #fff;
+}
+.pipe-det {
+  font-size: 12px;
+  color: var(--gris);
+  line-height: 1.4;
+}
+
+/* BARRA DE FILTROS & BUSCADOR */
+.barra-filtros {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 14px 0 16px;
+  padding: 12px 16px;
+  background: var(--tarjeta);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+.busc-input-wrap {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.busc-input {
+  width: 100%;
+  background: var(--tarjeta2);
+  border: 1px solid var(--linea);
+  border-radius: 7px;
+  padding: 9px 14px 9px 36px;
+  color: var(--tinta);
+  font: 14px var(--texto);
+  outline: none;
+  transition: all 0.2s ease;
+}
+.busc-input:focus {
+  border-color: var(--azul);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  background: #1a2a3e;
+}
+.busc-icono {
+  position: absolute;
+  left: 11px;
+  width: 16px;
+  height: 16px;
+  color: var(--gris);
+  pointer-events: none;
+}
+.btn-filtro {
+  background: var(--tarjeta2);
+  border: 1px solid var(--linea);
+  border-radius: 7px;
+  padding: 8px 14px;
+  color: var(--gris);
+  font: 700 12px var(--dato);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-filtro:hover, .btn-filtro.activo {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: var(--azul);
+  color: var(--azul);
+  transform: translateY(-1px);
+}
+
+/* PANELES DE CANAL Y BLOQUES EE.UU. */
+.panel-canal {
+  background: linear-gradient(135deg, var(--tarjeta) 0%, rgba(17, 26, 40, 0.95) 100%);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  position: relative;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+.panel-canal:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.2), 0 0 16px rgba(56, 189, 248, 0.12);
+}
+.panel-canal-cab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--linea);
+}
+.panel-canal-tit {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panel-canal-desc {
+  font-size: 13.5px;
+  color: var(--gris);
+  margin: 0 0 12px;
+  line-height: 1.45;
+}
+.panel-dato-fila {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(30, 44, 63, 0.6);
+  font-size: 13.5px;
+}
+.panel-dato-fila:last-child { border-bottom: 0; }
+.panel-dato-et { color: var(--gris); min-width: 130px; }
+.panel-dato-val { color: var(--tinta); font-weight: 500; text-align: right; }
+.badge-pildora {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-family: var(--dato);
+  background: var(--tarjeta2);
+  border: 1px solid var(--linea);
+  color: var(--gris);
+}
+.badge-pildora.ok { border-color: rgba(16, 185, 129, 0.4); color: #34d399; background: rgba(16, 185, 129, 0.1); }
+.badge-pildora.prog { border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; background: rgba(245, 158, 11, 0.1); }
+.badge-pildora.esp { border-color: rgba(142, 164, 187, 0.4); color: var(--gris); background: rgba(142, 164, 187, 0.08); }
+.lista-chips-wrap { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.caja-subtabla {
+  background: var(--tarjeta2);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-top: 10px;
+}
+.caja-subtabla h4 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gris);
+  font-family: var(--dato);
+}
+.grid-vacantes-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.kpi-vacante {
+  background: linear-gradient(135deg, var(--tarjeta) 0%, rgba(17, 26, 40, 0.85) 100%);
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  padding: 12px 14px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.kpi-vacante:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-2px);
+}
+.kpi-vacante-n {
+  font-size: 26px;
+  font-family: var(--dato);
+  font-weight: 700;
+  color: var(--azul);
+}
+.kpi-vacante-et {
+  font-size: 11px;
+  color: var(--gris);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.subtarjeta {
+  background: var(--tarjeta);
+  border: 1px solid var(--linea);
+  border-radius: 9px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+.subtarjeta:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+}
+.subtarjeta h3 {
+  margin: 0 0 12px;
+  font-size: 15.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* UK KPIS */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin: 16px 0 20px;
+}
+@media (max-width: 1200px) {
+  .kpis { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .kpis { grid-template-columns: 1fr 1fr; }
+}
+.kpi {
+  background: linear-gradient(135deg, var(--tarjeta) 0%, rgba(17, 26, 40, 0.85) 100%);
+  border: 1px solid var(--linea);
+  border-radius: 9px;
+  padding: 14px 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+.kpi::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--azul-hondo);
+}
+.kpi:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.22), 0 0 16px rgba(56, 189, 248, 0.14);
+}
+.kpi .et {
+  font-family: var(--dato);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gris);
+  font-weight: 600;
+}
+.kpi .n {
+  font-family: var(--dato);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 5px;
+  color: var(--azul);
+}
+.kpi .pie {
+  font-size: 12.5px;
+  color: var(--gris);
+  margin-top: 4px;
+  line-height: 1.35;
+}
+.kpi .n.provisional { color: #fbbf24; }
+
+/* PISTAS / LEADS (TAB PISTAS) */
+.pistas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+@media (max-width: 768px) {
+  .pistas { grid-template-columns: 1fr; }
+}
+.pista {
+  background: linear-gradient(135deg, var(--tarjeta) 0%, rgba(17, 26, 40, 0.95) 100%);
+  border: 1px solid var(--linea);
+  border-left: 4px solid var(--ambar);
+  border-radius: 10px;
+  padding: 16px 20px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+.pista.confirmada { border-left-color: var(--verde); }
+.pista.descartada, .pista.en_espera { border-left-color: var(--gris); opacity: 0.88; }
+.pista:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.22), 0 0 16px rgba(56, 189, 248, 0.14);
+}
+.pista.confirmada:hover { border-left-color: var(--verde); }
+.pista.en_espera:hover { border-left-color: var(--gris); }
+.pista h3 {
+  margin: 10px 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+}
+.pista p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #cddbe9;
+  line-height: 1.5;
+}
+.p-cab {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 12.5px;
+}
+
+/* NOTAS Y CALLOUTS */
+.nota {
+  background: var(--tarjeta);
+  border: 1px solid var(--linea);
+  border-left: 4px solid var(--azul);
+  border-radius: 0 9px 9px 0;
+  padding: 16px 22px;
+  margin-top: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.nota.aviso { border-left-color: var(--ambar); }
+.nota h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--azul);
+  font-family: var(--dato);
+  letter-spacing: 0.03em;
+}
+.nota.aviso h3 { color: #fbbf24; }
+.nota p { margin: 0 0 9px; color: #cddbe9; }
+.nota p:last-child { margin: 0; }
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+  gap: 18px;
+}
+.rev {
+  font-family: var(--dato);
+  font-size: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--linea);
+}
+.rev:last-child { border: 0; }
+.rev .m { font-weight: 700; display: inline-block; min-width: 74px; color: var(--azul); }
+
+/* SECCIONES PLEGABLES (ACORDEONES) */
+details.plegable {
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  margin: 12px 0;
+  background: var(--tarjeta);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease;
+  overflow: hidden;
+}
+details.plegable:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+}
+details.plegable > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+details.plegable > summary::-webkit-details-marker { display: none; }
+details.plegable > summary:hover {
+  background: var(--tarjeta2);
+}
+details.plegable > summary h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+details.plegable > summary h2::before { display: none; }
+
+
+.plegable-cuerpo {
+  padding: 10px 20px 20px;
+  border-top: 1px solid var(--linea);
+}
+.plegar-ctrl {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin: 12px 0 4px;
+}
+.plegar-ctrl button {
+  background: var(--tarjeta2);
+  border: 1px solid var(--linea);
+  color: var(--gris);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font: 700 12px var(--dato);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.plegar-ctrl button:hover {
+  color: #fff;
+  border-color: var(--azul);
+  background: rgba(56, 189, 248, 0.15);
+  transform: translateY(-1px);
+}
+
+/* FOOTER */
+footer {
+  margin-top: 50px;
+  padding-top: 22px;
+  border-top: 1px solid var(--linea);
+  font-size: 13px;
+  color: var(--gris);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* UTILIDADES */
+::selection { background: var(--azul-hondo); color: #fff; }
+a { color: var(--azul); text-decoration: none; transition: color 0.15s; }
+a:hover { color: #7dd3fc; text-decoration: underline; }
+.g { color: var(--gris); }
+.peq { font-size: 13px; }
+.nw { white-space: nowrap; }
+.mono { font-family: var(--dato); }
+.mal-t { color: var(--correccion); }
+.ok-t { color: #34d399; }
+code { font-family: var(--dato); font-size: 13px; background: var(--tarjeta2); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--linea); }
+
+/* SVG CHARTS STYLING - High contrast, luminous text */
+.eje { font-family: var(--dato) !important; font-size: 12px !important; fill: #94a3b8 !important; }
+.eje2 { font-family: var(--dato) !important; font-size: 12px !important; fill: #fb923c !important; font-weight: 600 !important; }
+.valor { font-family: var(--dato) !important; font-size: 13.5px !important; fill: #ffffff !important; font-weight: 700 !important; }
+.previo { font-family: var(--dato) !important; font-size: 11.5px !important; fill: #f87171 !important; text-decoration: line-through !important; }
+.leyenda { font-size: 13px !important; fill: #cbd5e1 !important; font-family: var(--texto) !important; }
+.previo-l { fill: #f87171 !important; text-decoration: line-through !important; font-family: var(--dato) !important; }
+svg line { stroke: rgba(148, 163, 184, 0.25); }
+
+/* MASTER ACCORDION CONTROLS BANNER (USA) */
+.plegar-ctrl-banner {
+  background: linear-gradient(135deg, rgba(20, 32, 48, 0.95) 0%, rgba(13, 21, 33, 0.95) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 0 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 18px rgba(56, 189, 248, 0.12);
+  transition: all 0.2s ease;
+}
+.plegar-ctrl-banner:hover {
+  border-color: var(--azul);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 22px rgba(56, 189, 248, 0.2);
+}
+.plegar-ctrl-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.plegar-icono-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+  flex-shrink: 0;
+}
+.plegar-tit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+.badge-acordeon-live {
+  font-family: var(--dato);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--azul);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pulse-dot-cyan {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--azul);
+  box-shadow: 0 0 8px var(--azul);
+  animation: pulsoLive 2s infinite;
+}
+.plegar-sub {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: var(--gris);
+}
+.plegar-btn-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-ctrl-master {
+  background: var(--tarjeta2);
+  border: 1px solid var(--linea);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-family: var(--dato);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.04em;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-master-expand {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #38bdf8;
+}
+.btn-master-expand:hover {
+  background: #0284c7;
+  color: #fff;
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.4), 0 0 15px rgba(56, 189, 248, 0.3);
+}
+.btn-master-collapse {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+}
+.btn-master-collapse:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* SECCIONES PLEGABLES */
+details.plegable {
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  margin: 14px 0;
+  background: var(--tarjeta);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+details.plegable:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.15), 0 0 12px rgba(56, 189, 248, 0.1);
+}
+details.plegable[open] {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 16px rgba(56, 189, 248, 0.12);
+}
+details.plegable > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  user-select: none;
+  background: linear-gradient(135deg, #131f2f 0%, #0f1723 100%);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+details.plegable > summary::-webkit-details-marker { display: none; }
+details.plegable > summary:hover {
+  background: linear-gradient(135deg, #18283c 0%, #121c2a 100%);
+}
+details.plegable > summary h2 {
+  margin: 0;
+  font-size: 17.5px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+details.plegable > summary h2::before { display: none; }
+
+/* Interactive pill badge inside summary */
+.badge-plegable-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--dato);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 13px;
+  border-radius: 20px;
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--azul);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+details.plegable > summary:hover .badge-plegable-pill {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: var(--azul);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+  transform: scale(1.03);
+}
+details.plegable[open] .badge-plegable-pill {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+.badge-plegable-pill .txt-cerrado { display: inline-flex; align-items: center; gap: 5px; }
+.badge-plegable-pill .txt-abierto { display: none; align-items: center; gap: 5px; }
+details.plegable[open] .badge-plegable-pill .txt-cerrado { display: none; }
+details.plegable[open] .badge-plegable-pill .txt-abierto { display: inline-flex; }
+
 </style></head><body><div class="envoltorio">
 <header class="cabecera-hero">
 <div class="cabecera-top">
-<div class="cabecera-marca"><span class="badge-marca">LYTENAVA · COMMUNITY TRACKER</span> <span class="marca-sub">Independent, built from public sources · not affiliated with Outlook Therapeutics</span></div>
-
+  <div class="brand-wrap">
+    <div class="logo-box">
+      <svg viewBox="0 0 36 36" style="width:30px;height:30px;"><defs><linearGradient id="otlkGradHero" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="50%" stop-color="#0284c7"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs><path d="M4 18 C8 10, 14 6, 18 6 C22 6, 28 10, 32 18 C28 26, 22 30, 18 30 C14 30, 8 26, 4 18 Z" fill="none" stroke="url(#otlkGradHero)" stroke-width="2.6" stroke-linecap="round"/><circle cx="18" cy="18" r="5.5" fill="none" stroke="#38bdf8" stroke-width="2.2"/><circle cx="18" cy="18" r="2.8" fill="#10b981"/><circle cx="15.8" cy="15.8" r="1.2" fill="#ffffff"/></svg>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <span style="font-size:1.15rem;font-weight:800;letter-spacing:0.02em;color:#fff;">OUTLOOK THERAPEUTICS</span>
+        <span class="ticker-pill">NASDAQ: OTLK</span>
+        <span class="badge-marca">COMMUNITY TRACKER</span>
+      </div>
+      <p style="font-size:0.82rem;color:var(--gris);margin-top:2px;">Independent institutional intelligence · Not affiliated with Outlook Therapeutics</p>
+    </div>
+  </div>
+  <div class="nav-actions">
+    <a class="btn-nav" href="index.html"><svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Portal 360°</a>
+    <a class="btn-nav" href="OTLK_Executive_Dashboard_360.html"><svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Executive Dashboard</a>
+    <a class="btn-nav" href="SEC_Filings_Index.html"><svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> SEC Filings</a>
+  </div>
 </div>
 <div class="cabecera-medio">
-<div class="cabecera-tit-wrap">
-<h1>LYTENAVA · Launch tracker</h1>
-
-</div>
-<p class="cabecera-desc">Unified view of public procurement, pricing, payer reimbursement and the commercial channel in the US, the UK and Europe.</p>
+  <div class="cabecera-tit-wrap">
+    <h1>LYTENAVA · Global Commercial Launch Tracker</h1>
+    <span class="badge-status-activo"><span class="pulse-dot"></span> LIVE MONITOR</span>
+  </div>
+  <p class="cabecera-desc">Unified intelligence tracking public procurement, pricing structures, payer coverage, and NHS adoption across the US, UK, and European markets.</p>
 </div>
 <div class="cabecera-sync-bar">
-
-
-<div class="sync-item"><strong>Data refreshed:</strong> 2026-10-15 08:36 UTC</div>
+  <div class="sync-item"><span class="sync-dot"></span> <strong>Data refreshed:</strong> 2026-10-15 13:43 UTC</div>
+  <div class="sync-item"><span class="sync-dot sync-dot-gen"></span> <strong>Coverage:</strong> FDA · CMS J-Code · Medicaid MDRP · VA FSS · NHSBSA England · Cencora</div>
 </div>
 </header>
 <div class="kpis-mini">
 <div class="kpi-card">
-<div class="kpi-et">Official WAC (US)</div>
+<div class="kpi-et"><span>Official WAC (US)</span> <svg style="width:15px;height:15px;opacity:0.7;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
 <div class="kpi-val">$485</div>
 <div class="kpi-sub">per vial · list price, not net</div>
 </div>
-<div class="kpi-card">
-<div class="kpi-et">NHS vials (England)</div>
-<div class="kpi-val">419 <span class="kpi-ud">cumulative</span></div>
+<div class="kpi-card c-verde">
+<div class="kpi-et"><span>NHS Vials (England)</span> <svg style="width:15px;height:15px;opacity:0.7;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div>
+<div class="kpi-val c-verde">419 <span class="kpi-ud">cumulative</span></div>
 <div class="kpi-sub">£196,930 at list price · 11 months · run rate 636/year</div>
 </div>
-<div class="kpi-card">
-<div class="kpi-et">Payers (US)</div>
-<div class="kpi-val">4 <span class="kpi-ud">of 10</span></div>
-<div class="kpi-sub">1 covered · 3 prior authorization or under review</div>
+<div class="kpi-card c-ambar">
+<div class="kpi-et"><span>Payers Monitored (US)</span> <svg style="width:15px;height:15px;opacity:0.7;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+<div class="kpi-val c-ambar">4 <span class="kpi-ud">of 10</span></div>
+<div class="kpi-sub">1 covered · 3 prior auth/under review</div>
 </div>
-<div class="kpi-card">
-<div class="kpi-et">Open positions</div>
-<div class="kpi-val">8 <span class="kpi-ud">on the website</span></div>
-<div class="kpi-sub">+21 listed only on job boards · peak 29</div>
+<div class="kpi-card c-morado">
+<div class="kpi-et"><span>Commercial Roles</span> <svg style="width:15px;height:15px;opacity:0.7;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div>
+<div class="kpi-val c-morado">8 <span class="kpi-ud">on website</span></div>
+<div class="kpi-sub">+21 listed on job boards · historical peak 29</div>
 </div>
 </div>
-<div class="pestanas-sticky"><div class="pestanas-wrap"><nav class="pestanas" role="tablist"><button aria-selected="false" data-p="resumen" role="tab"><svg class="icono-tab" fill="currentColor" viewbox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM13 9a1 1 0 00-1 1v6a1 1 0 001 1h3a1 1 0 001-1v-6a1 1 0 00-1-1h-3z"></path></svg> <span>Summary</span><span class="cuenta">2</span></button><button aria-selected="false" data-p="eeuu" role="tab"><svg class="bandera-tab" viewbox="0 0 30 18"><rect fill="#b22234" height="18" width="30"></rect><path d="M0 2.77h30M0 5.54h30M0 8.31h30M0 11.08h30M0 13.85h30M0 16.62h30" stroke="#fff" stroke-width="1.38"></path><rect fill="#3c3b6e" height="9.7" width="12"></rect><g fill="#fff"><circle cx="3" cy="2.5" r="0.7"></circle><circle cx="6" cy="2.5" r="0.7"></circle><circle cx="9" cy="2.5" r="0.7"></circle><circle cx="4.5" cy="4.8" r="0.7"></circle><circle cx="7.5" cy="4.8" r="0.7"></circle><circle cx="3" cy="7.2" r="0.7"></circle><circle cx="6" cy="7.2" r="0.7"></circle><circle cx="9" cy="7.2" r="0.7"></circle></g></svg> <span>US</span></button><button aria-selected="false" data-p="uk" role="tab"><svg class="bandera-tab" viewbox="0 0 30 18"><clippath id="ukclip"><rect height="18" rx="2" width="30"></rect></clippath><g clip-path="url(#ukclip)"><rect fill="#012169" height="18" width="30"></rect><path d="M0 0l30 18M30 0L0 18" stroke="#fff" stroke-width="3.5"></path><path d="M0 0l30 18M30 0L0 18" stroke="#c8102e" stroke-width="2"></path><path d="M15 0v18M0 9h30" stroke="#fff" stroke-width="5.5"></path><path d="M15 0v18M0 9h30" stroke="#c8102e" stroke-width="3.2"></path></g></svg> <span>United Kingdom</span></button><button aria-selected="false" data-p="europa" role="tab"><svg class="bandera-tab" viewbox="0 0 30 18"><rect fill="#003399" height="18" rx="2" width="30"></rect><circle cx="15" cy="9" fill="none" r="4.8" stroke="#ffcc00" stroke-dasharray="1.3 1.2" stroke-width="1.2"></circle></svg> <span>Europe &amp; rest of world</span></button><button aria-selected="false" data-p="pistas" role="tab"><svg class="icono-tab" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" fill-rule="evenodd"></path></svg> <span>Leads</span><span class="cuenta">11</span></button></nav></div></div>
+<div class="pestanas-sticky"><div class="pestanas-wrap"><nav class="pestanas" role="tablist"><button aria-selected="false" data-p="resumen" role="tab"><svg class="icono-tab" fill="currentColor" viewbox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM13 9a1 1 0 00-1 1v6a1 1 0 001 1h3a1 1 0 001-1v-6a1 1 0 00-1-1h-3z"></path></svg> <span>Summary</span><span class="cuenta">2</span></button><button aria-selected="false" data-p="eeuu" role="tab"><svg class="bandera-tab" viewBox="0 0 60 38"><rect width="60" height="38" rx="2" fill="#b22234"/><path d="M0 5.85h60M0 11.7h60M0 17.55h60M0 23.4h60M0 29.25h60M0 35.1h60" stroke="#fff" stroke-width="2.92"/><rect width="25" height="20.5" fill="#3c3b6e"/><g fill="#fff"><circle cx="4" cy="3.5" r="1.05"/><circle cx="8" cy="3.5" r="1.05"/><circle cx="12" cy="3.5" r="1.05"/><circle cx="16" cy="3.5" r="1.05"/><circle cx="20" cy="3.5" r="1.05"/><circle cx="6" cy="7" r="1.05"/><circle cx="10" cy="7" r="1.05"/><circle cx="14" cy="7" r="1.05"/><circle cx="18" cy="7" r="1.05"/><circle cx="4" cy="10.5" r="1.05"/><circle cx="8" cy="10.5" r="1.05"/><circle cx="12" cy="10.5" r="1.05"/><circle cx="16" cy="10.5" r="1.05"/><circle cx="20" cy="10.5" r="1.05"/><circle cx="6" cy="14" r="1.05"/><circle cx="10" cy="14" r="1.05"/><circle cx="14" cy="14" r="1.05"/><circle cx="18" cy="14" r="1.05"/><circle cx="4" cy="17.5" r="1.05"/><circle cx="8" cy="17.5" r="1.05"/><circle cx="12" cy="17.5" r="1.05"/><circle cx="16" cy="17.5" r="1.05"/><circle cx="20" cy="17.5" r="1.05"/></g></svg> <span>USA</span></button><button aria-selected="false" data-p="uk" role="tab"><svg class="bandera-tab" viewBox="0 0 60 38"><clipPath id="ukTabClip"><rect width="60" height="38" rx="2"/></clipPath><g clip-path="url(#ukTabClip)"><rect width="60" height="38" fill="#012169"/><path d="M0 0l60 38M60 0L0 38" stroke="#fff" stroke-width="7"/><path d="M0 0l60 38M60 0L0 38" stroke="#c8102e" stroke-width="4.2"/><path d="M30 0v38M0 19h60" stroke="#fff" stroke-width="11"/><path d="M30 0v38M0 19h60" stroke="#c8102e" stroke-width="6.8"/></g></svg> <span>United Kingdom</span></button><button aria-selected="false" data-p="europa" role="tab"><svg class="bandera-tab" viewBox="0 0 60 38"><rect width="60" height="38" rx="2" fill="#003399"/><g fill="#ffcc00"><circle cx="40.5" cy="19" r="1.3"/><circle cx="39.1" cy="24.2" r="1.3"/><circle cx="35.3" cy="28.1" r="1.3"/><circle cx="30" cy="29.5" r="1.3"/><circle cx="24.7" cy="28.1" r="1.3"/><circle cx="20.9" cy="24.2" r="1.3"/><circle cx="19.5" cy="19" r="1.3"/><circle cx="20.9" cy="13.8" r="1.3"/><circle cx="24.7" cy="9.9" r="1.3"/><circle cx="30" cy="8.5" r="1.3"/><circle cx="35.3" cy="9.9" r="1.3"/><circle cx="39.1" cy="13.8" r="1.3"/></g></svg> <span>Europe &amp; rest of world</span></button><button aria-selected="false" data-p="pistas" role="tab"><svg class="icono-tab" fill="currentColor" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" fill-rule="evenodd"></path></svg> <span>Leads</span><span class="cuenta">11</span></button></nav></div></div>
 <section id="resumen" role="tabpanel">
 <h2>Launch milestones</h2>
-<div class="hitos"><div class="hito hecho"><div class="h-tit">FDA approval</div><span class="chip ok">done</span><div class="h-det">BLA761320 · Jul 24, 2026</div></div><div class="hito hecho"><div class="h-tit">NDC code</div><span class="chip ok">done</span><div class="h-det">82491-025-10 · launch date declared Jul 16, 2026</div></div><div class="hito hecho"><div class="h-tit">List price (WAC)</div><span class="chip ok">done</span><div class="h-det">$485 per vial (8-K of Sep 16, 2026)</div></div><div class="hito en_curso"><div class="h-tit">J-code (CMS)</div><span class="chip prog">in progress</span><div class="h-det">HCPCS application filed Oct 1, 2026. Preliminary decision expected around January 2027; effective Apr 1, 2027 if granted.</div></div><div class="hito en_curso"><div class="h-tit">Payers</div><span class="chip prog">in progress</span><div class="h-det">1 covered, 3 prior authorization or under review, 6 with no mention or not yet checked</div></div><div class="hito en_curso"><div class="h-tit">Product in channel (US)</div><span class="chip prog">in progress</span><div class="h-det">Company states: available before the end of 2026. The product website still shows 'coming soon'.</div></div><div class="hito pendiente"><div class="h-tit">Medicaid</div><span class="chip esp">pending</span><div class="h-det">not registered in the rebate program</div></div><div class="hito pendiente"><div class="h-tit">Federal price (VA)</div><span class="chip esp">pending</span><div class="h-det">not listed in TPharmPrices2026-10-01.xlsx</div></div><div class="hito hecho"><div class="h-tit">United Kingdom (NHS)</div><span class="chip ok">done</span><div class="h-det">46 vials in 07/2026 (provisional) · 419 cumulative (includes 4 provisional months)</div></div><div class="hito en_curso"><div class="h-tit">Europe</div><span class="chip prog">in progress</span><div class="h-det">On sale: United Kingdom, Germany, Austria. Next: Netherlands (early 2027), Switzerland (2027)</div></div></div>
+<div class="hitos">
+<div class="hito hecho"><div class="h-tit"><span>FDA approval</span> <svg style="width:16px;height:16px;color:#34d399;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div><span class="chip ok">done</span><div class="h-det">BLA761320 · Jul 24, 2026</div></div><div class="hito hecho"><div class="h-tit"><span>NDC code</span> <svg style="width:16px;height:16px;color:#34d399;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div><span class="chip ok">done</span><div class="h-det">82491-025-10 · launch date declared Jul 16, 2026</div></div><div class="hito hecho"><div class="h-tit"><span>List price (WAC)</span> <svg style="width:16px;height:16px;color:#34d399;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div><span class="chip ok">done</span><div class="h-det">$485 per vial (8-K of Sep 16, 2026)</div></div><div class="hito en_curso"><div class="h-tit"><span>J-code (CMS)</span> <svg style="width:16px;height:16px;color:#fbbf24;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><span class="chip prog">in progress</span><div class="h-det">HCPCS application filed Oct 1, 2026. Preliminary decision expected around January 2027; effective Apr 1, 2027 if granted.</div></div><div class="hito en_curso"><div class="h-tit"><span>Payers</span> <svg style="width:16px;height:16px;color:#fbbf24;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><span class="chip prog">in progress</span><div class="h-det">1 covered, 3 prior authorization or under review, 6 with no mention or not yet checked</div></div><div class="hito en_curso"><div class="h-tit"><span>Product in channel (US)</span> <svg style="width:16px;height:16px;color:#fbbf24;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><span class="chip prog">in progress</span><div class="h-det">Company states: available before the end of 2026. The product website still shows 'coming soon'.</div></div><div class="hito pendiente"><div class="h-tit"><span>Medicaid</span> <svg style="width:16px;height:16px;color:var(--gris);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div><span class="chip esp">pending</span><div class="h-det">not registered in the rebate program</div></div><div class="hito pendiente"><div class="h-tit"><span>Federal price (VA)</span> <svg style="width:16px;height:16px;color:var(--gris);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div><span class="chip esp">pending</span><div class="h-det">not listed in TPharmPrices2026-10-01.xlsx</div></div><div class="hito hecho"><div class="h-tit"><span>United Kingdom (NHS)</span> <svg style="width:16px;height:16px;color:#34d399;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div><span class="chip ok">done</span><div class="h-det">46 vials in 07/2026 (provisional) · 419 cumulative (includes 4 provisional months)</div></div><div class="hito en_curso"><div class="h-tit"><span>Europe</span> <svg style="width:16px;height:16px;color:#fbbf24;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><span class="chip prog">in progress</span><div class="h-det">On sale: United Kingdom, Germany, Austria. Next: Netherlands (early 2027), Switzerland (2027)</div></div></div>
 <h2>Upcoming data releases</h2>
 <div class="tabla"><table><thead><tr><th>Source</th><th>When</th><th>What it covers</th></tr></thead><tbody><tr><td class="izq">NHS (England)</td><td class="izq">Month 08/2026, provisional release around 10/2026</td><td class="izq g">Provisional data is published around the 23rd–24th of each month.</td></tr><tr><td class="izq">Medicaid MDRP</td><td class="izq">Weekly (Mondays)</td><td class="izq g">New products added to the rebate program.</td></tr><tr><td class="izq">VA FSS</td><td class="izq">Monthly (1st)</td><td class="izq g">Federal price list.</td></tr><tr><td class="izq">CMS files</td><td class="izq">Quarterly (January, April, July, October)</td><td class="izq g">NDC-HCPCS crosswalk, payment limits and OPPS Addendum B.</td></tr><tr><td class="izq">CMS J-code</td><td class="izq">Preliminary decision around January 2027</td><td class="izq g">Effective Apr 1, 2027 if granted.</td></tr><tr><td class="izq">Medicaid SDUD</td><td class="izq">Quarterly, ~6 months behind</td><td class="izq g">Q4 2026 would be published around May 2027.</td></tr><tr><td class="izq">NHS final</td><td class="izq">July 2027</td><td class="izq g">Annual refresh: provisional months become final.</td></tr></tbody></table></div>
 
 </section><section id="eeuu" role="tabpanel">
-<p class="g">Data refreshed 2026-10-15 08:36 UTC. SEC filings: <a href="SEC_Filings_Index.html">SEC filings index</a>.</p>
-<div class="plegar-ctrl"><button onclick="plegarTodo(true)" type="button">Expand all</button><button onclick="plegarTodo(false)" type="button">Collapse all</button></div><details class="plegable" open=""><summary><h2>US channel and rollout · Commercial pipeline</h2></summary><div class="plegable-cuerpo">
+<div class="seccion-cab-pais">
+  <svg class="bandera-seccion" viewBox="0 0 60 38">
+    <rect width="60" height="38" rx="3" fill="#b22234"/>
+    <path d="M0 5.85h60M0 11.7h60M0 17.55h60M0 23.4h60M0 29.25h60M0 35.1h60" stroke="#fff" stroke-width="2.92"/>
+    <rect width="25" height="20.5" fill="#3c3b6e"/>
+    <g fill="#fff">
+      <circle cx="4" cy="3.5" r="1.05"/><circle cx="8" cy="3.5" r="1.05"/><circle cx="12" cy="3.5" r="1.05"/><circle cx="16" cy="3.5" r="1.05"/><circle cx="20" cy="3.5" r="1.05"/>
+      <circle cx="6" cy="7" r="1.05"/><circle cx="10" cy="7" r="1.05"/><circle cx="14" cy="7" r="1.05"/><circle cx="18" cy="7" r="1.05"/>
+      <circle cx="4" cy="10.5" r="1.05"/><circle cx="8" cy="10.5" r="1.05"/><circle cx="12" cy="10.5" r="1.05"/><circle cx="16" cy="10.5" r="1.05"/><circle cx="20" cy="10.5" r="1.05"/>
+      <circle cx="6" cy="14" r="1.05"/><circle cx="10" cy="14" r="1.05"/><circle cx="14" cy="14" r="1.05"/><circle cx="18" cy="14" r="1.05"/>
+      <circle cx="4" cy="17.5" r="1.05"/><circle cx="8" cy="17.5" r="1.05"/><circle cx="12" cy="17.5" r="1.05"/><circle cx="16" cy="17.5" r="1.05"/><circle cx="20" cy="17.5" r="1.05"/>
+    </g>
+  </svg>
+  <div>
+    <h2>USA · Commercial Launch &amp; Channel</h2>
+    <p class="g">Rollout, CMS J-Code tracking, FDA packaging, Cencora distribution and payer coverage across the United States. SEC filings: <a href="SEC_Filings_Index.html">SEC filings index</a>.</p>
+  </div>
+</div>
+<div class="plegar-ctrl-banner">
+  <div class="plegar-ctrl-info">
+    <div class="plegar-icono-wrap">
+      <svg style="width:20px;height:20px;color:#38bdf8;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="3" y1="9" x2="21" y2="9"></line>
+        <line x1="9" y1="21" x2="9" y2="9"></line>
+      </svg>
+    </div>
+    <div>
+      <div class="plegar-tit">
+        <span>USA COMMERCIAL MODULES</span>
+        <span class="badge-acordeon-live"><span class="pulse-dot-cyan"></span> 7 INTERACTIVE SECTIONS</span>
+      </div>
+      <p class="plegar-sub">Click any section header below to unfold or collapse details, or use the master toggles:</p>
+    </div>
+  </div>
+  <div class="plegar-btn-group">
+    <button class="btn-ctrl-master btn-master-expand" onclick="plegarTodo(true)" type="button">
+      <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+      <span>EXPAND ALL SECTIONS</span>
+    </button>
+    <button class="btn-ctrl-master btn-master-collapse" onclick="plegarTodo(false)" type="button">
+      <svg style="width:16px;height:16px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/></svg>
+      <span>COLLAPSE ALL</span>
+    </button>
+  </div>
+</div><details class="plegable" open=""><summary><h2><span style="color:var(--azul);font-family:var(--dato);">01.</span> US Channel &amp; Rollout · Commercial Pipeline</h2><span class="badge-plegable-pill"><span class="txt-cerrado"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> EXPAND</span><span class="txt-abierto"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg> COLLAPSE</span></span></summary><div class="plegable-cuerpo">
 <div class="pipeline-canal"><div class="paso-pipe ok">
 <div class="pipe-num">Step 1</div>
 <div class="pipe-tit">FDA approval</div>
@@ -322,13 +1439,16 @@ details.plegable>summary:hover h2{color:var(--azul)}
 <div class="pipe-tit">Commercial rollout</div>
 <div class="pipe-det">Website shows 'coming soon'</div>
 </div></div>
-</div></details><details class="plegable" open=""><summary><h2>Payers</h2></summary><div class="plegable-cuerpo">
+</div></details><details class="plegable" open=""><summary><h2><span style="color:var(--azul);font-family:var(--dato);">02.</span> Payers &amp; Coverage Policies (10 Monitored)</h2><span class="badge-plegable-pill"><span class="txt-cerrado"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> EXPAND</span><span class="txt-abierto"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg> COLLAPSE</span></span></summary><div class="plegable-cuerpo">
 
 <div class="barra-filtros">
-<input class="busc-input" id="busc-pagadores" oninput="filtrarTablaGenerica('tabla-pagadores', this.value)" placeholder="🔍 Filter payers (UHC, Aetna, Cigna, Texas, Medicare...)..." type="text"/>
-<span class="g peq">10 payers covered</span>
+  <div class="busc-input-wrap">
+    <svg class="busc-icono" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input class="busc-input" id="busc-pagadores" oninput="filtrarTablaGenerica('tabla-pagadores', this.value)" placeholder="Filter payers by name, policy, state or coverage status (UHC, Aetna, Cigna, Centene...)..." type="text"/>
+  </div>
+  <span class="badge-pildora esp">10 Payers Monitored</span>
 </div><div class="tabla" id="tabla-pagadores"><table><thead><tr><th>Payer</th><th>Status</th><th>Effective</th><th>Details</th></tr></thead><tbody><tr><td class="izq"><strong>Centene (Superior HealthPlan, Texas)</strong><div class="g peq">Ambetter, Medicaid and CHIP</div></td><td><span class="chip ok">covered</span></td><td class="nw">Dec 1, 2026</td><td class="izq">Superior's notice (Sep 29) adds LYTENAVA as an approved indication for neovascular AMD effective Dec 1, 2026. The PDF published today is still the previous version (last revised 03.26.26, no LYTENAVA); authorization criteria will follow when the new version is published.<div class="g peq">Covered option, not preferred: repackaged Avastin remains covered (max dose 1.25 mg)</div><div class="peq"><a href="https://www.superiorhealthplan.com/newsroom/eff-12012026-pharmacy-and-biopharmacy-policies-09292026.html" rel="noopener" target="_blank">Superior HealthPlan policy CP.PHAR.93 (bevacizumab); version with LYTENAVA effective Dec 1, 2026</a></div></td></tr><tr><td class="izq"><strong>Aetna (CVS Health)</strong><div class="g peq">Commercial and Medicare</div></td><td><span class="chip prog">prior authorization</span></td><td class="nw">Sep 1, 2026</td><td class="izq">Prior authorization required since Sep 1, 2026.<div class="g peq">No policy or preference versus Avastin on record: prior authorization only</div><div class="peq"><a href="https://www.aetna.com/content/dam/aetna/pdfs/olu/officelink-updates-october-2026-olu.pdf" rel="noopener" target="_blank">OfficeLink Updates, October 2026 (national prior-authorization list)</a></div></td></tr><tr><td class="izq"><strong>UnitedHealthcare</strong><div class="g peq">Commercial, Community Plan (Medicaid), Medicare Advantage and Individual &amp; Family</div></td><td><span class="chip prog">under review</span></td><td class="nw">Oct 1, 2026</td><td class="izq">LYTENAVA is under 'Review at Launch' in all four lines: Commercial and Individual &amp; Family since the September bulletin, Community Plan and Medicare Advantage since the October one. No coverage policy yet.<div class="g peq">No dedicated policy. Avastin is listed as an alternative to try before aflibercept biosimilars (excluded by UHC from Jan 1, 2027)</div><div class="peq"><a href="https://www.uhcprovider.com/content/dam/provider/docs/public/resources/news/2026/sdub/med-benefit-specialty-drug-update-bulletin-september-2026.pdf" rel="noopener" target="_blank">Medical Benefit Specialty Medication Update Bulletin (September and October 2026)</a></div></td></tr><tr><td class="izq"><strong>Horizon Blue Cross Blue Shield of New Jersey (MIP via Prime Therapeutics)</strong><div class="g peq">Commercial, New Jersey (injectables program)</div></td><td><span class="chip prog">under review</span></td><td class="nw">Oct 22, 2026</td><td class="izq">From services rendered on 22 Oct 2026, Prime Therapeutics applies medical necessity review (MNAR) to Lytenava. No coverage policy yet.<div class="g peq">No coverage policy yet. Lytenava enters the medical necessity and appropriateness review (MNAR) of the injectables program.</div><div class="peq"><a href="https://www.horizonblue.com/providers/news/news-legal-notices/medical-injectables-program-update-october-2026" rel="noopener" target="_blank">Medical Injectables Program Update: October 2026 (published 13 Sep 2026, updated 22 Sep 2026)</a></div></td></tr><tr><td class="izq"><strong>Centene (PA Health &amp; Wellness, Pennsylvania)</strong><div class="g peq">Medicaid and Ambetter (Pennsylvania)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">October 2025 version, no mention of LYTENAVA.<div class="g peq">Covers off-label intravitreal bevacizumab for nAMD (max dose 2.5 mg)</div><div class="peq"><a href="https://www.pahealthwellness.com/content/dam/centene/Pennsylvania/policies/pharmacy-policies/Bevacizumab%20_Avastin%20and%20biosimilars_v2.2025.pdf" rel="noopener" target="_blank">Bevacizumab (Avastin and biosimilars) v2.2025</a></div></td></tr><tr><td class="izq"><strong>Cigna</strong><div class="g peq">Commercial</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">No mention of LYTENAVA as of Oct 13, 2026.<div class="g peq">All three policies cite bevacizumab (Avastin) but not LYTENAVA</div><div class="peq"><a href="https://a.static.cigna.com/assets/chcp/pdf/coveragePolicies/pharmacy/ip_0540_coveragepositioncriteria_aflibercept.pdf" rel="noopener" target="_blank">Criteria IP 0540 (aflibercept), IP 0542 (faricimab), IP 0543 (ranibizumab)</a></div></td></tr><tr><td class="izq"><strong>Premera Blue Cross</strong><div class="g peq">Commercial (US Northwest)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">Jan 1, 2027</td><td class="izq">2027 version already published with no mention of LYTENAVA (cites bevacizumab 74 times).<div class="g peq"></div><div class="peq"><a href="https://www.premera.com/medicalpolicies/5.01.620_2027-01-01.pdf" rel="noopener" target="_blank">Policy 5.01.620 (intravitreal anti-VEGF), version effective Jan 1, 2027</a></div></td></tr><tr><td class="izq"><strong>Excellus BlueCross BlueShield</strong><div class="g peq">Commercial and Medicare (New York)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">No mention of LYTENAVA as of Oct 13, 2026.<div class="g peq"></div><div class="peq"><a href="https://provider.excellusbcbs.com/documents/d/global/ophthalmic-vascular-endothelial-growth-factor-vegf-inhibitor-policy-pdf" rel="noopener" target="_blank">Ophthalmic VEGF Inhibitor policy (04/2026)</a></div></td></tr><tr><td class="izq"><strong>Humana</strong><div class="g peq">Medicare Advantage</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">Prior authorization for bevacizumab, including ophthalmic use. No mention of LYTENAVA as of Oct 13, 2026.<div class="g peq"></div><div class="peq"><a href="https://assets.humana.com/is/content/humana/HU_P1009_Bevacizumab_0131324pdf" rel="noopener" target="_blank">Pharmacy policy HU_P1009 Bevacizumab (Avastin, Mvasi, Zirabev, Alymsys, Vegzelma)</a></div></td></tr><tr><td class="izq"><strong>Elevance (Anthem, Wellpoint, Empire)</strong><div class="g peq">Commercial, Medicaid and Medicare Advantage (all subsidiaries)</div></td><td><span class="chip esp">no mention</span></td><td class="nw">—</td><td class="izq">A single document covers Anthem, Wellpoint (Medicaid) and Empire. The 2024 version does not mention LYTENAVA. It requires step therapy: preferred agents first. In the last table included (Oct 30, 2023), Avastin is preferred and Eylea, Lucentis, Vabysmo, Byooviz, Cimerli and Beovu are non-preferred. The current preferred-drug list is no longer inside the PDF but on a separate page the document links to.<div class="g peq">Avastin preferred (2023 table); oncology bevacizumab biosimilars were removed from ophthalmic step therapy</div><div class="peq"><a href="https://files.providernews.anthem.com/5655/CC-0072-VEGF-Inhibitors-(final).pdf" rel="noopener" target="_blank">Clinical criteria CC-0072 'Vascular Endothelial Growth Factor (VEGF) Inhibitors' (published Oct 23, 2024; formerly ING-CC-0072), common to all subsidiaries</a></div></td></tr></tbody></table></div>
-</div></details><details class="plegable"><summary><h2>CMS and reimbursement</h2></summary><div class="plegable-cuerpo">
+</div></details><details class="plegable"><summary><h2><span style="color:var(--azul);font-family:var(--dato);">03.</span> CMS &amp; Reimbursement Files (Medicare ASP/OPPS)</h2><span class="badge-plegable-pill"><span class="txt-cerrado"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> EXPAND</span><span class="txt-abierto"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg> COLLAPSE</span></span></summary><div class="plegable-cuerpo">
 <div class="nota"><p>Until it has its own J-code, LYTENAVA is billed with generic codes (J3490, J3590 or C9399). If it appears in an NDC-HCPCS crosswalk or in Addendum B, it will show which code and price Medicare pays.</p></div>
 <div class="cols">
 <div class="panel-canal">
@@ -352,7 +1472,7 @@ details.plegable>summary:hover h2{color:var(--azul)}
 
 </div>
 </div>
-</div></details><details class="plegable"><summary><h2>Medicaid</h2></summary><div class="plegable-cuerpo">
+</div></details><details class="plegable"><summary><h2><span style="color:var(--azul);font-family:var(--dato);">04.</span> Medicaid (MDRP Rebates &amp; SDUD Utilization)</h2><span class="badge-plegable-pill"><span class="txt-cerrado"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> EXPAND</span><span class="txt-abierto"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg> COLLAPSE</span></span></summary><div class="plegable-cuerpo">
 <div class="cols">
 <div class="panel-canal">
 <div class="panel-canal-cab">
@@ -378,7 +1498,7 @@ details.plegable>summary:hover h2{color:var(--azul)}
 <div class="panel-dato-fila"><span class="panel-dato-et">Official source</span> <span class="panel-dato-val"><a href="https://data.medicaid.gov/" rel="noopener" target="_blank">Data.Medicaid.gov SDUD ↗</a></span></div>
 </div>
 </div>
-</div></details><details class="plegable"><summary><h2>Federal pricing and channel</h2></summary><div class="plegable-cuerpo">
+</div></details><details class="plegable"><summary><h2><span style="color:var(--azul);font-family:var(--dato);">05.</span> Federal Pricing (VA · FSS) &amp; Digital Presence</h2><span class="badge-plegable-pill"><span class="txt-cerrado"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> EXPAND</span><span class="txt-abierto"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg> COLLAPSE</span></span></summary><div class="plegable-cuerpo">
 <div class="cols">
 <div class="panel-canal">
 <div class="panel-canal-cab">
@@ -404,7 +1524,7 @@ details.plegable>summary:hover h2{color:var(--azul)}
 </div>
 </div>
 </div>
-</div></details><details class="plegable"><summary><h2>Team (open positions)</h2></summary><div class="plegable-cuerpo">
+</div></details><details class="plegable"><summary><h2><span style="color:var(--azul);font-family:var(--dato);">06.</span> Commercial Team &amp; Recruiting Vacancies</h2><span class="badge-plegable-pill"><span class="txt-cerrado"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> EXPAND</span><span class="txt-abierto"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg> COLLAPSE</span></span></summary><div class="plegable-cuerpo">
 <div class="grid-vacantes-kpis">
 <div class="kpi-vacante"><div class="kpi-vacante-n">29</div><div class="kpi-vacante-et">Open positions</div></div>
 <div class="kpi-vacante"><div class="kpi-vacante-n">18</div><div class="kpi-vacante-et">Withdrawn positions</div></div>
@@ -424,7 +1544,7 @@ details.plegable>summary:hover h2{color:var(--azul)}
 <div class="subtarjeta" style="margin-top:14px"><h3>Appointments announced by the company <span class="chip ok">Press release / 8-K</span></h3><div class="tabla"><table><thead><tr><th>Date</th><th>Position</th><th>Source</th></tr></thead><tbody><tr><td class="nw">Oct 9, 2026</td><td class="izq"><strong>Chief Commercial Officer</strong> Greg DiPasquale</td><td class="izq g">Press release, Oct 9, 2026</td></tr><tr><td class="nw">Aug 27, 2026</td><td class="izq"><strong>Chief Financial Officer</strong> Kevin Lundquist</td><td class="izq g">8-K, Aug 27, 2026</td></tr></tbody></table></div><p class="g peq">Other senior commercial hires are visible on professional networks but are not listed here.</p></div>
 <div class="nota"><h3>Field structure (Oct 13, 2026)</h3><p>ARMs are field roles (50–70% travel) reporting to the Senior Director of Patient Access &amp; National Field Reimbursement. Their job is reimbursement support for practice administrators, billing and clinical teams, not selling. The field team is organized into Key Account Managers, Business Engagement Managers and Field Reimbursement/ARMs.</p><p><strong>ARM territories still posted:</strong></p><ul><li><strong>Southeast</strong>: GA, NC, SC, TN, AL, MS</li><li><strong>South Central</strong>: TX, OK, LA, AR</li><li><strong>Upper Midwest / Plains</strong>: MN, IA, MO, KS, NE, ND, SD</li></ul><p class="g peq">Withdrawn (probably filled): Northeast, Mid-Atlantic / DMV, Florida, Great Lakes, West, Southwest.</p></div>
 
-</div></details><details class="plegable"><summary><h2>Regulatory</h2></summary><div class="plegable-cuerpo">
+</div></details><details class="plegable"><summary><h2><span style="color:var(--azul);font-family:var(--dato);">07.</span> Regulatory Approvals, FDA Label &amp; Packaging</h2><span class="badge-plegable-pill"><span class="txt-cerrado"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> EXPAND</span><span class="txt-abierto"><svg style="width:12px;height:12px;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/></svg> COLLAPSE</span></span></summary><div class="plegable-cuerpo">
 <div class="cols">
 <div>
 <div class="subtarjeta">
@@ -451,21 +1571,37 @@ details.plegable>summary:hover h2{color:var(--azul)}
 </div>
 </div>
 </div>
-</div></details></section><section id="uk" role="tabpanel"><p class="g">Data refreshed 2026-10-15 08:35 UTC · source: NHSBSA SCMD (England). Measures stock issued by hospital pharmacies, not injections administered.</p>
+</div></details></section><section id="uk" role="tabpanel">
+<div class="seccion-cab-pais">
+  <svg class="bandera-seccion" viewBox="0 0 60 38">
+    <clipPath id="ukSecClip"><rect width="60" height="38" rx="3"/></clipPath>
+    <g clip-path="url(#ukSecClip)">
+      <rect width="60" height="38" fill="#012169"/>
+      <path d="M0 0l60 38M60 0L0 38" stroke="#fff" stroke-width="7"/>
+      <path d="M0 0l60 38M60 0L0 38" stroke="#c8102e" stroke-width="4.2"/>
+      <path d="M30 0v38M0 19h60" stroke="#fff" stroke-width="11"/>
+      <path d="M30 0v38M0 19h60" stroke="#c8102e" stroke-width="6.8"/>
+    </g>
+  </svg>
+  <div>
+    <h2>United Kingdom · NHS Procurement &amp; Adoption</h2>
+    <p class="g">NHSBSA SCMD hospital pharmacy dispense data, hospital trust centers and NICE pricing in England.</p>
+  </div>
+</div>
 <div class="kpis">
-<div class="kpi"><div class="et">Latest month</div>
+<div class="kpi"><div class="et">Latest Month</div>
 <div class="n provisional">46</div>
 <div class="pie">07/2026 · provisional</div></div>
 <div class="kpi"><div class="et">Cumulative</div><div class="n">419</div>
 <div class="pie">7 final months, 4 provisional</div></div>
-<div class="kpi"><div class="et">Main center</div><div class="n">57%</div>
-<div class="pie">RWE · University Hospitals of Leicester NHS Trust</div></div>
-<div class="kpi"><div class="et">Distinct centers</div><div class="n">10</div>
+<div class="kpi"><div class="et">Main Center</div><div class="n" style="color:#34d399;">57%</div>
+<div class="pie">RWE · Univ. Hospitals of Leicester NHS Trust</div></div>
+<div class="kpi"><div class="et">Distinct Centers</div><div class="n" style="color:#c084fc;">10</div>
 <div class="pie">have ever ordered the product</div></div>
-<div class="kpi"><div class="et">Annualized rate</div>
-<div class="n">636</div>
-<div class="pie">vials/year based on the last 3 months · £298,920 at list price</div></div>
-<div class="kpi"><div class="et">Implied price</div>
+<div class="kpi"><div class="et">Annualized Rate</div>
+<div class="n" style="color:#fbbf24;">636</div>
+<div class="pie">vials/yr (last 3m) · £298,920 list</div></div>
+<div class="kpi"><div class="et">Implied Price</div>
 <div class="n">£470</div>
 <div class="pie">per vial · stable, conversion validated</div></div>
 </div>
@@ -564,12 +1700,38 @@ details.plegable>summary:hover h2{color:var(--azul)}
 <h2>Revision log</h2>
 <div class="caja"><div class="rev"><span class="m">02/2026</span> <span class="tachado">12</span> → <strong>24</strong> vials <span style="color:var(--gris)">consolidated to final · detected 2026-08-25</span></div><div class="rev"><span class="m">01/2026</span> <span class="tachado">19</span> → <strong>27</strong> vials <span style="color:var(--gris)">consolidated to final · detected 2026-08-25</span></div><div class="rev"><span class="m">09/2025</span> <span class="tachado">16</span> → <strong>12</strong> vials <span style="color:var(--gris)">consolidated to final · detected 2026-08-25</span></div></div>
 </section><section id="europa" role="tabpanel">
+<div class="seccion-cab-pais">
+  <svg class="bandera-seccion" viewBox="0 0 60 38">
+    <rect width="60" height="38" rx="3" fill="#003399"/>
+    <g fill="#ffcc00">
+      <circle cx="40.5" cy="19" r="1.3"/>
+      <circle cx="39.1" cy="24.2" r="1.3"/>
+      <circle cx="35.3" cy="28.1" r="1.3"/>
+      <circle cx="30" cy="29.5" r="1.3"/>
+      <circle cx="24.7" cy="28.1" r="1.3"/>
+      <circle cx="20.9" cy="24.2" r="1.3"/>
+      <circle cx="19.5" cy="19" r="1.3"/>
+      <circle cx="20.9" cy="13.8" r="1.3"/>
+      <circle cx="24.7" cy="9.9" r="1.3"/>
+      <circle cx="30" cy="8.5" r="1.3"/>
+      <circle cx="35.3" cy="9.9" r="1.3"/>
+      <circle cx="39.1" cy="13.8" r="1.3"/>
+    </g>
+  </svg>
+  <div>
+    <h2>Europe &amp; Rest of the World · Commercial Rollout</h2>
+    <p class="g">10-year market exclusivity in 31 European countries, country-by-country rollout roadmap and global partnerships.</p>
+  </div>
+</div>
 <div class="nota"><p>10-year exclusivity in 31 countries (EU + United Kingdom). According to the company, Europe is ~1/4 of the US or less by 2030, accelerating with the prefilled syringe (late 2028 or 2029). Current revenue is marginal. The company mentions inbound interest from partners in LatAm, Asia and MENA, with no agreements announced.</p></div>
 <div class="tabla"><table><thead><tr><th>Country</th><th>Status</th><th>Since</th><th>Partner</th><th>Note</th></tr></thead><tbody><tr><td class="izq"><strong>United Kingdom</strong></td><td><span class="chip ok">on sale</span></td><td class="nw">2025-06</td><td class="izq">Direct</td><td class="izq g">NICE TA1022 at £470 per vial. The UK was never a compounding market (&lt;9%); the constraint is care capacity.</td></tr><tr><td class="izq"><strong>Germany</strong></td><td><span class="chip ok">on sale</span></td><td class="nw">2025-06</td><td class="izq">Direct</td><td class="izq g">Compounded bevacizumab is the legal standard of care. Real-world study under way; Medical Manager position open (Bavaria).</td></tr><tr><td class="izq"><strong>Austria</strong></td><td><span class="chip ok">on sale</span></td><td class="nw">2026-01</td><td class="izq">Direct</td><td class="izq g"></td></tr><tr><td class="izq"><strong>Netherlands</strong></td><td><span class="chip mal">delayed</span></td><td class="nw">early 2027</td><td class="izq">Direct</td><td class="izq g">Delayed from 2026 (September 2026 investor presentation). To be the European distribution hub.</td></tr><tr><td class="izq"><strong>Switzerland</strong></td><td><span class="chip prog">planned</span></td><td class="nw">2027</td><td class="izq">Mediconsult AG (exclusive)</td><td class="izq g"></td></tr><tr><td class="izq"><strong>China</strong></td><td><span class="chip esp">no date</span></td><td class="nw">—</td><td class="izq">JV with Syntone (20% Outlook, no royalties)</td><td class="izq g">Source: 10-Q of Aug 15, 2026.</td></tr></tbody></table></div>
 
 </section><section id="pistas" role="tabpanel"><p class="g">Things that are not announced but leave a trail. Level: <em>verified</em> (primary source), <em>indication</em> (consistent but not proven) or <em>unconfirmed</em>. Leads are never deleted, only closed. Spot something we missed or disagree with a lead? We would love to hear it.</p>
 <div class="barra-filtros">
-  <input type="text" id="busc-pistas" class="busc-input" placeholder="🔍 Filter leads by text, title, area or ID..." oninput="filtrarPistas()">
+  <div class="busc-input-wrap">
+    <svg class="busc-icono" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    <input type="text" id="busc-pistas" class="busc-input" placeholder="Filter leads by text, title, area or ID (e.g. Cencora, Medicaid, P-001)..." oninput="filtrarPistas()">
+  </div>
   <button class="btn-filtro btn-filtro-pista activo" onclick="filtrarPistasEstado('todas', this)">All (13)</button>
   <button class="btn-filtro btn-filtro-pista" onclick="filtrarPistasEstado('abierta', this)">Open (11)</button>
   <button class="btn-filtro btn-filtro-pista" onclick="filtrarPistasEstado('confirmada', this)">Confirmed (1)</button>
@@ -654,7 +1816,7 @@ details.plegable>summary:hover h2{color:var(--azul)}
 <p><strong>What it would mean:</strong> Until a J-code exists, LYTENAVA is billed with generic codes (J3490/J3590/C9399), as Aetna, UHC and the AAO have already indicated.</p>
 <p><strong>What to watch:</strong> Closed for now; we will reopen it if it shows up in a later CMS quarterly file.</p>
 <p class="peq">Source: CMS October 2026: OPPS Addendum B (Sep 28), ASP and OPPS NDC-HCPCS crosswalks, Part B payment limit file</p></div></div></section>
-<footer>Data from public sources (FDA, CMS, Medicaid, VA, NHSBSA, payer and company websites, SEC EDGAR). NHS cost is list price. Independent community project, not affiliated with Outlook Therapeutics. Nothing on this page is investment advice: do your own due diligence.</footer>
+<footer>Data sourced from public institutional filings (FDA, CMS, Medicaid, VA, NHSBSA, payer portals, and SEC EDGAR). Indicative NHS cost reflects official list price. Independent community research repository; not affiliated with Outlook Therapeutics, Inc. Nothing on this page constitutes investment advice.</footer>
 </div><script>
 (function(){
   var bs=[].slice.call(document.querySelectorAll('.pestanas button'));

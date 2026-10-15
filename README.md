@@ -15,7 +15,7 @@ This folder contains five research tools designed for deep analysis without thir
 | :--- | :---: | :--- |
 | **`OTLK_Shorts_and_Fundamentals_Model.xlsx`** | Excel | **Complete Shorts & Equities Model (No Options).** Contains 4 comprehensive sheets (`Executive Summary`, `Daily Data`, `Charts`, `Statistics`) with daily historical trading, FINRA short volume, Interactive Brokers CTB, SEC FTDs, and technical indicators. All values are computed in Python from raw data and stored as values (no hidden formulas). |
 | **`OTLK_Options_Chain_and_Derivatives.xlsx`** | Excel | **Derivatives Chain & Greeks Model.** Live multi-strike chain across all active expirations (2026-2027), Max Pain, Black-Scholes Greeks (recomputed at the official close), Put/Call ratios, and a daily history keyed by market session. |
-| **`OTLK_Executive_Dashboard_360.html`** | Interactive HTML | **Visual 360° Market Dashboard.** 100% self-contained web app (works offline in any browser). Features Dark/Light theme, SVG open interest bar charts, strategic threshold roadmap, and an **Open Scenario Simulator** where anyone can input their own shares/cost basis. |
+| **`OTLK_Executive_Dashboard_360.html`** | Interactive HTML | **Visual 360° Market Dashboard.** 100% self-contained web app (works offline in any browser). Features Dark/Light theme, SVG open interest bar charts, strategic threshold roadmap, option-expiry tables and a data-freshness panel. |
 | **`OTLK_360_Market_Intelligence_Report.md`** | Markdown | **Structured Executive Intelligence Report.** Formatted with tables, early warning alerts, and a 10,000-share reference scenario matrix. |
 | **`OTLK_360_Market_Intelligence_Report.txt`** | Plain Text | **Clean ASCII Report.** Lightweight, fixed-width text report ideal for quick reading on mobile or sharing in chat rooms/forums. |
 
@@ -76,11 +76,9 @@ This folder contains five research tools designed for deep analysis without thir
 ## 🧮 How to Use the Interactive Dashboard
 
 1. **Open File:** Double-click `OTLK_Executive_Dashboard_360.html` to open it in any web browser (Chrome, Edge, Firefox, Safari). No internet connection or installation required.
-2. **Personal Simulator:**
-   - In Section 4 (Right Panel), enter your own share count in **"Your Shares"** and purchase price in **"Your Average Cost ($)"**.
-   - Drag the **Simulated Price Slider** between $0.40 and $4.00 to inspect your projected P&L and see which fundamental and regulatory milestones trigger at each level.
-3. **Dark / Light Theme:** Click the `🌓 Theme` button in the top header.
-4. **Print / PDF:** Click `🖨️ Print / Save PDF` to generate an A4 summary report.
+2. **Dark / Light Theme:** Click the `🌓 Theme` button in the top header.
+3. **Print / PDF:** Click `🖨️ Print` to generate an A4 summary report (choose "Save as PDF" in the print dialog).
+4. **Portal:** The `Portal 360°` button returns to the main page (English / Spanish).
 
 ---
 

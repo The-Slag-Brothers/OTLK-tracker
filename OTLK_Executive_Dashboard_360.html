@@ -6,13 +6,15 @@
   <title>OTLK 360° Radar — Executive Quantitative Dashboard</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --card-hover: #273549;
-      --border: #334155;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #3b82f6;
+      --bg: #0b111a;
+      --card: #111a28;
+      --card-hover: #162438;
+      --border: #1e2c3f;
+      --border-accent: rgba(56, 189, 248, 0.4);
+      --text: #f1f5f9;
+      --text-muted: #8ea4bb;
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
       --success: #10b981;
       --warning: #f59e0b;
       --danger: #ef4444;
@@ -53,42 +55,93 @@
       border-bottom: 1px solid var(--border);
       margin-bottom: 24px;
     }
-    .header-title h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.025em; }
-    .header-title p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
-    .header-actions { display: flex; gap: 12px; }
     .btn {
       background: var(--card);
       border: 1px solid var(--border);
       color: var(--text);
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 8px;
       font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.15s;
+      gap: 7px;
+      transition: all 0.2s ease;
+      text-decoration: none;
     }
-    .btn:hover { background: var(--card-hover); border-color: var(--primary); }
+    .btn:hover {
+      background: var(--card-hover);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
 
     /* KPI Grid */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
       margin-bottom: 24px;
     }
+    @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 440px) { .kpi-grid { grid-template-columns: 1fr; } }
     .kpi-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
-      transition: transform 0.15s;
+      padding: 16px 14px;
+      transition: all 0.22s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
     }
-    .kpi-card:hover { transform: translateY(-2px); }
-    .kpi-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
-    .kpi-value { font-size: 1.5rem; font-weight: 800; margin: 4px 0; }
-    .kpi-sub { font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
+    .kpi-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.25), 0 0 15px rgba(56, 189, 248, 0.15);
+    }
+    .kpi-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary);
+      opacity: 0.7;
+    }
+    .kpi-card.warn::after { background: var(--warning); }
+    .kpi-card.danger::after { background: var(--danger); }
+    .kpi-card.success::after { background: var(--success); }
+    .kpi-card.purple::after { background: var(--purple); }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .kpi-value {
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin: 4px 0;
+      font-family: ui-monospace, monospace;
+      line-height: 1.15;
+    }
+    .kpi-sub {
+      font-size: 0.76rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     
     /* Grids & Panels */
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
@@ -97,15 +150,22 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px;
+      padding: 22px;
+      transition: all 0.22s ease;
+    }
+    .panel:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(2, 132, 199, 0.22), 0 0 16px rgba(56, 189, 248, 0.12);
     }
     .panel-title {
-      font-size: 1.1rem;
+      font-size: 1.08rem;
       font-weight: 700;
       margin-bottom: 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
     }
 
     /* Table Styles */
@@ -113,6 +173,7 @@
     th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
     th { color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; }
     tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(56, 189, 248, 0.04); }
     .text-right { text-align: right; }
     .text-center { text-align: center; }
     .badge {
@@ -127,82 +188,78 @@
     .badge-danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
     .badge-purple { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
 
-    /* Thresholds Roadmap */
-    .roadmap {
+    /* Thresholds Roadmap Modern Grid */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (max-width: 1100px) { .roadmap-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
+    @media (max-width: 640px) { .roadmap-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 440px) { .roadmap-grid { grid-template-columns: 1fr; } }
+    .roadmap-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .roadmap-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(2, 132, 199, 0.25), 0 0 12px rgba(56, 189, 248, 0.15);
+    }
+    .roadmap-card.active {
+      border-color: #38bdf8;
+      background: linear-gradient(135deg, rgba(14, 110, 160, 0.2), rgba(15, 23, 42, 0.9));
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.2);
+    }
+    .roadmap-card.highlight {
+      border-color: rgba(245, 158, 11, 0.5);
+    }
+    .rm-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
-      margin: 30px 10px 20px 10px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
-    .roadmap-line {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--border);
-      z-index: 1;
-      transform: translateY(-50%);
-    }
-    .roadmap-step {
-      position: relative;
-      z-index: 2;
-      background: var(--card);
-      border: 3px solid var(--border);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .rm-price {
+      font-family: ui-monospace, monospace;
+      font-size: 1.25rem;
       font-weight: 800;
-      font-size: 0.8rem;
+      color: #fff;
     }
-    .roadmap-step.active { border-color: var(--primary); color: var(--primary); }
-    .roadmap-step.complete { border-color: var(--success); color: var(--success); }
-    .roadmap-step.highlight { border-color: var(--warning); color: var(--warning); }
-    .step-label {
-      position: absolute;
-      top: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.72rem;
+    .rm-tag {
+      font-size: 0.68rem;
       font-weight: 700;
-      white-space: nowrap;
-      text-align: center;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
       color: var(--text-muted);
+      white-space: nowrap;
     }
-
-    /* Interactive Simulator */
-    .sim-box {
-      background: var(--card-hover);
-      border-radius: 10px;
-      padding: 16px;
-      margin-top: 14px;
+    .rm-tag.active {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.4);
     }
-    .sim-slider {
-      width: 100%;
-      margin: 14px 0;
-      accent-color: var(--primary);
-      cursor: pointer;
+    .rm-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
     }
-    .sim-results {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      text-align: center;
-      margin-top: 12px;
+    .rm-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
     }
-    @media (max-width: 600px) { .sim-results { grid-template-columns: 1fr 1fr; } }
-    .sim-res-card {
-      background: var(--card);
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-    .sim-res-card span { font-size: 0.72rem; color: var(--text-muted); display: block; }
-    .sim-res-card strong { font-size: 1.1rem; }
   </style>
 </head>
 <body>
@@ -211,112 +268,161 @@
 
   <!-- HEADER -->
   <header class="header">
-    <div class="header-title">
-      <h1>OTLK 360° Radar — Executive Quantitative Dashboard</h1>
-      <p>Outlook Therapeutics, Inc. (NASDAQ: OTLK) | Price session: 2026-10-14 · Options session: 2026-10-14 | Data: FINRA, SEC, CBOE, OCC, Nasdaq</p>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:42px;height:42px;border-radius:10px;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(56,189,248,0.2);">
+        <svg viewBox="0 0 36 36" style="width:30px;height:30px;">
+          <defs>
+            <linearGradient id="otlkGradDash" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="50%" stop-color="#0284c7"/>
+              <stop offset="100%" stop-color="#10b981"/>
+            </linearGradient>
+          </defs>
+          <path d="M4 18 C8 10, 14 6, 18 6 C22 6, 28 10, 32 18 C28 26, 22 30, 18 30 C14 30, 8 26, 4 18 Z" fill="none" stroke="url(#otlkGradDash)" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="18" cy="18" r="5.5" fill="none" stroke="#38bdf8" stroke-width="2.2"/>
+          <circle cx="18" cy="18" r="2.8" fill="#10b981"/>
+          <circle cx="15.8" cy="15.8" r="1.2" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div class="header-title">
+        <h1 style="display:flex;align-items:center;gap:10px;font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;">
+          <span>OTLK 360° Radar</span>
+          <span style="font-size:0.75rem;padding:3px 9px;border-radius:9999px;background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.35);font-family:ui-monospace,monospace;">NASDAQ: OTLK</span>
+        </h1>
+        <p style="font-size:0.84rem;color:var(--text-muted);margin-top:3px;">
+          Executive Quantitative Dashboard · Price Session: 2026-10-14 · Options Session: 2026-10-14
+        </p>
+      </div>
     </div>
     <div class="header-actions">
-      <button class="btn" onclick="toggleTheme()">🌓 Theme</button>
-      <button class="btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+      <a class="btn" href="index.html" style="text-decoration:none;">
+        <svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portal 360°</span>
+      </a>
+      <button class="btn" onclick="toggleTheme()">
+        <svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span>Theme</span>
+      </button>
+      <button class="btn" onclick="window.print()">
+        <svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span>Print</span>
+      </button>
     </div>
   </header>
 
-  <div style="font-size:.85em;opacity:.75;margin-bottom:16px">🔕 No market-structure alerts · OI P/C 0.10 · new puts +5 · min IBKR available (6 sess.) 200,000 · exempt short 2.23%</div>
-  
-  <div class="grid-2" style="margin-bottom: 24px;">
-    <div class="panel"><div class='panel-title'><span>📑 Official financials (SEC XBRL)</span></div><p style='font-size:0.85rem;margin:0 0 8px'>Cash at 2026-06-30: $11.2M; avg. quarterly operating burn (last 4 quarters): $14.0M; last quarter: $21.0M; runway on that cash: ~0.8 quarters at the 4-quarter average burn, ~0.5 at the last quarter&#x27;s burn; latest reported share count: 243.4M (2026-08-14). Financing filed after the quarter end (424B): 2026-07-21, 2026-08-12, 2026-08-14 — not included in that cash.</p><table><thead><tr><th>Quarter</th><th>Cash</th><th>Revenue</th><th>Net</th><th>Burn</th><th>Shares</th><th>Dil.</th></tr></thead><tbody><tr><td>2025-09-30</td><td class=text-right>$8.1M</td><td class=text-right>-$0.1M</td><td class=text-right>-$13.3M</td><td class=text-right>$12.4M</td><td class=text-right>53.9M</td><td class=text-right>+23.9%</td></tr><tr><td>2025-12-31</td><td class=text-right>$8.7M</td><td class=text-right>-$1.2M</td><td class=text-right>-$23.1M</td><td class=text-right>$14.9M</td><td class=text-right>64.6M</td><td class=text-right>+19.8%</td></tr><tr><td>2026-03-31</td><td class=text-right>$7.7M</td><td class=text-right>$0.1M</td><td class=text-right>-$4.5M</td><td class=text-right>$7.8M</td><td class=text-right>104.6M</td><td class=text-right>+62.0%</td></tr><tr><td>2026-06-30</td><td class=text-right>$11.2M</td><td class=text-right>$0.0M</td><td class=text-right>-$20.3M</td><td class=text-right>$21.0M</td><td class=text-right>187.1M</td><td class=text-right>+78.8%</td></tr></tbody></table></div>
-    <div class="panel"><div class='panel-title'><span>👔 Insiders (Form 4)</span></div><p style='font-size:0.85rem;margin:0 0 6px'>Last 90 days: 4 purchases (code P) · 0 sales</p><ul style='font-size:0.85rem;padding-left:18px'><li style='margin:3px 0'>2026-08-14 · KENYON LAWRENCE A · Purchase (open market or offering) 101,010 @ $0.9900</li><li style='margin:3px 0'>2026-08-14 · Jahr Robert Charles · Purchase (open market or offering) 151,515 @ $0.9900</li><li style='margin:3px 0'>2026-08-12 · Sukhtian Ghiath M. / GMS Ventures &amp; Investments · Purchase (open market or offering) 2,525,252 @ $0.9900</li><li style='margin:3px 0'>2026-07-29 · Sukhtian Faisal Ghiath · Purchase (open market or offering) 95,398 @ $1.0482</li><li style='margin:3px 0'>2026-06-02 · Haddadin Yezan Munther · Purchase (open market or offering) 29,000 @ $0.8326</li><li style='margin:3px 0'>2026-05-28 · Sukhtian Ghiath M. / GMS Ventures &amp; Investments · Purchase (open market or offering) 8,539,709 @ $0.5855</li></ul><div class='panel-title' style='margin-top:14px'><span>📰 News and press releases</span></div><ul style='font-size:0.85rem;padding-left:18px'><li style='margin:3px 0'>2026-10-09 · <a href='https://outlooktherapeutics.com/careers/' target='_blank' style='color:var(--primary)'>Careers page: 8 openings (10 on Oct 1). New: IT Manager. Removed since Oct 1: National Sales Director West, Supply Chain and 2 ARMs (incl. Southwest). Still open: 3 ARMs, FP&amp;A, Quality/GxP, Senior Legal Counsel US and Medical Manager Germany</a></li><li style='margin:3px 0'>2026-10-09 · <a href='https://ir.outlooktherapeutics.com/news-and-events/press-releases/' target='_blank' style='color:var(--primary)'>Outlook Therapeutics Names Greg DiPasquale Chief Commercial Officer</a></li><li style='margin:3px 0'>2026-10-09 · <a href='https://www.aao.org/eyenet/academy-live/detail/lytenava-new-drug-questions-on-coverage-billing' target='_blank' style='color:var(--primary)'>AAO 2026 Daily: LYTENAVA to be billed with NOC codes (J3490, J3590, C9399), carrier priced, until a J-code is assigned; copays expected to rise vs compounded bevacizumab</a></li><li style='margin:3px 0'>2026-10-06 · <a href='https://www.globenewswire.com/search/organization/Outlook%20Therapeutics%C2%AE' target='_blank' style='color:var(--primary)'>Outlook Therapeutics Highlights What the Appointment of New CFO Kevin Lundquist Means for the Company&#x27;s Next Chapter in Virtual Investor Discussion</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.uhcprovider.com/en/resource-library/news/2026/sdub-updates-oct-2026.html' target='_blank' style='color:var(--primary)'>UnitedHealthcare adds LYTENAVA (bevacizumab-vikg) to &#x27;Review at Launch&#x27; (Medical Benefit Specialty Medication Update Bulletin, October 2026)</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.globenewswire.com/news-release/2026/10/01/3372980/0/en/outlook-therapeutics-submits-hcpcs-level-ii-application-to-cms-for-permanent-j-code-for-lytenava-bevacizumab-vikg.html' target='_blank' style='color:var(--primary)'>Outlook Therapeutics Submits HCPCS Level II Application to CMS for Permanent J-Code for LYTENAVA™ (bevacizumab-vikg)</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://outlooktherapeutics.com/careers/' target='_blank' style='color:var(--primary)'>Careers page drops from 21 to 10 openings; new FP&amp;A Manager, ARM Southwest (Phoenix) and Medical Manager Germany</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.aetna.com/content/dam/aetna/pdfs/olu/officelink-updates-october-2026-olu.pdf' target='_blank' style='color:var(--primary)'>Aetna requires precertification for LYTENAVA (J3490/J3590/C9399) effective Sep 1, 2026, commercial and Medicare (October OfficeLink bulletin)</a></li></ul></div>
-  </div>
-
-  <div class="grid-2" style="margin-bottom: 24px;">
-    <div class="panel"><div class="panel-title"><span>🔄 What changed since the previous session</span></div>
-      <ul style="font-size:0.88rem; padding-left:18px;"><li style='margin:3px 0'>Close $0.5640 -&gt; $0.4700 (-16.67%) vs 2026-10-13.</li><li style='margin:3px 0'>Short volume ratio 64.3% -&gt; 53.7% (20-session avg 58.7%).</li><li style='margin:3px 0'>Sub-$1 streak: 44 sessions.</li><li style='margin:3px 0'>Options: 579 calls / 9 puts traded; call OI +6, put OI +5 vs 2026-10-13.</li><li style='margin:3px 0'>Block 2027-01-15 CALL $0.5: 332 @ $0.11, OI +0 -&gt; mostly changing hands.</li><li style='margin:3px 0'>Block 2027-01-15 CALL $1: 107 @ $0.08, OI +19 -&gt; mostly changing hands.</li><li style='margin:3px 0'>Block 2027-02-19 CALL $1: 102 @ $0.08, OI +0 -&gt; mostly changing hands.</li></ul></div>
-    <div class="panel"><div class="panel-title"><span>🏛️ Recent SEC filings</span></div>
-      <ul style="font-size:0.85rem; padding-left:18px;"><li style='margin:3px 0'>2026-10-13 (after the close, 16:47 NY) 🟡 <a href='https://www.sec.gov/Archives/edgar/data/1649989/000091957426006871/xslSCHEDULE_13G_X02/primary_doc.xml' target='_blank' style='color:var(--primary)'>Significant holder (13G)</a></li><li style='margin:3px 0'>2026-09-30 (after the close, 20:30 NY) 🔴 <a href='https://www.sec.gov/Archives/edgar/data/1649989/000110465926112356/tm2626478d1_8k.htm' target='_blank' style='color:var(--primary)'>8-K (3.01): Nasdaq: listing deficiency notice</a></li></ul>
-      <div class="panel-title" style="margin-top:14px;"><span>🧾 Data freshness</span></div>
-      <table><tbody><tr><td>Price (close)</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>FINRA short volume</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>Borrow fee (IBKR)</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr><tr><td>Short interest (bi-monthly)</td><td class='text-right'>2026-09-30</td><td class='text-center'>✅</td></tr><tr><td>Fails to deliver (SEC)</td><td class='text-right'>2026-09-14</td><td class='text-center'>✅</td></tr><tr><td>Exchange volume (ChartExchange)</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>Options (OI &amp; volume)</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>SEC filings (EDGAR)</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr></tbody></table></div>
-  </div>
-
-  <!-- KPI CARDS -->
+  <!-- KPI CARDS (6-COLUMN ROW) -->
   <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">Close</div>
-      <div class="kpi-value" style="color: var(--primary);">$0.4700</div>
+    <div class="kpi-card danger">
+      <div class="kpi-label">Spot Close</div>
+      <div class="kpi-value" style="color: var(--danger);">$0.4700</div>
       <div class="kpi-sub">
-        <span class="badge badge-success">⚠️ Nasdaq Deficiency Risk (<$1)</span>
+        <span class="badge badge-danger">⚠️ Nasdaq Deficiency Risk (<$1)</span>
       </div>
     </div>
 
-    <div class="kpi-card">
-      <div class="kpi-label">FINRA Short Volume Ratio</div>
+    <div class="kpi-card warn">
+      <div class="kpi-label">FINRA Short Ratio</div>
       <div class="kpi-value" style="color: var(--warning);">53.7%</div>
-      <div class="kpi-sub" style="color: var(--text-muted);">5-day MA: 56.2%</div>
+      <div class="kpi-sub" style="color: var(--text-muted);">5d MA: 56.2%</div>
     </div>
 
-    <div class="kpi-card">
+    <div class="kpi-card success">
       <div class="kpi-label">Put/Call OI Ratio</div>
       <div class="kpi-value" style="color: var(--success);">0.098</div>
-      <div class="kpi-sub" style="color: var(--success);">10.2 calls per put</div>
+      <div class="kpi-sub" style="color: var(--success);">10.2 calls/put</div>
     </div>
 
-    <div class="kpi-card">
+    <div class="kpi-card purple">
       <div class="kpi-label">Options Max Pain</div>
       <div class="kpi-value" style="color: var(--purple);">$0.50</div>
-      <div class="kpi-sub" style="color: var(--text-muted);">Lowest strike: not meaningful</div>
+      <div class="kpi-sub" style="color: var(--text-muted);">Floor strike</div>
     </div>
 
-    <div class="kpi-card">
-      <div class="kpi-label">Nasdaq Streak (< $1.00)</div>
-      <div class="kpi-value" style="color: var(--danger);">44</div>
-      <div class="kpi-sub" style="color: var(--danger);">+112.8% to $1.00 · cure deadline 2027-03-24 · ≥$1: 0/10</div>
+    <div class="kpi-card danger">
+      <div class="kpi-label">Nasdaq Streak (< $1)</div>
+      <div class="kpi-value" style="color: var(--danger);">44d</div>
+      <div class="kpi-sub" style="color: var(--danger);">+112.8% to $1.00</div>
     </div>
 
-    <div class="kpi-card">
+    <div class="kpi-card warn">
       <div class="kpi-label">Squeeze Risk Score</div>
       <div class="kpi-value" style="color: var(--warning);">38/100</div>
-      <div class="kpi-sub" style="color: var(--warning);">🟡 MODERATE · borrow 3.1%</div>
+      <div class="kpi-sub" style="color: var(--warning);">🟡 MODERATE · 3.1%</div>
     </div>
   </div>
 
-  <!-- STRATEGIC THRESHOLDS ROADMAP -->
-  <div class="panel" style="margin-bottom: 24px; padding-bottom: 45px;">
+  <!-- STRATEGIC THRESHOLDS ROADMAP (MODERN INFLECTION PODS) -->
+  <div class="panel" style="margin-bottom: 24px; padding: 22px;">
     <div class="panel-title">
-      <span>🗺️ Strategic Threshold & Price Action Roadmap</span>
-      <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">Critical inflections across derivatives, compliance & cash</span>
+      <span style="display:flex;align-items:center;gap:8px;">
+        <svg style="width:18px;height:18px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+        <span>Strategic Threshold &amp; Price Action Roadmap</span>
+      </span>
+      <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">Critical inflections across derivatives, compliance &amp; cash</span>
     </div>
-    
-    <div class="roadmap">
-      <div class="roadmap-line"></div>
+
+    <div class="roadmap-grid">
       
-      <div class="roadmap-step complete">
-        $0.50
-        <div class="step-label">📉 Bear case<br><span style="color: var(--purple);">Lowest option strike</span></div>
-      </div>
-      
-      <div class="roadmap-step active">
-        $0.47
-        <div class="step-label">🎯 Close<br><span style="color: var(--primary);">2026-10-14</span></div>
-      </div>
-      
-      <div class="roadmap-step highlight">
-        $1.00
-        <div class="step-label">✅ Nasdaq<br><span style="color: var(--warning);">+113% Gap</span></div>
-      </div>
-      
-      <div class="roadmap-step">
-        $1.10
-        <div class="step-label">💰 Warrants<br><span style="color: var(--success);">+$61.1M cash · +55.6M shares</span></div>
+      <!-- 1. SPOT CLOSE -->
+      <div class="roadmap-card active">
+        <div class="rm-head">
+          <span class="rm-price">$0.47</span>
+          <span class="rm-tag active">Current Spot</span>
+        </div>
+        <div class="rm-name">🎯 Active Close</div>
+        <div class="rm-desc">2026-10-14 · Market spot reference</div>
       </div>
 
-      <div class="roadmap-step">
-        $2.50
-        <div class="step-label">🚀 Europe<br><span style="color: var(--text-muted);">Lytenava Sales</span></div>
+      <!-- 2. OPTION STRIKE FLOOR -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:var(--purple);">$0.50</span>
+          <span class="rm-tag" style="background:rgba(139,92,246,0.15);color:var(--purple);border-color:rgba(139,92,246,0.3);">Option Strike</span>
+        </div>
+        <div class="rm-name">📉 Derivatives Floor</div>
+        <div class="rm-desc">Lowest option strike · Put defense barrier</div>
       </div>
 
-      <div class="roadmap-step">
-        $4.00
-        <div class="step-label">🏆 US Launch<br><span style="color: var(--text-muted);">J-Code $485</span></div>
+      <!-- 3. NASDAQ $1 -->
+      <div class="roadmap-card highlight">
+        <div class="rm-head">
+          <span class="rm-price" style="color:var(--warning);">$1.00</span>
+          <span class="rm-tag" style="background:rgba(245,158,11,0.15);color:var(--warning);border-color:rgba(245,158,11,0.3);">+113% Gap</span>
+        </div>
+        <div class="rm-name">✅ Nasdaq Compliance</div>
+        <div class="rm-desc">10 consecutive trading days ≥ $1.00 required</div>
       </div>
+
+      <!-- 4. WARRANTS -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:var(--success);">$1.10</span>
+          <span class="rm-tag" style="background:rgba(16,185,129,0.15);color:var(--success);border-color:rgba(16,185,129,0.3);">Warrants</span>
+        </div>
+        <div class="rm-name">💰 Capital Infusion</div>
+        <div class="rm-desc">+$61.1M cash influx · +55.6M shares</div>
+      </div>
+
+      <!-- 5. EUROPE -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:#38bdf8;">$2.50</span>
+          <span class="rm-tag" style="background:rgba(56,189,248,0.15);color:#38bdf8;border-color:rgba(56,189,248,0.3);">EU Launch</span>
+        </div>
+        <div class="rm-name">🚀 Commercial Ramp</div>
+        <div class="rm-desc">Lytenava rollouts: Germany, UK NHS, Austria</div>
+      </div>
+
+      <!-- 6. US MATURE -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:#f472b6;">$4.00</span>
+          <span class="rm-tag" style="background:rgba(244,114,182,0.15);color:#f472b6;border-color:rgba(244,114,182,0.3);">US Mature</span>
+        </div>
+        <div class="rm-name">🏆 U.S. Peak Ramp</div>
+        <div class="rm-desc">Permanent J-Code · Full commercial channel</div>
+      </div>
+
     </div>
   </div>
 
@@ -325,10 +431,13 @@
     <!-- CASH EQUITIES & SHORT MECHANICS -->
     <div class="panel">
       <div class="panel-title">
-        <span>📉 Cash Equities & Short Mechanics</span>
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg style="width:17px;height:17px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>Cash Equities &amp; Short Mechanics</span>
+        </span>
         <span class="badge badge-warning">FINRA TRF</span>
       </div>
-      <table>
+      <div style="overflow-x:auto;"><table>
         <tbody>
           <tr>
             <td>Spot Closing Price</td>
@@ -356,7 +465,7 @@
           </tr>
           <tr>
             <td>Trades at Bid / Mid / Ask</td>
-            <td class="text-right">20% / 59% / 20% (2026-10-14)</td>
+            <td class="text-right">18% / 63% / 19% (2026-10-14)</td>
           </tr>
           <tr>
             <td>Short Sale Restriction (Rule 201)</td>
@@ -367,16 +476,19 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
     <!-- OPTIONS FLOW & DERIVATIVES MARKET -->
     <div class="panel">
       <div class="panel-title">
-        <span>📈 Options Open Interest & Volume</span>
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg style="width:17px;height:17px;stroke:var(--success);fill:none;stroke-width:2;" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          <span>Options Open Interest &amp; Volume</span>
+        </span>
         <span class="badge badge-success">CBOE / OCC</span>
       </div>
-      <table>
+      <div style="overflow-x:auto;"><table>
         <tbody>
           <tr>
             <td>Calls Open Interest vs Puts OI</td>
@@ -405,14 +517,17 @@
             <td class="text-right">126.2%</td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 
   <!-- OPTIONS CHAIN BY EXPIRATION -->
   <div class="panel" style="margin-bottom: 24px;">
     <div class="panel-title">
-      <span>🎯 Open Interest Distribution by Expiration Date</span>
+      <span style="display:flex;align-items:center;gap:8px;">
+        <svg style="width:17px;height:17px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <span>Open Interest Distribution by Expiration Date</span>
+      </span>
       <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: normal;">Total: 52,606 Calls / 5,168 Puts</span>
     </div>
 
@@ -565,15 +680,18 @@
     </div>
   </div>
 
-  <!-- CAPITAL STRUCTURE & PUBLIC SIMULATOR PANEL -->
-  <div class="grid-2">
+  <!-- CAPITAL STRUCTURE & REGULATORY CATALYST -->
+  <div class="grid-2" style="margin-bottom: 24px;">
     <!-- CAPITAL STRUCTURE PANEL -->
     <div class="panel">
       <div class="panel-title">
-        <span>🏛️ Capital Structure & Institutional Liquidity</span>
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg style="width:17px;height:17px;stroke:var(--purple);fill:none;stroke-width:2;" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          <span>Capital Structure &amp; Institutional Liquidity</span>
+        </span>
         <span class="badge badge-purple">SEC Filings</span>
       </div>
-      <table>
+      <div style="overflow-x:auto;"><table>
         <tbody>
           <tr>
             <td>Basic Shares Outstanding (OS)</td>
@@ -602,139 +720,69 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
 
-    <!-- INTERACTIVE PUBLIC SIMULATOR -->
-    <div class="panel">
-      <div class="panel-title">
-        <span>🧮 Dynamic Personal Position Simulator</span>
+    <!-- IMMINENT REGULATORY CATALYST -->
+    <div class="panel" style="border-left: 4px solid var(--warning); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div class="panel-title" style="color: var(--warning);">
+          <span style="display:flex;align-items:center;gap:8px;">
+            <svg style="width:17px;height:17px;stroke:var(--warning);fill:none;stroke-width:2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Imminent Regulatory Milestone</span>
+          </span>
+          <span class="badge badge-warning">2026-11-01</span>
+        </div>
+        <p style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text);">
+          📄 Q3 2026 13F filings — check institutional positions
+        </p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+          <strong>Category:</strong> Institutional / Watch | <strong>Impact:</strong> MEDIUM — to watch
+        </p>
+        <p style="font-size: 0.85rem; color: var(--text); line-height: 1.5;">
+          Window to check whether Perceptive Advisors kept its position after the August offering, and whether Heights Capital/CVI (36% anchor of the offering) still shows structured-flow behaviour.
+        </p>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
-        Input your personal position (or keep standard 10k lot) and test price scenarios:
-      </p>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
-        <div>
-          <label style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Your Shares:</label>
-          <input type="number" id="simCustomShares" value="10000" step="1000" style="width: 100%; padding: 8px 10px; background: var(--card-hover); border: 1px solid var(--border); color: var(--text); border-radius: 6px; font-size: 0.9rem;" oninput="updateSim(document.getElementById('priceSlider').value)">
-        </div>
-        <div>
-          <label style="font-size: 0.78rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Your Average Cost ($):</label>
-          <input type="number" id="simCustomCost" value="0.47" step="0.05" style="width: 100%; padding: 8px 10px; background: var(--card-hover); border: 1px solid var(--border); color: var(--text); border-radius: 6px; font-size: 0.9rem;" oninput="updateSim(document.getElementById('priceSlider').value)">
-        </div>
-      </div>
-
-      <div class="sim-box">
-        <div style="display: flex; justify-content: space-between; font-weight: 700;">
-          <span>Simulated Price:</span>
-          <span id="simPriceDisplay" style="color: var(--primary); font-size: 1.25rem;">$0.47</span>
-        </div>
-        <input type="range" class="sim-slider" id="priceSlider" min="0.40" max="4.00" step="0.05" value="0.47" oninput="updateSim(this.value)">
-
-        <div class="sim-results">
-          <div class="sim-res-card">
-            <span>Position Value</span>
-            <strong id="simValue">$4,700</strong>
-          </div>
-          <div class="sim-res-card">
-            <span>Estimated P&L</span>
-            <strong id="simPnL" style="color: var(--success);">$0</strong>
-          </div>
-          <div class="sim-res-card">
-            <span>Return %</span>
-            <strong id="simRet" style="color: var(--success);">0.0%</strong>
-          </div>
-          <div class="sim-res-card">
-            <span>Milestone Triggered</span>
-            <strong id="simHito" style="font-size: 0.85rem; color: var(--warning);">Spot Consolidation</strong>
-          </div>
-        </div>
+      <div style="font-size: 0.78rem; color: var(--text-muted); padding-top: 10px; border-top: 1px solid var(--border); margin-top: 12px;">
+        Tracked in master regulatory roadmap (SEC EDGAR &amp; CMS)
       </div>
     </div>
   </div>
 
-  <!-- IMMINENT REGULATORY CATALYST -->
-  <div class="panel" style="margin-bottom: 24px; border-left: 4px solid var(--warning);">
-    <div class="panel-title" style="color: var(--warning);">
-      <span>⏳ Imminent Regulatory Milestone</span>
-      <span class="badge badge-warning">2026-11-01</span>
-    </div>
-    <p style="font-size: 1rem; font-weight: 600; margin-bottom: 6px;">
-      📄 Q3 2026 13F filings — check institutional positions
-    </p>
-    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
-      <strong>Category:</strong> Institutional / Watch | <strong>Impact:</strong> MEDIUM — to watch
-    </p>
-    <p style="font-size: 0.85rem; color: var(--text);">
-      Window to check whether Perceptive Advisors kept its position after the August offering, and whether Heights Capital/CVI (36% anchor of the offering) still shows structured-flow behaviour.
-    </p>
+  <!-- OFFICIAL SEC & FUNDAMENTALS INTELLIGENCE -->
+  <div style="margin-top: 14px; margin-bottom: 16px;">
+    <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px;">
+      <svg style="width:18px;height:18px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+      <span>Official SEC Financials, Insiders &amp; Corporate Flow</span>
+    </h2>
   </div>
+
+  <div style="font-size:.85em;opacity:.75;margin-bottom:16px">🔕 No market-structure alerts · OI P/C 0.10 · new puts +5 · min IBKR available (6 sess.) 200,000 · exempt short 2.23%</div>
+  
+  <div class="grid-2" style="margin-bottom: 24px;">
+    <div class="panel"><div class='panel-title'><span>📑 Official financials (SEC XBRL)</span></div><p style='font-size:0.85rem;margin:0 0 8px'>Cash at 2026-06-30: $11.2M; avg. quarterly operating burn (last 4 quarters): $14.0M; last quarter: $21.0M; runway on that cash: ~0.8 quarters at the 4-quarter average burn, ~0.5 at the last quarter&#x27;s burn; latest reported share count: 243.4M (2026-08-14). Financing filed after the quarter end (424B): 2026-07-21, 2026-08-12, 2026-08-14 — not included in that cash.</p><table><thead><tr><th>Quarter</th><th>Cash</th><th>Revenue</th><th>Net</th><th>Burn</th><th>Shares</th><th>Dil.</th></tr></thead><tbody><tr><td>2025-09-30</td><td class=text-right>$8.1M</td><td class=text-right>-$0.1M</td><td class=text-right>-$13.3M</td><td class=text-right>$12.4M</td><td class=text-right>53.9M</td><td class=text-right>+23.9%</td></tr><tr><td>2025-12-31</td><td class=text-right>$8.7M</td><td class=text-right>-$1.2M</td><td class=text-right>-$23.1M</td><td class=text-right>$14.9M</td><td class=text-right>64.6M</td><td class=text-right>+19.8%</td></tr><tr><td>2026-03-31</td><td class=text-right>$7.7M</td><td class=text-right>$0.1M</td><td class=text-right>-$4.5M</td><td class=text-right>$7.8M</td><td class=text-right>104.6M</td><td class=text-right>+62.0%</td></tr><tr><td>2026-06-30</td><td class=text-right>$11.2M</td><td class=text-right>$0.0M</td><td class=text-right>-$20.3M</td><td class=text-right>$21.0M</td><td class=text-right>187.1M</td><td class=text-right>+78.8%</td></tr></tbody></table></div>
+    <div class="panel"><div class='panel-title'><span>👔 Insiders (Form 4)</span></div><p style='font-size:0.85rem;margin:0 0 6px'>Last 90 days: 4 purchases (code P) · 0 sales</p><ul style='font-size:0.85rem;padding-left:18px'><li style='margin:3px 0'>2026-08-14 · KENYON LAWRENCE A · Purchase (open market or offering) 101,010 @ $0.9900</li><li style='margin:3px 0'>2026-08-14 · Jahr Robert Charles · Purchase (open market or offering) 151,515 @ $0.9900</li><li style='margin:3px 0'>2026-08-12 · Sukhtian Ghiath M. / GMS Ventures &amp; Investments · Purchase (open market or offering) 2,525,252 @ $0.9900</li><li style='margin:3px 0'>2026-07-29 · Sukhtian Faisal Ghiath · Purchase (open market or offering) 95,398 @ $1.0482</li><li style='margin:3px 0'>2026-06-02 · Haddadin Yezan Munther · Purchase (open market or offering) 29,000 @ $0.8326</li><li style='margin:3px 0'>2026-05-28 · Sukhtian Ghiath M. / GMS Ventures &amp; Investments · Purchase (open market or offering) 8,539,709 @ $0.5855</li></ul><div class='panel-title' style='margin-top:14px'><span>📰 News and press releases</span></div><ul style='font-size:0.85rem;padding-left:18px'><li style='margin:3px 0'>2026-10-09 · <a href='https://outlooktherapeutics.com/careers/' target='_blank' style='color:var(--primary)'>Careers page: 8 openings (10 on Oct 1). New: IT Manager. Removed since Oct 1: National Sales Director West, Supply Chain and 2 ARMs (incl. Southwest). Still open: 3 ARMs, FP&amp;A, Quality/GxP, Senior Legal Counsel US and Medical Manager Germany</a></li><li style='margin:3px 0'>2026-10-09 · <a href='https://ir.outlooktherapeutics.com/news-and-events/press-releases/' target='_blank' style='color:var(--primary)'>Outlook Therapeutics Names Greg DiPasquale Chief Commercial Officer</a></li><li style='margin:3px 0'>2026-10-09 · <a href='https://www.aao.org/eyenet/academy-live/detail/lytenava-new-drug-questions-on-coverage-billing' target='_blank' style='color:var(--primary)'>AAO 2026 Daily: LYTENAVA to be billed with NOC codes (J3490, J3590, C9399), carrier priced, until a J-code is assigned; copays expected to rise vs compounded bevacizumab</a></li><li style='margin:3px 0'>2026-10-06 · <a href='https://www.globenewswire.com/search/organization/Outlook%20Therapeutics%C2%AE' target='_blank' style='color:var(--primary)'>Outlook Therapeutics Highlights What the Appointment of New CFO Kevin Lundquist Means for the Company&#x27;s Next Chapter in Virtual Investor Discussion</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.uhcprovider.com/en/resource-library/news/2026/sdub-updates-oct-2026.html' target='_blank' style='color:var(--primary)'>UnitedHealthcare adds LYTENAVA (bevacizumab-vikg) to &#x27;Review at Launch&#x27; (Medical Benefit Specialty Medication Update Bulletin, October 2026)</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.globenewswire.com/news-release/2026/10/01/3372980/0/en/outlook-therapeutics-submits-hcpcs-level-ii-application-to-cms-for-permanent-j-code-for-lytenava-bevacizumab-vikg.html' target='_blank' style='color:var(--primary)'>Outlook Therapeutics Submits HCPCS Level II Application to CMS for Permanent J-Code for LYTENAVA™ (bevacizumab-vikg)</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://outlooktherapeutics.com/careers/' target='_blank' style='color:var(--primary)'>Careers page drops from 21 to 10 openings; new FP&amp;A Manager, ARM Southwest (Phoenix) and Medical Manager Germany</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.aetna.com/content/dam/aetna/pdfs/olu/officelink-updates-october-2026-olu.pdf' target='_blank' style='color:var(--primary)'>Aetna requires precertification for LYTENAVA (J3490/J3590/C9399) effective Sep 1, 2026, commercial and Medicare (October OfficeLink bulletin)</a></li></ul></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 24px;">
+    <div class="panel"><div class="panel-title"><span>🔄 What changed since the previous session</span></div>
+      <ul style="font-size:0.88rem; padding-left:18px;"><li style='margin:3px 0'>Close $0.5640 -&gt; $0.4700 (-16.67%) vs 2026-10-13.</li><li style='margin:3px 0'>Short volume ratio 64.3% -&gt; 53.7% (20-session avg 58.7%).</li><li style='margin:3px 0'>Sub-$1 streak: 44 sessions.</li><li style='margin:3px 0'>Options: 579 calls / 9 puts traded; call OI +6, put OI +5 vs 2026-10-13.</li><li style='margin:3px 0'>Block 2027-01-15 CALL $0.5: 332 @ $0.11, OI +0 -&gt; mostly changing hands.</li><li style='margin:3px 0'>Block 2027-01-15 CALL $1: 107 @ $0.08, OI +19 -&gt; mostly changing hands.</li><li style='margin:3px 0'>Block 2027-02-19 CALL $1: 102 @ $0.08, OI +0 -&gt; mostly changing hands.</li></ul></div>
+    <div class="panel"><div class="panel-title"><span>🏛️ Recent SEC filings</span></div>
+      <ul style="font-size:0.85rem; padding-left:18px;"><li style='margin:3px 0'>2026-10-13 (after the close, 16:47 NY) 🟡 <a href='https://www.sec.gov/Archives/edgar/data/1649989/000091957426006871/xslSCHEDULE_13G_X02/primary_doc.xml' target='_blank' style='color:var(--primary)'>Significant holder (13G)</a></li><li style='margin:3px 0'>2026-09-30 (after the close, 20:30 NY) 🔴 <a href='https://www.sec.gov/Archives/edgar/data/1649989/000110465926112356/tm2626478d1_8k.htm' target='_blank' style='color:var(--primary)'>8-K (3.01): Nasdaq: listing deficiency notice</a></li></ul>
+      <div class="panel-title" style="margin-top:14px;"><span>🧾 Data freshness</span></div>
+      <table><tbody><tr><td>Price (close)</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>FINRA short volume</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>Borrow fee (IBKR)</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr><tr><td>Short interest (bi-monthly)</td><td class='text-right'>2026-09-30</td><td class='text-center'>✅</td></tr><tr><td>Fails to deliver (SEC)</td><td class='text-right'>2026-09-30</td><td class='text-center'>✅</td></tr><tr><td>Exchange volume (ChartExchange)</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>Options (OI &amp; volume)</td><td class='text-right'>2026-10-14</td><td class='text-center'>✅</td></tr><tr><td>SEC filings (EDGAR)</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr></tbody></table></div>
+  </div>
+
 
   <!-- FOOTER -->
-  <footer style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 16px 0; border-top: 1px solid var(--border);">
-    Outlook Therapeutics, Inc. (OTLK) — 360° Quantitative Research Toolkit | Community Edition | Updated: 2026-10-15 10:36:31
+  <footer style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 24px;">
+    Outlook Therapeutics, Inc. (OTLK) — 360° Quantitative Research Toolkit | Community Edition | Updated: 2026-10-15 15:43:08
   </footer>
 
 </div>
 
-<!-- INTERACTIVE PUBLIC SIMULATOR & THEME SCRIPT -->
+<!-- THEME SWITCHER SCRIPT -->
 <script>
-  function updateSim(val) {
-    const sharesInput = document.getElementById('simCustomShares');
-    const costInput = document.getElementById('simCustomCost');
-    const shares = parseFloat(sharesInput ? sharesInput.value : 10000) || 0;
-    const costPerShare = parseFloat(costInput ? costInput.value : 0) || 0;
-    const totalCost = shares * costPerShare;
-
-    const p = parseFloat(val);
-    document.getElementById('simPriceDisplay').innerText = '$' + p.toFixed(2);
-    const valTotal = p * shares;
-    const pnl = valTotal - totalCost;
-    const ret = totalCost > 0 ? (pnl / totalCost) * 100 : 0;
-
-    document.getElementById('simValue').innerText = '$' + Math.round(valTotal).toLocaleString();
-    
-    const pnlElem = document.getElementById('simPnL');
-    const retElem = document.getElementById('simRet');
-    const hitoElem = document.getElementById('simHito');
-
-    pnlElem.innerText = (pnl >= 0 ? '+' : '') + '$' + Math.round(pnl).toLocaleString();
-    retElem.innerText = (ret >= 0 ? '+' : '') + ret.toFixed(1) + '%';
-
-    if (pnl >= 0) {
-      pnlElem.style.color = 'var(--success)';
-      retElem.style.color = 'var(--success)';
-    } else {
-      pnlElem.style.color = 'var(--danger)';
-      retElem.style.color = 'var(--danger)';
-    }
-
-    // Milestones
-    if (p >= 4.00) {
-      hitoElem.innerText = '🏆 US Launch ($485 WAC)';
-      hitoElem.style.color = 'var(--success)';
-    } else if (p >= 2.50) {
-      hitoElem.innerText = '🚀 Europe Commercialization';
-      hitoElem.style.color = 'var(--success)';
-    } else if (costPerShare > 0 && p >= costPerShare) {
-      hitoElem.innerText = '🎯 BREAK-EVEN ACHIEVED';
-      hitoElem.style.color = 'var(--success)';
-    } else if (p >= 1.10) {
-      hitoElem.innerText = '💰 Warrants (+$61M cash, dilutive)';
-      hitoElem.style.color = 'var(--primary)';
-    } else if (p >= 1.00) {
-      hitoElem.innerText = '✅ Reclaims Nasdaq';
-      hitoElem.style.color = 'var(--warning)';
-    } else if (p <= 0.55) {
-      hitoElem.innerText = '📉 Bear case';
-      hitoElem.style.color = 'var(--purple)';
-    } else {
-      hitoElem.innerText = 'Below $1.00';
-      hitoElem.style.color = 'var(--text-muted)';
-    }
-  }
-
   function toggleTheme() {
     const html = document.documentElement;
     if (html.classList.contains('dark')) {
