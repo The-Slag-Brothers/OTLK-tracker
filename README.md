@@ -1,6 +1,6 @@
-# 🔭 OTLK 360° Quantitative Research Toolkit
+# <img src="assets/ico-radar.svg" alt="" width="24" height="24" align="absmiddle"> OTLK 360° Quantitative Research Toolkit
 
-> 🌐 **Live site: <https://the-slag-brothers.github.io/OTLK-tracker/>** — English / Español portal, updated every trading day (last data session: **2026-10-14**).
+> <img src="assets/ico-globe.svg" alt="" width="24" height="24" align="absmiddle"> **Live site: <https://the-slag-brothers.github.io/OTLK-tracker/>** — English / Español portal, updated every trading day (last data session: **2026-10-14**).
 
 An independent, open quantitative research suite covering **Outlook Therapeutics, Inc. (NASDAQ: OTLK)** across three interconnected market dimensions:
 1. **Cash Equities & Short Flow Microstructure** (FINRA TRF Short Volume, Borrow Fees, SEC Failures to Deliver, SSR Rule 201).
@@ -9,11 +9,11 @@ An independent, open quantitative research suite covering **Outlook Therapeutics
 
 ---
 
-## 📂 Repository File Index & Navigation
+## <img src="assets/ico-folder.svg" alt="" width="24" height="24" align="absmiddle"> Repository File Index & Navigation
 
 Everything below is published on the live site and in this repository. Files are regenerated automatically after each trading session.
 
-### 🌐 Portal & tracking pages
+### <img src="assets/ico-layout.svg" alt="" width="24" height="24" align="absmiddle"> Portal & tracking pages
 
 | File Name | Format | Description & Core Focus |
 | :--- | :---: | :--- |
@@ -21,7 +21,7 @@ Everything below is published on the live site and in this repository. Files are
 | **`LYTENAVA_Launch_Tracker.html`** | HTML | **LYTENAVA launch tracker.** US channel, payers, CMS/Medicare, Medicaid, VA, sales-team hiring, UK NHS dispensing, and Europe / rest-of-world rollout, built from public sources only. |
 | **`SEC_Filings_Index.html`** | HTML | **SEC filings index.** Searchable, filterable list of OTLK EDGAR filings (8-K, 10-Q/10-K, 13D/G, prospectuses, proxy) with direct links. |
 
-### 📊 Research models & reports
+### <img src="assets/ico-chart.svg" alt="" width="24" height="24" align="absmiddle"> Research models & reports
 
 | File Name | Format | Description & Core Focus |
 | :--- | :---: | :--- |
@@ -33,7 +33,7 @@ Everything below is published on the live site and in this repository. Files are
 
 ---
 
-## 📐 Quantitative Methodology & Technical Formulas
+## <img src="assets/ico-sigma.svg" alt="" width="24" height="24" align="absmiddle"> Quantitative Methodology & Technical Formulas
 
 > [!IMPORTANT]
 > **No Black-Box or Scraped Chart Data:**  
@@ -85,16 +85,16 @@ Everything below is published on the live site and in this repository. Files are
 
 ---
 
-## 🧮 How to Use the Interactive Dashboard
+## <img src="assets/ico-monitor.svg" alt="" width="24" height="24" align="absmiddle"> How to Use the Interactive Dashboard
 
 1. **Online:** open the [live portal](https://the-slag-brothers.github.io/OTLK-tracker/) and choose *Executive Dashboard 360°*. Nothing to install.
 2. **Offline (optional):** download `OTLK_Executive_Dashboard_360.html` and double-click it; it opens in any modern browser (Chrome, Edge, Firefox, Safari) without an internet connection.
-3. **Dark / Light Theme:** click the `🌓 Theme` button in the top header.
-4. **Print / PDF:** click `🖨️ Print` to generate an A4 summary report (choose "Save as PDF" in the print dialog).
+3. **Dark / Light Theme:** click the **Theme** button in the top header.
+4. **Print / PDF:** click **Print** to generate an A4 summary report (choose "Save as PDF" in the print dialog).
 5. **Portal:** the `Portal 360°` button returns to the main page (English / Spanish).
 
 ---
 
-## ⚖️ Community Disclaimer
+## <img src="assets/ico-shield.svg" alt="" width="24" height="24" align="absmiddle"> Community Disclaimer
 
 This repository is maintained as an independent, open-source educational and quantitative research project. It does **not** constitute financial advice, investment recommendation, or endorsement to buy or sell securities. Markets involve risk; always verify with official SEC EDGAR filings and do your own research (DYOR).
