@@ -41,7 +41,7 @@
 - **Official short interest:** **21.0%** (~31.9M shares)
 - **Daily short-volume ratio:** **53.74%** | System signal: ✅ Neutral Zone
 - **Cost to borrow:** **3.1%** | **Recent FTDs:** **0 shares**
-- **Off-exchange volume:** **69.2% (20-session avg 65.5%, +3.7 pp)** | Trades at bid/mid/ask: 18% / 63% / 19% (2026-10-14)
+- **Off-exchange volume:** **71.0% (20-session avg 65.2%, +5.8 pp)** | Trades at bid/mid/ask: 18% / 63% / 19% (2026-10-14)
 
 ### Options (session 2026-10-14)
 - **Open interest:** **52,606 calls vs 5,168 puts** (91.1% calls)
@@ -141,7 +141,7 @@ Last 90 days: 4 purchases (code P) (2,873,175 sh., $2,849,995) and 0 sales (0 sh
 | Borrow fee (IBKR) | 2026-10-15 | ✅ |
 | Short interest (bi-monthly) | 2026-09-30 | ✅ |
 | Fails to deliver (SEC) | 2026-09-30 | ✅ |
-| Exchange volume (ChartExchange) | 2026-10-15 | ✅ |
+| Exchange volume (ChartExchange) | 2026-10-14 | ✅ |
 | Options (OI & volume) | 2026-10-14 | ✅ |
 | SEC filings (EDGAR) | 2026-10-15 | ✅ |
 

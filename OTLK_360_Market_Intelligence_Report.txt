@@ -38,7 +38,7 @@
     - Short-volume ratio     : 53.74% (signal: ✅ Neutral Zone)
     - Cost to borrow         : 3.1%
     - Recent FTDs            : 0 shares
-    - Off-exchange volume    : 69.2% (20-session avg 65.5%, +3.7 pp)
+    - Off-exchange volume    : 71.0% (20-session avg 65.2%, +5.8 pp)
     - Trades bid/mid/ask     : 18% / 63% / 19% (2026-10-14)
 
   OPTIONS (session 2026-10-14):
@@ -119,7 +119,7 @@ DATA FRESHNESS
   Borrow fee (IBKR)              2026-10-15   OK
   Short interest (bi-monthly)    2026-09-30   OK
   Fails to deliver (SEC)         2026-09-30   OK
-  Exchange volume (ChartExchange) 2026-10-15   OK
+  Exchange volume (ChartExchange) 2026-10-14   OK
   Options (OI & volume)          2026-10-14   OK
   SEC filings (EDGAR)            2026-10-15   OK
 
