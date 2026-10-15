@@ -1,5 +1,7 @@
 # 🔭 OTLK 360° Quantitative Research Toolkit
 
+> 🌐 **Live site: <https://the-slag-brothers.github.io/OTLK-tracker/>** — English / Español portal, updated every trading day (last data session: **2026-10-14**).
+
 An independent, open quantitative research suite covering **Outlook Therapeutics, Inc. (NASDAQ: OTLK)** across three interconnected market dimensions:
 1. **Cash Equities & Short Flow Microstructure** (FINRA TRF Short Volume, Borrow Fees, SEC Failures to Deliver, SSR Rule 201).
 2. **Derivatives & Options Mechanics** (CBOE / Nasdaq / OCC Open Interest, Max Pain, Put/Call ratios, option holders' net delta).
@@ -9,13 +11,23 @@ An independent, open quantitative research suite covering **Outlook Therapeutics
 
 ## 📂 Repository File Index & Navigation
 
-This folder contains five research tools designed for deep analysis without third-party paywalls:
+Everything below is published on the live site and in this repository. Files are regenerated automatically after each trading session.
+
+### 🌐 Portal & tracking pages
+
+| File Name | Format | Description & Core Focus |
+| :--- | :---: | :--- |
+| **`index.html`** / **`index_es.html`** | HTML | **Main portal (English / Spanish).** Last-session market metrics (close, Nasdaq $1.00 compliance clock, short ratio, options positioning, cash runway), catalyst calendar and links to every tool below. |
+| **`LYTENAVA_Launch_Tracker.html`** | HTML | **LYTENAVA launch tracker.** US channel, payers, CMS/Medicare, Medicaid, VA, sales-team hiring, UK NHS dispensing, and Europe / rest-of-world rollout, built from public sources only. |
+| **`SEC_Filings_Index.html`** | HTML | **SEC filings index.** Searchable, filterable list of OTLK EDGAR filings (8-K, 10-Q/10-K, 13D/G, prospectuses, proxy) with direct links. |
+
+### 📊 Research models & reports
 
 | File Name | Format | Description & Core Focus |
 | :--- | :---: | :--- |
 | **`OTLK_Shorts_and_Fundamentals_Model.xlsx`** | Excel | **Complete Shorts & Equities Model (No Options).** Contains 4 comprehensive sheets (`Executive Summary`, `Daily Data`, `Charts`, `Statistics`) with daily historical trading, FINRA short volume, Interactive Brokers CTB, SEC FTDs, and technical indicators. All values are computed in Python from raw data and stored as values (no hidden formulas). |
 | **`OTLK_Options_Chain_and_Derivatives.xlsx`** | Excel | **Derivatives Chain & Greeks Model.** Live multi-strike chain across all active expirations (2026-2027), Max Pain, Black-Scholes Greeks (recomputed at the official close), Put/Call ratios, and a daily history keyed by market session. |
-| **`OTLK_Executive_Dashboard_360.html`** | Interactive HTML | **Visual 360° Market Dashboard.** 100% self-contained web app (works offline in any browser). Features Dark/Light theme, SVG open interest bar charts, strategic threshold roadmap, option-expiry tables and a data-freshness panel. |
+| **`OTLK_Executive_Dashboard_360.html`** | Interactive HTML | **Visual 360° Market Dashboard.** 100% self-contained page (also works offline once downloaded). Features Dark/Light theme, SVG open interest bar charts, strategic threshold roadmap, option-expiry tables and a data-freshness panel. |
 | **`OTLK_360_Market_Intelligence_Report.md`** | Markdown | **Structured Executive Intelligence Report.** Formatted with tables, early warning alerts, and a 10,000-share reference scenario matrix. |
 | **`OTLK_360_Market_Intelligence_Report.txt`** | Plain Text | **Clean ASCII Report.** Lightweight, fixed-width text report ideal for quick reading on mobile or sharing in chat rooms/forums. |
 
@@ -42,7 +54,7 @@ This folder contains five research tools designed for deep analysis without thir
 ### 2. Market Microstructure & Regulatory Dynamics
 - **FINRA Short Volume Ratio vs. Short Interest:**  
   - *Daily Short Volume Ratio* = `(Total Short Volume / Total FINRA Reported Volume) * 100`. Largely reflects market-maker liquidity provision and intraday shorting; values of 50-70% are common in small caps and do **not** measure new short positions.
-  - *Official Short Interest* = bi-monthly exchange-reported short positions (currently 21.0% of float, ~31.9M shares). This is the better gauge of actual short exposure.
+  - *Official Short Interest* = bi-monthly exchange-reported short positions (as of the latest report, 21.0% of float, ~31.9M shares). This is the better gauge of actual short exposure.
 - **Short Exempt Ratio (%):**  
   `(FINRA Exempt Volume / Total Short Volume) * 100`. Measures short sales executed without Rule 201 uptick restrictions (typically broker-dealer risk mitigation).
 - **SEC Regulation SHO FTD Settlement Cycles (T+35):**  
@@ -69,16 +81,17 @@ This folder contains five research tools designed for deep analysis without thir
 - **Historical Shares Ladder:**  
   Market capitalization is calculated using audited share count progression from official SEC 10-Q and 8-K filings (26.9M post-RS -> 120.8M -> 187.1M -> **243.4M Basic OS** / **374.0M Fully Diluted**), avoiding outdated third-party quote provider data.
 - **$1.10 Warrant Dynamics:**  
-  Distance to the 55,555,556 public warrants strike ($1.10). Full exercise would bring up to **$61,111,112 in cash**, but it is **dilutive**: it issues 55,555,556 new shares (+22.8% vs. shares outstanding).
+  Figures as of the 2026-10-14 session. Distance to the 55,555,556 public warrants strike ($1.10). Full exercise would bring up to **$61,111,112 in cash**, but it is **dilutive**: it issues 55,555,556 new shares (+22.8% vs. shares outstanding).
 
 ---
 
 ## 🧮 How to Use the Interactive Dashboard
 
-1. **Open File:** Double-click `OTLK_Executive_Dashboard_360.html` to open it in any web browser (Chrome, Edge, Firefox, Safari). No internet connection or installation required.
-2. **Dark / Light Theme:** Click the `🌓 Theme` button in the top header.
-3. **Print / PDF:** Click `🖨️ Print` to generate an A4 summary report (choose "Save as PDF" in the print dialog).
-4. **Portal:** The `Portal 360°` button returns to the main page (English / Spanish).
+1. **Online:** open the [live portal](https://the-slag-brothers.github.io/OTLK-tracker/) and choose *Executive Dashboard 360°*. Nothing to install.
+2. **Offline (optional):** download `OTLK_Executive_Dashboard_360.html` and double-click it; it opens in any modern browser (Chrome, Edge, Firefox, Safari) without an internet connection.
+3. **Dark / Light Theme:** click the `🌓 Theme` button in the top header.
+4. **Print / PDF:** click `🖨️ Print` to generate an A4 summary report (choose "Save as PDF" in the print dialog).
+5. **Portal:** the `Portal 360°` button returns to the main page (English / Spanish).
 
 ---
 
