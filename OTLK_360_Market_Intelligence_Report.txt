@@ -38,7 +38,7 @@
     - Short-volume ratio     : 53.74% (signal: ✅ Neutral Zone)
     - Cost to borrow         : 3.1%
     - Recent FTDs            : 0 shares
-    - Off-exchange volume    : 68.3% (20-session avg 65.4%, +2.9 pp)
+    - Off-exchange volume    : 69.4% (20-session avg 65.5%, +3.9 pp)
     - Trades bid/mid/ask     : 18% / 63% / 19% (2026-10-14)
 
   OPTIONS (session 2026-10-14):
