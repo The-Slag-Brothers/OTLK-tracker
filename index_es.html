@@ -183,21 +183,6 @@
     }
 
     /* TOAST COPIADO */
-    #copyToast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #10b981;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-      display: none;
-      z-index: 1000;
-      animation: slideUp 0.3s ease;
-    }
     @keyframes slideUp {
       from { transform: translateY(100%); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -1086,13 +1071,6 @@
       <a class="btn-action" href="index.html" hreflang="en" lang="en" title="English version">🌐 English</a>
       <span class="badge badge-session">Sesión: 2026-10-15</span>
       <span class="badge badge-alert">⚠️ Nasdaq Deficiencia (&lt;$1): 160 días</span>
-      <button class="btn-action highlight" onclick="copiarResumenChat()">
-        <svg class="custom-svg-icon" style="width:16px;height:16px;stroke:currentColor;" viewBox="0 0 24 24">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-        <span>Copiar Resumen para Chat</span>
-      </button>
       <a class="btn-action" href="https://github.com/The-Slag-Brothers/OTLK-tracker" target="_blank" rel="noopener">
         <svg class="custom-svg-icon" style="width:16px;height:16px;stroke:currentColor;" viewBox="0 0 24 24">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
@@ -1102,7 +1080,6 @@
     </div>
   </header>
 
-  <div id="copyToast">✅ ¡Resumen copiado al portapapeles listo para compartir en el chat!</div>
 
   <!-- =========================================================================
        HERO EN PRIMER PLANO: EL BUQUE INSIGNIA (LYTENAVA LAUNCH TRACKER) Y REPORTES
@@ -1902,30 +1879,6 @@
     }
   });
 
-  // Función para Copiar Resumen al Chat
-  function copiarResumenChat() {
-    const textoChat = 
-`🚀 *OUTLOOK THERAPEUTICS (OTLK) · RADAR DIARIO (16-Oct-2026)*
-━━━━━━━━━━━━━━━━━━━━━
-📊 *Precio Cierre:* $0.5000 (+6.38%)
-⚠️ *Plazo Nasdaq ($1):* 160 días restantes (Límite: 24-Mar-2027)
-📉 *Racha < $1:* 45 sesiones consecutivas
-⚪ *Short Ratio FINRA:* 62.14% (High Pressure)
-🟢 *Derivados (OI):* 52,809 Calls vs 5,156 Puts (91% Calls)
-💰 *Caja oficial:* $11.2M (Runway ~0.8 trim.)
-💉 *LYTENAVA:* Lanzamiento comercial US en Q4 2026. Código J entregado a CMS (resolución ~Ene-2027).
-
-🔗 *Web completa con gráficos, Excels y tracker:*
-https://the-slag-brothers.github.io/OTLK-tracker/`;
-
-    navigator.clipboard.writeText(textoChat).then(() => {
-      const toast = document.getElementById('copyToast');
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 3500);
-    }).catch(err => {
-      alert('Resumen copiado. \n\n' + textoChat);
-    });
-  }
 </script>
 
 </body>
