@@ -1274,7 +1274,7 @@
          MODELOS CUANTITATIVOS Y REPORTES CON VISUALIZACIÓN ONLINE Y DESCARGA
          ========================================================================= -->
     <div class="downloads-section">
-      <div class="section-title">Modelos Cuantitativos &amp; Reportes (Visualizar Online o Descargar)</div>
+      <div class="section-title">Modelos Cuantitativos &amp; Reportes (Descargar)</div>
       <div class="downloads-grid">
         
         <!-- MODELO 1: EXCEL CORTOS Y FUNDAMENTALES -->
@@ -1296,10 +1296,6 @@
             </p>
           </div>
           <div class="dl-btn-group">
-            <a class="btn-view-online" href="https://docs.google.com/gview?embedded=1&amp;url=https://the-slag-brothers.github.io/OTLK-tracker/OTLK_Shorts_and_Fundamentals_Model.xlsx" target="_blank" rel="noopener" title="Ver online">
-              <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-              <span>Ver online</span>
-            </a>
             <a class="btn-download-direct" href="OTLK_Shorts_and_Fundamentals_Model.xlsx" download title="Descargar fichero Excel">
               <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               <span>Descargar</span>
@@ -1327,10 +1323,6 @@
             </p>
           </div>
           <div class="dl-btn-group">
-            <a class="btn-view-online" href="https://docs.google.com/gview?embedded=1&amp;url=https://the-slag-brothers.github.io/OTLK-tracker/OTLK_Options_Chain_and_Derivatives.xlsx" target="_blank" rel="noopener" title="Ver online">
-              <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-              <span>Ver online</span>
-            </a>
             <a class="btn-download-direct" href="OTLK_Options_Chain_and_Derivatives.xlsx" download title="Descargar fichero Excel">
               <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               <span>Descargar</span>
@@ -1881,5 +1873,21 @@
 
 </script>
 
+<script>
+/* Descarga forzada de los Excel: Edge abre los .xlsx en su visor aunque el enlace lleve "download".
+   Se baja el fichero como blob binario; si algo falla, se usa el enlace normal. */
+document.querySelectorAll('a.btn-download-direct[href$=".xlsx"]').forEach(function(a){
+  a.addEventListener('click',function(ev){
+    ev.preventDefault();
+    var url=a.getAttribute('href'),name=url.split('/').pop();
+    fetch(url,{cache:'no-cache'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.blob();})
+    .then(function(b){
+      var u=URL.createObjectURL(new Blob([b],{type:'application/octet-stream'}));
+      var t=document.createElement('a');t.href=u;t.download=name;document.body.appendChild(t);t.click();
+      setTimeout(function(){URL.revokeObjectURL(u);t.remove();},1500);
+    }).catch(function(){window.location.href=url;});
+  });
+});
+</script>
 </body>
 </html>
