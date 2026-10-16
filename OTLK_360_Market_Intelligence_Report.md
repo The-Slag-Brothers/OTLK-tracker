@@ -43,7 +43,7 @@
 - **Official short interest:** **21.0%** (~31.9M shares)
 - **Daily short-volume ratio:** **62.14%** | System signal: 🟠 High Pressure
 - **Cost to borrow:** **3.1%** | **Recent FTDs:** **0 shares**
-- **Off-exchange volume:** **68.4% (20-session avg 65.5%, +3.0 pp)** | Trades at bid/mid/ask: 18% / 63% / 19% (2026-10-14)
+- **Off-exchange volume:** **68.4% (20-session avg 65.5%, +3.0 pp)** | Trades at bid/mid/ask: 15% / 58% / 25% (2026-10-15)
 
 ### Options (session 2026-10-15)
 - **Open interest:** **52,809 calls vs 5,156 puts** (91.1% calls)
