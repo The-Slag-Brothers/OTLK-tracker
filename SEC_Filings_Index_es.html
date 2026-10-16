@@ -1,0 +1,1501 @@
+<!doctype html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Outlook Therapeutics (NASDAQ: OTLK) · Repositorio de filings de la SEC</title>
+  <style>
+    :root {
+      --bg: #0b111a;
+      --card: #111a28;
+      --card-hover: #162438;
+      --border: #1e2c3f;
+      --border-accent: rgba(56, 189, 248, 0.4);
+      --text: #f1f5f9;
+      --text-muted: #8ea4bb;
+      --primary: #38bdf8;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #c084fc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+      min-height: 100vh;
+    }
+    .container { max-width: 1180px; margin: 0 auto; }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 14px; }
+    .logo-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+    }
+    .brand-title h1 {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ticker-pill {
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      font-family: ui-monospace, monospace;
+    }
+    .brand-title p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .nav-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-nav {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-nav:hover {
+      background: var(--card-hover);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* STATS SUMMARY BAR */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    @media (max-width: 900px) { .stats-bar { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .stats-bar { grid-template-columns: 1fr 1fr; } }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      transition: all 0.2s ease;
+    }
+    .stat-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .stat-label { font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+    .stat-val { font-size: 1.45rem; font-weight: 800; font-family: ui-monospace, monospace; margin: 3px 0 0; color: #fff; }
+    .stat-desc { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* FILTERS & SEARCH */
+    .controls-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0 14px;
+      transition: border-color 0.2s;
+    }
+    .search-input-wrap:focus-within { border-color: var(--primary); box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+    .search-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.9rem;
+      padding: 11px 8px;
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover, .chip-btn.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: var(--primary);
+      color: #38bdf8;
+    }
+
+    /* TABLE */
+    .table-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th {
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(30, 44, 63, 0.6);
+      vertical-align: middle;
+      transition: background 0.15s ease;
+    }
+    tbody tr { transition: all 0.15s ease; }
+    tbody tr:hover td {
+      background: rgba(56, 189, 248, 0.06);
+    }
+    tbody tr:hover td:first-child {
+      border-left: 3px solid #38bdf8;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    .filing-date {
+      font-family: ui-monospace, monospace;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .badge-form {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      font-family: ui-monospace, monospace;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+    }
+    .form-8k { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.35); }
+    .form-periodic { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.35); }
+    .form-ownership { background: rgba(192, 132, 252, 0.15); color: #c084fc; border-color: rgba(192, 132, 252, 0.35); }
+    .form-prospectus { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(245, 158, 11, 0.35); }
+    .form-proxy { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; border-color: rgba(45, 212, 191, 0.35); }
+
+    .filing-items {
+      font-size: 0.84rem;
+      color: var(--text);
+    }
+    .items-tag {
+      font-family: ui-monospace, monospace;
+      font-size: 0.76rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .btn-edgar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      color: #38bdf8;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-edgar:hover {
+      background: #0284c7;
+      color: #fff;
+      border-color: #38bdf8;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding-top: 24px;
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand-wrap">
+      <div class="logo-box">
+        <svg viewBox="0 0 36 36" style="width:30px;height:30px;"><defs><linearGradient id="otlkGradSec" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="50%" stop-color="#0284c7"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs><path d="M4 18 C8 10, 14 6, 18 6 C22 6, 28 10, 32 18 C28 26, 22 30, 18 30 C14 30, 8 26, 4 18 Z" fill="none" stroke="url(#otlkGradSec)" stroke-width="2.6" stroke-linecap="round"/><circle cx="18" cy="18" r="5.5" fill="none" stroke="#38bdf8" stroke-width="2.2"/><circle cx="18" cy="18" r="2.8" fill="#10b981"/><circle cx="15.8" cy="15.8" r="1.2" fill="#ffffff"/></svg>
+      </div>
+      <div class="brand-title">
+        <h1><span>OUTLOOK THERAPEUTICS</span> <span class="ticker-pill">NASDAQ: OTLK</span></h1>
+        <p>Repositorio de filings y divulgación regulatoria de la SEC · Enlaces directos a EDGAR (CIK: 0001649989)</p>
+      </div>
+    </div>
+    <div class="nav-actions"><a class="btn-nav" href="SEC_Filings_Index.html" hreflang="en" lang="en">🌐 English</a>
+      <a class="btn-nav" href="index_es.html"><svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Portal 360°</a>
+      <a class="btn-nav" href="LYTENAVA_Launch_Tracker_es.html"><svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> Seguimiento del lanzamiento</a>
+      <a class="btn-nav" href="OTLK_Executive_Dashboard_360_es.html"><svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> Panel ejecutivo</a>
+    </div>
+  </header>
+
+  <!-- STATS SUMMARY BAR -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-label">Total del repositorio</div>
+      <div class="stat-val">100</div>
+      <div class="stat-desc">Filings since 2025-01-01</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Formulario 8-K</div>
+      <div class="stat-val" style="color:#38bdf8;">47</div>
+      <div class="stat-desc">Hechos relevantes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">10-Q y 10-K</div>
+      <div class="stat-val" style="color:#34d399;">9</div>
+      <div class="stat-desc">Estados financieros periódicos auditados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Schedule 13D/G</div>
+      <div class="stat-val" style="color:#c084fc;">19</div>
+      <div class="stat-desc">Titularidad real y fondos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">424B &amp; S-3</div>
+      <div class="stat-val" style="color:#fbbf24;">17</div>
+      <div class="stat-desc">Folletos y financiación</div>
+    </div>
+  </div>
+
+  <!-- FILTERS & LIVE SEARCH -->
+  <div class="controls-panel">
+    <div class="search-input-wrap">
+      <svg style="width:18px;height:18px;stroke:var(--text-muted);fill:none;stroke-width:2;flex-shrink:0;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="filingSearch" class="search-input" placeholder="Buscar filings por tipo de formulario, número de ítem, fecha o palabra clave (ej.: 8-K, 10-Q, 3.01, agosto)..." oninput="applyFilter()">
+    </div>
+    <div class="filter-chips">
+      <button class="chip-btn active" onclick="setCategory('all', this)">All Documents (100)</button>
+      <button class="chip-btn" onclick="setCategory('8-K', this)">8-K Current Reports (47)</button>
+      <button class="chip-btn" onclick="setCategory('10-', this)">10-Q y 10-K Audited (9)</button>
+      <button class="chip-btn" onclick="setCategory('13', this)">Schedule 13D / 13G (19)</button>
+      <button class="chip-btn" onclick="setCategory('prospectus', this)">424B / S-3 Offerings (17)</button>
+      <button class="chip-btn" onclick="setCategory('14A', this)">Proxy Statements (8)</button>
+    </div>
+  </div>
+
+  <!-- FILINGS TABLE -->
+  <div class="table-panel">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:130px;">Fecha de presentación</th>
+          <th style="width:170px;">Tipo de formulario</th>
+          <th>Descripción e ítems informados</th>
+          <th style="width:160px;text-align:right;">Enlace SEC</th>
+        </tr>
+      </thead>
+      <tbody id="filingsBody">
+        <tr data-form="schedule 13g" data-cat="13" data-date="2026-10-13" data-desc="informe de titularidad real (5 %+, pasiva)">
+          <td class="filing-date">2026-10-13</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000091957426006871/xslSCHEDULE_13G_X02/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-09-30" data-desc="items 3.01 hecho relevante: aviso de incumplimiento de cotización">
+          <td class="filing-date">2026-09-30</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 3.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Aviso de incumplimiento de cotización</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926112356/tm2626478d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-09-18" data-desc="items 8.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-09-18</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926108952/tm2625694d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-08-27" data-desc="items 5.02,9.01 hecho relevante: cambio de directivo / consejero">
+          <td class="filing-date">2026-08-27</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Cambio de directivo / consejero</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926102446/tm2624167d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g" data-cat="13" data-date="2026-08-19" data-desc="informe de titularidad real (5 %+, pasiva)">
+          <td class="filing-date">2026-08-19</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000164955326000111/xslSCHEDULE_13G_X02/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-q" data-cat="10-" data-date="2026-08-18" data-desc="10-q informe trimestral">
+          <td class="filing-date">2026-08-18</td>
+          <td><span class="badge-form form-periodic">10-Q</span></td>
+          <td class="filing-items"><span class="items-tag">10-Q</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe trimestral</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926098415/otlk-20260630x10q.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="nt 10-q" data-cat="10-" data-date="2026-08-17" data-desc="nt 10-q aviso de presentación tardía de informe periódico">
+          <td class="filing-date">2026-08-17</td>
+          <td><span class="badge-form form-periodic">NT 10-Q</span></td>
+          <td class="filing-items"><span class="items-tag">NT 10-Q</span> <span style="color:var(--text-muted);font-size:0.8rem;">Aviso de presentación tardía de informe periódico</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926097838/tm2623360d1_nt10q.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13d/a" data-cat="13" data-date="2026-08-14" data-desc="informe de titularidad real (5 %+, intención activa, modificación)">
+          <td class="filing-date">2026-08-14</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13D/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, intención activa, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000089914026000895/xslSCHEDULE_13D_X02/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-08-14" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-08-14</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926096510/tm2622399d2_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2026-08-14" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2026-08-14</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926096504/tm2622281-2_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-08-14" data-desc="items 2.02,9.01 hecho relevante: resultados de explotación">
+          <td class="filing-date">2026-08-14</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926096478/tm2622399d3_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2026-08-12" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2026-08-12</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926094970/tm2622281-1_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-08-12" data-desc="items 2.02,8.01,9.01 hecho relevante: resultados de explotación, otros hechos">
+          <td class="filing-date">2026-08-12</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación, Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926094848/tm2622278d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-07-24" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-07-24</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926086685/tm2621316d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-07-24" data-desc="items 5.02 hecho relevante: cambio de directivo / consejero">
+          <td class="filing-date">2026-07-24</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.02</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Cambio de directivo / consejero</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926086406/tm2621232d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b3" data-cat="prospectus" data-date="2026-07-21" data-desc="424b3 suplemento de folleto">
+          <td class="filing-date">2026-07-21</td>
+          <td><span class="badge-form form-prospectus">424B3</span></td>
+          <td class="filing-items"><span class="items-tag">424B3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926085430/tm2619649d5_424b3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="s-3" data-cat="prospectus" data-date="2026-07-17" data-desc="form s-3 declaración de registro">
+          <td class="filing-date">2026-07-17</td>
+          <td><span class="badge-form form-prospectus">S-3</span></td>
+          <td class="filing-items"><span class="items-tag">FORM S-3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Declaración de registro</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926084621/tm2619649d3_s3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-07-16" data-desc="items 5.03,5.07,9.01 hecho relevante: modificación de estatutos, resultados de votación de accionistas">
+          <td class="filing-date">2026-07-16</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.03,5.07,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Modificación de estatutos, Resultados de votación de accionistas</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926084242/tm2620677d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="defa14a" data-cat="14A" data-date="2026-07-10" data-desc="defa14a convocatoria de junta (proxy)">
+          <td class="filing-date">2026-07-10</td>
+          <td><span class="badge-form form-proxy">DEFA14A</span></td>
+          <td class="filing-items"><span class="items-tag">DEFA14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926082361/tm2620160d1_defa14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-06-26" data-desc="items 3.01 hecho relevante: aviso de incumplimiento de cotización">
+          <td class="filing-date">2026-06-26</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 3.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Aviso de incumplimiento de cotización</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926078337/tm2619105d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-06-16" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-06-16</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926074346/tm2618010d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13d/a" data-cat="13" data-date="2026-06-01" data-desc="informe de titularidad real (5 %+, intención activa, modificación)">
+          <td class="filing-date">2026-06-01</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13D/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, intención activa, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000089914026000621/xslSCHEDULE_13D_X02/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="defa14a" data-cat="14A" data-date="2026-06-01" data-desc="defa14a convocatoria de junta (proxy)">
+          <td class="filing-date">2026-06-01</td>
+          <td><span class="badge-form form-proxy">DEFA14A</span></td>
+          <td class="filing-items"><span class="items-tag">DEFA14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000114036126023585/ny20071594x3_defa14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="def 14a" data-cat="14A" data-date="2026-06-01" data-desc="def 14a convocatoria de junta (proxy)">
+          <td class="filing-date">2026-06-01</td>
+          <td><span class="badge-form form-proxy">DEF 14A</span></td>
+          <td class="filing-items"><span class="items-tag">DEF 14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000114036126023583/ny20071594x2_def14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-06-01" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-06-01</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926068659/tm2616461d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-05-29" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-05-29</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926068306/tm2615979d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2026-05-29" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2026-05-29</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926067917/tm2615976d1_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-05-28" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-05-28</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926067614/tm2615925d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-05-26" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-05-26</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926065992/tm2615583d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="pre 14a" data-cat="14A" data-date="2026-05-22" data-desc="pre 14a convocatoria de junta (proxy)">
+          <td class="filing-date">2026-05-22</td>
+          <td><span class="badge-form form-proxy">PRE 14A</span></td>
+          <td class="filing-items"><span class="items-tag">PRE 14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000114036126022627/ny20071594x1_pre14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-05-18" data-desc="items 2.02,9.01 hecho relevante: resultados de explotación">
+          <td class="filing-date">2026-05-18</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926062865/tm2614868d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-q" data-cat="10-" data-date="2026-05-15" data-desc="10-q informe trimestral">
+          <td class="filing-date">2026-05-15</td>
+          <td><span class="badge-form form-periodic">10-Q</span></td>
+          <td class="filing-items"><span class="items-tag">10-Q</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe trimestral</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926062632/otlk-20260331x10q.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2026-05-13" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2026-05-13</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926060374/tm2614478d1_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-05-13" data-desc="items 1.01,1.02,2.02,9.01 hecho relevante: acuerdo material, terminación de acuerdo, resultados de explotación">
+          <td class="filing-date">2026-05-13</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 1.01,1.02,2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Acuerdo material, Terminación de acuerdo, Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926060305/tm2614480d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g" data-cat="13" data-date="2026-04-24" data-desc="informe de titularidad real (5 %+, pasiva)">
+          <td class="filing-date">2026-04-24</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000121390026047616/xslSCHEDULE_13G_X02/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-04-23" data-desc="items 3.02,8.01,9.01 hecho relevante: venta de acciones no registradas, otros hechos">
+          <td class="filing-date">2026-04-23</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 3.02,8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Venta de acciones no registradas, Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926047741/tm2612578d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2026-04-23" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2026-04-23</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926047242/tm2612510d1_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-04-21" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-04-21</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926046014/tm2612353d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-04-07" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-04-07</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926040387/tm2611268d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-03-25" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-03-25</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926034601/tm269822d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2026-03-25" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2026-03-25</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926033981/tm268877d2_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2026-03-23" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2026-03-23</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926033403/tm268877d1_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-03-16" data-desc="items 1.01,2.03,8.01,9.01 hecho relevante: acuerdo material, obligación financiera, otros hechos">
+          <td class="filing-date">2026-03-16</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 1.01,2.03,8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Acuerdo material, Obligación financiera, Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926028103/tm268874d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-03-11" data-desc="items 5.02,9.01 hecho relevante: cambio de directivo / consejero">
+          <td class="filing-date">2026-03-11</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Cambio de directivo / consejero</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926026465/tm268371d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-03-10" data-desc="items 5.07,9.01 hecho relevante: resultados de votación de accionistas">
+          <td class="filing-date">2026-03-10</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.07,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de votación de accionistas</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926025893/tm268371d2_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-03-05" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-03-05</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926024189/tm268164d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-02-18" data-desc="items 3.01 hecho relevante: aviso de incumplimiento de cotización">
+          <td class="filing-date">2026-02-18</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 3.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Aviso de incumplimiento de cotización</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926017118/tm266772d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-q" data-cat="10-" data-date="2026-02-17" data-desc="10-q informe trimestral">
+          <td class="filing-date">2026-02-17</td>
+          <td><span class="badge-form form-periodic">10-Q</span></td>
+          <td class="filing-items"><span class="items-tag">10-Q</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe trimestral</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926016554/otlk-20251231x10q.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-02-17" data-desc="items 2.02,9.01 hecho relevante: resultados de explotación">
+          <td class="filing-date">2026-02-17</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926015887/tm266557d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-02-11" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-02-11</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926013470/tm265994d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2026-02-05" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2026-02-05</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000117891326000311/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="defa14a" data-cat="14A" data-date="2026-01-26" data-desc="defa14a convocatoria de junta (proxy)">
+          <td class="filing-date">2026-01-26</td>
+          <td><span class="badge-form form-proxy">DEFA14A</span></td>
+          <td class="filing-items"><span class="items-tag">DEFA14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000114036126002407/ny20058729x3_defa14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="def 14a" data-cat="14A" data-date="2026-01-26" data-desc="def 14a convocatoria de junta (proxy)">
+          <td class="filing-date">2026-01-26</td>
+          <td><span class="badge-form form-proxy">DEF 14A</span></td>
+          <td class="filing-items"><span class="items-tag">DEF 14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000114036126002406/ny20058729x1_def14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2026-01-02" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2026-01-02</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465926000066/tm2534608d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-k" data-cat="10-" data-date="2025-12-19" data-desc="10-k informe anual">
+          <td class="filing-date">2025-12-19</td>
+          <td><span class="badge-form form-periodic">10-K</span></td>
+          <td class="filing-items"><span class="items-tag">10-K</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe anual</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925123264/otlk-20250930x10k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-12-19" data-desc="items 2.02,9.01 hecho relevante: resultados de explotación">
+          <td class="filing-date">2025-12-19</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925122786/tm2533934d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-11-13" data-desc="items 8.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-11-13</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925111316/tm2531109d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-11-03" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-11-03</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925105633/tm2530088d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-10-21" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-10-21</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000090266425004475/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-09-29" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-09-29</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925094558/tm2527376d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-09-05" data-desc="items 5.02 hecho relevante: cambio de directivo / consejero">
+          <td class="filing-date">2025-09-05</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.02</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Cambio de directivo / consejero</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925087886/tm2525276d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-09-02" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-09-02</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925086428/tm2524956d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-08-14" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-08-14</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000117266125003535/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-q" data-cat="10-" data-date="2025-08-14" data-desc="10-q informe trimestral">
+          <td class="filing-date">2025-08-14</td>
+          <td><span class="badge-form form-periodic">10-Q</span></td>
+          <td class="filing-items"><span class="items-tag">10-Q</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe trimestral</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000155837025011588/otlk-20250630x10q.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-08-14" data-desc="items 2.02,9.01 hecho relevante: resultados de explotación">
+          <td class="filing-date">2025-08-14</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925078622/tm2523462d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-08-14" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-08-14</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000121465925012269/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g" data-cat="13" data-date="2025-07-31" data-desc="informe de titularidad real (5 %+, pasiva)">
+          <td class="filing-date">2025-07-31</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000090266425003290/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-07-01" data-desc="items 5.02,9.01 hecho relevante: cambio de directivo / consejero">
+          <td class="filing-date">2025-07-01</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Cambio de directivo / consejero</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925064755/tm2519577d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-06-02" data-desc="items 8.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-06-02</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925055521/tm2516951d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13d/a" data-cat="13" data-date="2025-05-28" data-desc="informe de titularidad real (5 %+, intención activa, modificación)">
+          <td class="filing-date">2025-05-28</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13D/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, intención activa, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000094787125000572/xslSCHEDULE_13D_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2025-05-23" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2025-05-23</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925052469/tm2515210d3_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-05-23" data-desc="items 8.01,9.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-05-23</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925052452/tm2516054d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b5" data-cat="prospectus" data-date="2025-05-22" data-desc="424b5 suplemento de folleto">
+          <td class="filing-date">2025-05-22</td>
+          <td><span class="badge-form form-prospectus">424B5</span></td>
+          <td class="filing-items"><span class="items-tag">424B5</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925052010/tm2515210d2_424b5.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-05-15" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-05-15</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000117266125002404/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-05-15" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-05-15</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000121465925007878/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-05-15" data-desc="items 2.02,9.01 hecho relevante: resultados de explotación">
+          <td class="filing-date">2025-05-15</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925049411/tm2515284d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-q" data-cat="10-" data-date="2025-05-15" data-desc="10-q informe trimestral">
+          <td class="filing-date">2025-05-15</td>
+          <td><span class="badge-form form-periodic">10-Q</span></td>
+          <td class="filing-items"><span class="items-tag">10-Q</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe trimestral</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000155837025007873/otlk-20250331x10q.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b3" data-cat="prospectus" data-date="2025-05-14" data-desc="424b3 suplemento de folleto">
+          <td class="filing-date">2025-05-14</td>
+          <td><span class="badge-form form-prospectus">424B3</span></td>
+          <td class="filing-items"><span class="items-tag">424B3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925048599/tm2515104d2_424b3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b3" data-cat="prospectus" data-date="2025-05-14" data-desc="424b3 suplemento de folleto">
+          <td class="filing-date">2025-05-14</td>
+          <td><span class="badge-form form-prospectus">424B3</span></td>
+          <td class="filing-items"><span class="items-tag">424B3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925048597/tm2515104d1_424b3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-04-11" data-desc="items 5.02,9.01 hecho relevante: cambio de directivo / consejero">
+          <td class="filing-date">2025-04-11</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 5.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Cambio de directivo / consejero</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000155837025004726/otlk-20250409x8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-04-10" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-04-10</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000117891325001278/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-04-08" data-desc="items 8.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-04-08</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000155837025004606/otlk-20250408x8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b3" data-cat="prospectus" data-date="2025-03-28" data-desc="424b3 suplemento de folleto">
+          <td class="filing-date">2025-03-28</td>
+          <td><span class="badge-form form-prospectus">424B3</span></td>
+          <td class="filing-items"><span class="items-tag">424B3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925029421/tm2510764d1_424b3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="s-3" data-cat="prospectus" data-date="2025-03-20" data-desc="form s-3 declaración de registro">
+          <td class="filing-date">2025-03-20</td>
+          <td><span class="badge-form form-prospectus">S-3</span></td>
+          <td class="filing-items"><span class="items-tag">FORM S-3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Declaración de registro</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925026230/tm259626d1_s3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-03-14" data-desc="items 1.02,5.03,5.07,9.01 hecho relevante: terminación de acuerdo, modificación de estatutos, resultados de votación de accionistas">
+          <td class="filing-date">2025-03-14</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 1.02,5.03,5.07,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Terminación de acuerdo, Modificación de estatutos, Resultados de votación de accionistas</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000155837025003013/otlk-20250311x8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13d/a" data-cat="13" data-date="2025-03-12" data-desc="informe de titularidad real (5 %+, intención activa, modificación)">
+          <td class="filing-date">2025-03-12</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13D/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, intención activa, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000094787125000307/xslSCHEDULE_13D_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="424b3" data-cat="prospectus" data-date="2025-03-07" data-desc="424b3 suplemento de folleto">
+          <td class="filing-date">2025-03-07</td>
+          <td><span class="badge-form form-prospectus">424B3</span></td>
+          <td class="filing-items"><span class="items-tag">424B3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Suplemento de folleto</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925021749/tm258318d1_424b3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g" data-cat="13" data-date="2025-03-03" data-desc="informe de titularidad real (5 %+, pasiva)">
+          <td class="filing-date">2025-03-03</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000117891325000668/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="s-3" data-cat="prospectus" data-date="2025-02-28" data-desc="form s-3 declaración de registro">
+          <td class="filing-date">2025-02-28</td>
+          <td><span class="badge-form form-prospectus">S-3</span></td>
+          <td class="filing-items"><span class="items-tag">FORM S-3</span> <span style="color:var(--text-muted);font-size:0.8rem;">Declaración de registro</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925019184/tm257774d1_s3.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-02-28" data-desc="items 8.01 hecho relevante: otros hechos">
+          <td class="filing-date">2025-02-28</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 8.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925018717/tm257885d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-q" data-cat="10-" data-date="2025-02-14" data-desc="10-q informe trimestral">
+          <td class="filing-date">2025-02-14</td>
+          <td><span class="badge-form form-periodic">10-Q</span></td>
+          <td class="filing-items"><span class="items-tag">10-Q</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe trimestral</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000155837025001022/otlk-20241231x10q.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-02-14" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-02-14</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000117266125001205/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13g/a" data-cat="13" data-date="2025-02-14" data-desc="informe de titularidad real (5 %+, pasiva, modificación)">
+          <td class="filing-date">2025-02-14</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13G/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, pasiva, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000121465925002807/xslSCHEDULE_13G_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-02-14" data-desc="items 2.02,9.01 hecho relevante: resultados de explotación">
+          <td class="filing-date">2025-02-14</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 2.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Resultados de explotación</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925013509/tm256608d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="def 14a" data-cat="14A" data-date="2025-02-10" data-desc="form def 14a convocatoria de junta (proxy)">
+          <td class="filing-date">2025-02-10</td>
+          <td><span class="badge-form form-proxy">DEF 14A</span></td>
+          <td class="filing-items"><span class="items-tag">FORM DEF 14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925010946/tm252313d6_def14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="pre 14a" data-cat="14A" data-date="2025-01-31" data-desc="form pre 14a convocatoria de junta (proxy)">
+          <td class="filing-date">2025-01-31</td>
+          <td><span class="badge-form form-proxy">PRE 14A</span></td>
+          <td class="filing-items"><span class="items-tag">FORM PRE 14A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Convocatoria de junta (proxy)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925008169/tm252313-d4_pre14a.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-01-31" data-desc="items 1.01,2.03,3.02,5.02,9.01 hecho relevante: acuerdo material, obligación financiera, venta de acciones no registradas, cambio de directivo / consejero">
+          <td class="filing-date">2025-01-31</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 1.01,2.03,3.02,5.02,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Acuerdo material, Obligación financiera, Venta de acciones no registradas, Cambio de directivo / consejero</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925008146/tm254911d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="10-k/a" data-cat="10-" data-date="2025-01-23" data-desc="10-k/a informe anual (modificación)">
+          <td class="filing-date">2025-01-23</td>
+          <td><span class="badge-form form-periodic">10-K/A</span></td>
+          <td class="filing-items"><span class="items-tag">10-K/A</span> <span style="color:var(--text-muted);font-size:0.8rem;">Informe anual (modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000155837025000366/otlk-20240930x10ka.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="schedule 13d/a" data-cat="13" data-date="2025-01-22" data-desc="informe de titularidad real (5 %+, intención activa, modificación)">
+          <td class="filing-date">2025-01-22</td>
+          <td><span class="badge-form form-ownership">SCHEDULE 13D/A</span></td>
+          <td class="filing-items"><span style="color:var(--text-muted);font-size:0.8rem;">Informe de titularidad real (5 %+, intención activa, modificación)</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000094787125000063/xslSCHEDULE_13D_X01/primary_doc.xml" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+        <tr data-form="8-k" data-cat="8-K" data-date="2025-01-16" data-desc="items 1.01,3.02,3.03,8.01,9.01 hecho relevante: acuerdo material, venta de acciones no registradas, cambio en los derechos de los accionistas, otros hechos">
+          <td class="filing-date">2025-01-16</td>
+          <td><span class="badge-form form-8k">8-K</span></td>
+          <td class="filing-items"><span class="items-tag">Items 1.01,3.02,3.03,8.01,9.01</span> <span style="color:var(--text-muted);font-size:0.8rem;">Hecho relevante: Acuerdo material, Venta de acciones no registradas, Cambio en los derechos de los accionistas, Otros hechos</span></td>
+          <td style="text-align:right;">
+            <a class="btn-edgar" href="https://www.sec.gov/Archives/edgar/data/1649989/000110465925004159/tm253522d1_8k.htm" target="_blank" rel="noopener">
+              <span>Ver en EDGAR</span>
+              <svg style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    Outlook Therapeutics, Inc. (OTLK) · Repositorio oficial de filings EDGAR de la SEC · Fuente: Comisión del Mercado de Valores de EE. UU. (SEC, pública) · No constituye asesoramiento de inversión
+  </footer>
+
+</div>
+
+<script>
+  let currentCategory = 'all';
+
+  function setCategory(cat, btn) {
+    currentCategory = cat;
+    document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter();
+  }
+
+  function applyFilter() {
+    const q = document.getElementById('filingSearch').value.toLowerCase().trim();
+    const rows = document.querySelectorAll('#filingsBody tr');
+    
+    rows.forEach(tr => {
+      const form = tr.getAttribute('data-form') || '';
+      const cat = tr.getAttribute('data-cat') || '';
+      const date = tr.getAttribute('data-date') || '';
+      const desc = tr.getAttribute('data-desc') || '';
+      
+      const matchesCat = (currentCategory === 'all') || (cat === currentCategory);
+      const matchesSearch = !q || form.includes(q) || date.includes(q) || desc.includes(q);
+      
+      if (matchesCat && matchesSearch) {
+        tr.style.display = '';
+      } else {
+        tr.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

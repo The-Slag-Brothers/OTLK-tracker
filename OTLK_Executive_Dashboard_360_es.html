@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTLK Radar 360° — Panel Ejecutivo Cuantitativo</title>
+  <style>
+    :root {
+      --bg: #0b111a;
+      --card: #111a28;
+      --card-hover: #162438;
+      --border: #1e2c3f;
+      --border-accent: rgba(56, 189, 248, 0.4);
+      --text: #f1f5f9;
+      --text-muted: #8ea4bb;
+      --primary: #38bdf8;
+      --primary-dark: #0284c7;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --purple: #8b5cf6;
+    }
+    html.light {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-hover: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --success: #059669;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --purple: #7c3aed;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--card-hover);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 440px) { .kpi-grid { grid-template-columns: 1fr; } }
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 14px;
+      transition: all 0.22s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.25), 0 0 15px rgba(56, 189, 248, 0.15);
+    }
+    .kpi-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary);
+      opacity: 0.7;
+    }
+    .kpi-card.warn::after { background: var(--warning); }
+    .kpi-card.danger::after { background: var(--danger); }
+    .kpi-card.success::after { background: var(--success); }
+    .kpi-card.purple::after { background: var(--purple); }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .kpi-value {
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin: 4px 0;
+      font-family: ui-monospace, monospace;
+      line-height: 1.15;
+    }
+    .kpi-sub {
+      font-size: 0.76rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Grids & Panels */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      transition: all 0.22s ease;
+    }
+    .panel:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(2, 132, 199, 0.22), 0 0 16px rgba(56, 189, 248, 0.12);
+    }
+    .panel-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Table Styles */
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(56, 189, 248, 0.04); }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .badge-success { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+    .badge-danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+    .badge-purple { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
+
+    /* Thresholds Roadmap Modern Grid */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (max-width: 1100px) { .roadmap-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } }
+    @media (max-width: 640px) { .roadmap-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 440px) { .roadmap-grid { grid-template-columns: 1fr; } }
+    .roadmap-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 12px;
+      min-width: 0;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .roadmap-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(2, 132, 199, 0.25), 0 0 12px rgba(56, 189, 248, 0.15);
+    }
+    .roadmap-card.active {
+      border-color: #38bdf8;
+      background: linear-gradient(135deg, rgba(14, 110, 160, 0.2), rgba(15, 23, 42, 0.9));
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.2);
+    }
+    .roadmap-card.highlight {
+      border-color: rgba(245, 158, 11, 0.5);
+    }
+    .rm-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px 6px;
+      margin-bottom: 8px;
+    }
+    .rm-price {
+      font-family: ui-monospace, monospace;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .rm-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      max-width: 100%;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .rm-tag.active {
+      background: rgba(56, 189, 248, 0.2);
+      color: #38bdf8;
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .rm-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .rm-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:42px;height:42px;border-radius:10px;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(56,189,248,0.2);">
+        <svg viewBox="0 0 36 36" style="width:30px;height:30px;">
+          <defs>
+            <linearGradient id="otlkGradDash" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="50%" stop-color="#0284c7"/>
+              <stop offset="100%" stop-color="#10b981"/>
+            </linearGradient>
+          </defs>
+          <path d="M4 18 C8 10, 14 6, 18 6 C22 6, 28 10, 32 18 C28 26, 22 30, 18 30 C14 30, 8 26, 4 18 Z" fill="none" stroke="url(#otlkGradDash)" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="18" cy="18" r="5.5" fill="none" stroke="#38bdf8" stroke-width="2.2"/>
+          <circle cx="18" cy="18" r="2.8" fill="#10b981"/>
+          <circle cx="15.8" cy="15.8" r="1.2" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div class="header-title">
+        <h1 style="display:flex;align-items:center;gap:10px;font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;">
+          <span>OTLK Radar 360°</span>
+          <span style="font-size:0.75rem;padding:3px 9px;border-radius:9999px;background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.35);font-family:ui-monospace,monospace;">NASDAQ: OTLK</span>
+        </h1>
+        <p style="font-size:0.84rem;color:var(--text-muted);margin-top:3px;">
+          Panel Ejecutivo Cuantitativo · Sesión de precio: 2026-10-15 · Sesión de opciones: 2026-10-15
+        </p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a class="btn" href="index_es.html" style="text-decoration:none;">
+        <svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Portal 360°</span>
+      </a>
+      <a class="btn" href="OTLK_Executive_Dashboard_360.html" hreflang="en" lang="en" style="text-decoration:none;"><span>🌐 English</span></a>
+      <button class="btn" onclick="toggleTheme()">
+        <svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span>Tema</span>
+      </button>
+      <button class="btn" onclick="window.print()">
+        <svg style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span>Imprimir</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- KPI CARDS (6-COLUMN ROW) -->
+  <div class="kpi-grid">
+    <div class="kpi-card danger">
+      <div class="kpi-label">Cierre</div>
+      <div class="kpi-value" style="color: var(--danger);">$0.5000</div>
+      <div class="kpi-sub">
+        <span class="badge badge-danger">⚠️ Riesgo Deficiencia Nasdaq (<$1)</span>
+      </div>
+    </div>
+
+    <div class="kpi-card warn">
+      <div class="kpi-label">Short Ratio FINRA</div>
+      <div class="kpi-value" style="color: var(--warning);">62.1%</div>
+      <div class="kpi-sub" style="color: var(--text-muted);">MA 5d: 58.4%</div>
+    </div>
+
+    <div class="kpi-card success">
+      <div class="kpi-label">Ratio Put/Call OI</div>
+      <div class="kpi-value" style="color: var(--success);">0.098</div>
+      <div class="kpi-sub" style="color: var(--success);">10.2 calls por put</div>
+    </div>
+
+    <div class="kpi-card purple">
+      <div class="kpi-label">Max Pain de opciones</div>
+      <div class="kpi-value" style="color: var(--purple);">$0.50</div>
+      <div class="kpi-sub" style="color: var(--text-muted);">Strike mínimo</div>
+    </div>
+
+    <div class="kpi-card danger">
+      <div class="kpi-label">Racha Nasdaq (< $1)</div>
+      <div class="kpi-value" style="color: var(--danger);">45d</div>
+      <div class="kpi-sub" style="color: var(--danger);">+100.0% hasta $1.00</div>
+    </div>
+
+    <div class="kpi-card warn">
+      <div class="kpi-label">Índice de riesgo de squeeze</div>
+      <div class="kpi-value" style="color: var(--warning);">37/100</div>
+      <div class="kpi-sub" style="color: var(--warning);">🟡 MODERADO · 3.1%</div>
+    </div>
+  </div>
+
+  <!-- STRATEGIC THRESHOLDS ROADMAP (MODERN INFLECTION PODS) -->
+  <div class="panel" style="margin-bottom: 24px; padding: 22px;">
+    <div class="panel-title">
+      <span style="display:flex;align-items:center;gap:8px;">
+        <svg style="width:18px;height:18px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
+        <span>Hoja de ruta de umbrales estratégicos y precio</span>
+      </span>
+      <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">Puntos de inflexión críticos en derivados, cumplimiento y caja</span>
+    </div>
+
+    <div class="roadmap-grid">
+      
+      <!-- 1. SPOT CLOSE -->
+      <div class="roadmap-card active">
+        <div class="rm-head">
+          <span class="rm-price">$0.50</span>
+          <span class="rm-tag active">Cierre actual</span>
+        </div>
+        <div class="rm-name">🎯 Cierre vigente</div>
+        <div class="rm-desc">2026-10-15 · Referencia de cierre de mercado</div>
+      </div>
+
+      <!-- 2. OPTION STRIKE FLOOR -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:var(--purple);">$0.50</span>
+          <span class="rm-tag" style="background:rgba(139,92,246,0.15);color:var(--purple);border-color:rgba(139,92,246,0.3);">Strike de opciones</span>
+        </div>
+        <div class="rm-name">📉 Suelo de derivados</div>
+        <div class="rm-desc">Strike de opciones más bajo · Barrera defensiva de puts</div>
+      </div>
+
+      <!-- 3. NASDAQ $1 -->
+      <div class="roadmap-card highlight">
+        <div class="rm-head">
+          <span class="rm-price" style="color:var(--warning);">$1.00</span>
+          <span class="rm-tag" style="background:rgba(245,158,11,0.15);color:var(--warning);border-color:rgba(245,158,11,0.3);">+100% de brecha</span>
+        </div>
+        <div class="rm-name">✅ Cumplimiento Nasdaq</div>
+        <div class="rm-desc">Se requieren 10 sesiones consecutivas con cierre ≥ $1.00</div>
+      </div>
+
+      <!-- 4. WARRANTS -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:var(--success);">$1.10</span>
+          <span class="rm-tag" style="background:rgba(16,185,129,0.15);color:var(--success);border-color:rgba(16,185,129,0.3);">Warrants</span>
+        </div>
+        <div class="rm-name">💰 Inyección de capital</div>
+        <div class="rm-desc">+$61.1M de caja · +55.6M de acciones</div>
+      </div>
+
+      <!-- 5. EUROPE -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:#38bdf8;">$2.50</span>
+          <span class="rm-tag" style="background:rgba(56,189,248,0.15);color:#38bdf8;border-color:rgba(56,189,248,0.3);">Lanzamiento en la UE</span>
+        </div>
+        <div class="rm-name">🚀 Despliegue comercial</div>
+        <div class="rm-desc">Despliegues de Lytenava: Alemania, NHS del Reino Unido, Austria</div>
+      </div>
+
+      <!-- 6. US MATURE -->
+      <div class="roadmap-card">
+        <div class="rm-head">
+          <span class="rm-price" style="color:#f472b6;">$4.00</span>
+          <span class="rm-tag" style="background:rgba(244,114,182,0.15);color:#f472b6;border-color:rgba(244,114,182,0.3);">EE. UU. maduro</span>
+        </div>
+        <div class="rm-name">🏆 Pico de despliegue en EE. UU.</div>
+        <div class="rm-desc">J-Code permanente · Canal comercial completo</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMBINED QUANTITATIVE MICROSTRUCTURE -->
+  <div class="grid-2">
+    <!-- CASH EQUITIES & SHORT MECHANICS -->
+    <div class="panel">
+      <div class="panel-title">
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg style="width:17px;height:17px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          <span>Contado y mecánica de cortos</span>
+        </span>
+        <span class="badge badge-warning">FINRA TRF</span>
+      </div>
+      <div style="overflow-x:auto;"><table>
+        <tbody>
+          <tr>
+            <td>Precio de cierre</td>
+            <td class="text-right"><strong>$0.5000</strong></td>
+          </tr>
+          <tr>
+            <td>Ratio diario de volumen corto FINRA</td>
+            <td class="text-right"><strong>62.14%</strong></td>
+          </tr>
+          <tr>
+            <td>Media de 5 días del volumen corto</td>
+            <td class="text-right">58.37%</td>
+          </tr>
+          <tr>
+            <td>Coste de préstamo (CTB)</td>
+            <td class="text-right"><strong>3.1%</strong></td>
+          </tr>
+          <tr>
+            <td>FTDs de la SEC acumulados</td>
+            <td class="text-right">0 acciones</td>
+          </tr>
+          <tr>
+            <td>Volumen fuera de mercado (dark pools + internalización)</td>
+            <td class="text-right">68.3% (media 20 ses. 65.4%, +2.9 pp)</td>
+          </tr>
+          <tr>
+            <td>Operaciones a bid / mid / ask</td>
+            <td class="text-right">13% / 59% / 28% (2026-10-15)</td>
+          </tr>
+          <tr>
+            <td>Restricción de venta en corto (Regla 201)</td>
+            <td class="text-right">
+              <span class="badge badge-success">
+                INACTIVA 🟢
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- OPTIONS FLOW & DERIVATIVES MARKET -->
+    <div class="panel">
+      <div class="panel-title">
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg style="width:17px;height:17px;stroke:var(--success);fill:none;stroke-width:2;" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          <span>Open Interest y volumen de opciones</span>
+        </span>
+        <span class="badge badge-success">CBOE / OCC</span>
+      </div>
+      <div style="overflow-x:auto;"><table>
+        <tbody>
+          <tr>
+            <td>OI de calls frente a OI de puts</td>
+            <td class="text-right"><strong>52,809</strong> vs 5,156</td>
+          </tr>
+          <tr>
+            <td>Ratio Put/Call de Open Interest</td>
+            <td class="text-right">
+              <span class="badge badge-success">0.098 (🟢 OI MUY SESGADO A CALLS)</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Volumen diario (calls / puts)</td>
+            <td class="text-right">21 calls / 0 puts (volumen muy bajo (21 contratos): poco significativo)</td>
+          </tr>
+          <tr>
+            <td>Strike de Max Pain consolidado</td>
+            <td class="text-right" style="color: var(--purple); font-weight: 700;">$0.50</td>
+          </tr>
+          <tr>
+            <td>Delta neta de los tenedores de opciones (market makers: signo opuesto)</td>
+            <td class="text-right" style="font-weight: 700;">+1,758,474 acc.</td>
+          </tr>
+          <tr>
+            <td>Volatilidad implícita media (IV)</td>
+            <td class="text-right">238.2%</td>
+          </tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- OPTIONS CHAIN BY EXPIRATION -->
+  <div class="panel" style="margin-bottom: 24px;">
+    <div class="panel-title">
+      <span style="display:flex;align-items:center;gap:8px;">
+        <svg style="width:17px;height:17px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <span>Distribución del Open Interest por vencimiento</span>
+      </span>
+      <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: normal;">Total: 52,809 calls / 5,156 puts</span>
+    </div>
+
+    <!-- Native SVG Chart -->
+    <div style="overflow-x: auto; margin-bottom: 16px;">
+      <svg viewBox="0 0 700 180" style="width: 100%; max-height: 200px; font-family: sans-serif;">
+        <line x1="60" y1="20" x2="680" y2="20" stroke="#334155" stroke-dasharray="3" />
+        <line x1="60" y1="80" x2="680" y2="80" stroke="#334155" stroke-dasharray="3" />
+        <line x1="60" y1="140" x2="680" y2="140" stroke="#334155" />
+        <text x="50" y="25" fill="#64748b" font-size="10" text-anchor="end">30k</text>
+        <text x="50" y="85" fill="#64748b" font-size="10" text-anchor="end">15k</text>
+        <text x="50" y="145" fill="#64748b" font-size="10" text-anchor="end">0</text>
+
+        <g>
+          <rect x="80" y="138.412" width="24" height="1.588" fill="#10b981" rx="3">
+            <title>2026-10-16 calls: 397</title>
+          </rect>
+          <rect x="106" y="139.968" width="16" height="0.032" fill="#ef4444" rx="3">
+            <title>2026-10-16 puts: 8</title>
+          </rect>
+          <text x="100" y="160" fill="#94a3b8" font-size="10" text-anchor="middle">10-16</text>
+          <text x="92" y="133.412" fill="#10b981" font-size="9" text-anchor="middle">0k</text>
+        </g>
+        
+        <g>
+          <rect x="170" y="111.304" width="24" height="28.696" fill="#10b981" rx="3">
+            <title>2026-11-20 calls: 7,174</title>
+          </rect>
+          <rect x="196" y="133.684" width="16" height="6.316" fill="#ef4444" rx="3">
+            <title>2026-11-20 puts: 1,579</title>
+          </rect>
+          <text x="190" y="160" fill="#94a3b8" font-size="10" text-anchor="middle">11-20</text>
+          <text x="182" y="106.304" fill="#10b981" font-size="9" text-anchor="middle">7k</text>
+        </g>
+        
+        <g>
+          <rect x="260" y="30.287999999999997" width="24" height="109.712" fill="#10b981" rx="3">
+            <title>2027-01-15 calls: 27,428</title>
+          </rect>
+          <rect x="286" y="126.544" width="16" height="13.456" fill="#ef4444" rx="3">
+            <title>2027-01-15 puts: 3,364</title>
+          </rect>
+          <text x="280" y="160" fill="#94a3b8" font-size="10" text-anchor="middle">01-15</text>
+          <text x="272" y="25.287999999999997" fill="#10b981" font-size="9" text-anchor="middle">27k</text>
+        </g>
+        
+        <g>
+          <rect x="350" y="70.896" width="24" height="69.104" fill="#10b981" rx="3">
+            <title>2027-02-19 calls: 17,276</title>
+          </rect>
+          <rect x="376" y="139.212" width="16" height="0.788" fill="#ef4444" rx="3">
+            <title>2027-02-19 puts: 197</title>
+          </rect>
+          <text x="370" y="160" fill="#94a3b8" font-size="10" text-anchor="middle">02-19</text>
+          <text x="362" y="65.896" fill="#10b981" font-size="9" text-anchor="middle">17k</text>
+        </g>
+        
+        <g>
+          <rect x="440" y="137.864" width="24" height="2.136" fill="#10b981" rx="3">
+            <title>2027-05-21 calls: 534</title>
+          </rect>
+          <rect x="466" y="139.968" width="16" height="0.032" fill="#ef4444" rx="3">
+            <title>2027-05-21 puts: 8</title>
+          </rect>
+          <text x="460" y="160" fill="#94a3b8" font-size="10" text-anchor="middle">05-21</text>
+          <text x="452" y="132.864" fill="#10b981" font-size="9" text-anchor="middle">0k</text>
+        </g>
+        
+      </svg>
+      <div style="display: flex; gap: 16px; justify-content: center; font-size: 0.8rem; margin-top: 6px;">
+        <span style="color: #10b981;">■ Open Interest de calls</span>
+        <span style="color: #ef4444;">■ Open Interest de puts</span>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div style="overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Vencimiento</th>
+            <th class="text-center">Días</th>
+            <th class="text-right">OI calls</th>
+            <th class="text-right">OI puts</th>
+            <th class="text-right">Ratio P/C</th>
+            <th class="text-right">Max Pain</th>
+            <th class="text-right">Delta tenedores</th>
+            <th class="text-center">Sesgo OI</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><strong>2026-10-16</strong></td>
+            <td class="text-center">0d</td>
+            <td class="text-right" style="color: var(--success); font-weight: 600;">397</td>
+            <td class="text-right" style="color: var(--danger);">8</td>
+            <td class="text-right">0.020</td>
+            <td class="text-right">$0.50*</td>
+            <td class="text-right">+11,559</td>
+            <td class="text-center"><span class="badge badge-success">MUY ALCISTA 🟢🟢</span></td>
+          </tr>
+        
+          <tr>
+            <td><strong>2026-11-20</strong></td>
+            <td class="text-center">35d</td>
+            <td class="text-right" style="color: var(--success); font-weight: 600;">7,174</td>
+            <td class="text-right" style="color: var(--danger);">1,579</td>
+            <td class="text-right">0.220</td>
+            <td class="text-right">$0.50*</td>
+            <td class="text-right">+108,926</td>
+            <td class="text-center"><span class="badge badge-success">MUY ALCISTA 🟢🟢</span></td>
+          </tr>
+        
+          <tr>
+            <td><strong>2027-01-15</strong></td>
+            <td class="text-center">91d</td>
+            <td class="text-right" style="color: var(--success); font-weight: 600;">27,428</td>
+            <td class="text-right" style="color: var(--danger);">3,364</td>
+            <td class="text-right">0.123</td>
+            <td class="text-right">$0.50*</td>
+            <td class="text-right">+959,924</td>
+            <td class="text-center"><span class="badge badge-success">MUY ALCISTA 🟢🟢</span></td>
+          </tr>
+        
+          <tr>
+            <td><strong>2027-02-19</strong></td>
+            <td class="text-center">126d</td>
+            <td class="text-right" style="color: var(--success); font-weight: 600;">17,276</td>
+            <td class="text-right" style="color: var(--danger);">197</td>
+            <td class="text-right">0.011</td>
+            <td class="text-right">$0.50*</td>
+            <td class="text-right">+647,389</td>
+            <td class="text-center"><span class="badge badge-success">MUY ALCISTA 🟢🟢</span></td>
+          </tr>
+        
+          <tr>
+            <td><strong>2027-05-21</strong></td>
+            <td class="text-center">217d</td>
+            <td class="text-right" style="color: var(--success); font-weight: 600;">534</td>
+            <td class="text-right" style="color: var(--danger);">8</td>
+            <td class="text-right">0.015</td>
+            <td class="text-right">$0.50*</td>
+            <td class="text-right">+30,676</td>
+            <td class="text-center"><span class="badge badge-success">MUY ALCISTA 🟢🟢</span></td>
+          </tr>
+        
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CAPITAL STRUCTURE & REGULATORY CATALYST -->
+  <div class="grid-2" style="margin-bottom: 24px;">
+    <!-- CAPITAL STRUCTURE PANEL -->
+    <div class="panel">
+      <div class="panel-title">
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg style="width:17px;height:17px;stroke:var(--purple);fill:none;stroke-width:2;" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          <span>Estructura de capital y liquidez institucional</span>
+        </span>
+        <span class="badge badge-purple">Filings de la SEC</span>
+      </div>
+      <div style="overflow-x:auto;"><table>
+        <tbody>
+          <tr>
+            <td>Acciones básicas en circulación (OS)</td>
+            <td class="text-right"><strong>243,447,554</strong></td>
+          </tr>
+          <tr>
+            <td>Acciones totalmente diluidas (FD)</td>
+            <td class="text-right"><strong>373,993,473</strong></td>
+          </tr>
+          <tr>
+            <td>Capitalización bursátil básica</td>
+            <td class="text-right"><strong>$121.72M</strong></td>
+          </tr>
+          <tr>
+            <td>Capitalización bursátil diluida</td>
+            <td class="text-right"><strong>$187.00M</strong></td>
+          </tr>
+          <tr>
+            <td>Float libre estimado (FINRA)</td>
+            <td class="text-right">151,744,010</td>
+          </tr>
+          <tr>
+            <td>Ingresos potenciales por warrants ($1.10)</td>
+            <td class="text-right" style="color: var(--success); font-weight: 700;">
+              +$61.1M de caja (+55.6M acciones nuevas)
+            </td>
+          </tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <!-- IMMINENT REGULATORY CATALYST -->
+    <div class="panel" style="border-left: 4px solid var(--warning); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div class="panel-title" style="color: var(--warning);">
+          <span style="display:flex;align-items:center;gap:8px;">
+            <svg style="width:17px;height:17px;stroke:var(--warning);fill:none;stroke-width:2;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Hito regulatorio inminente</span>
+          </span>
+          <span class="badge badge-warning">Noviembre 2026</span>
+        </div>
+        <p style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; color: var(--text);">
+          📄 13F del Q3 2026 — verificar posiciones institucionales
+        </p>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+          <strong>Categoría:</strong> Institucional / Vigilar | <strong>Impacto:</strong> MEDIO — a vigilar
+        </p>
+        <p style="font-size: 0.85rem; color: var(--text); line-height: 1.5;">
+          Ventana para comprobar si Perceptive Advisors (especialista biotech) mantuvo su posición tras la oferta de agosto, y si Heights Capital/CVI (inversor ancla, 36% de la oferta) sigue mostrando flujo estructurado o si aparece convicción fundamental adicional.
+        </p>
+      </div>
+      <div style="font-size: 0.78rem; color: var(--text-muted); padding-top: 10px; border-top: 1px solid var(--border); margin-top: 12px;">
+        Seguido en la hoja de ruta regulatoria maestra (SEC EDGAR y CMS)
+      </div>
+    </div>
+  </div>
+
+  <!-- OFFICIAL SEC & FUNDAMENTALS INTELLIGENCE -->
+  <div style="margin-top: 14px; margin-bottom: 16px;">
+    <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px;">
+      <svg style="width:18px;height:18px;stroke:var(--primary);fill:none;stroke-width:2;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+      <span>Financieros oficiales de la SEC, insiders y flujo corporativo</span>
+    </h2>
+  </div>
+
+  <div class="panel" style="border-color: var(--warning); margin-bottom: 20px;"><strong>🔔 Alarmas de estructura de mercado</strong><ul><li>🔔 Short exento: 5,83 % del volumen (umbral 5,00 %; mediana de 2026: 0,5 %). Sube así en las ofertas y conversiones: posible dilución en curso.</li></ul><div style="font-size:.85em;opacity:.75">P/C del OI 0,10 · puts nuevas -12 · mín. disponibles IBKR (6 ses.) 200.000 · short exento 5,83 %</div></div>
+  
+  <div class="grid-2" style="margin-bottom: 24px;">
+    <div class="panel"><div class='panel-title'><span>📑 Fundamentales oficiales (XBRL SEC)</span></div><p style='font-size:0.85rem;margin:0 0 8px'>Caja a 2026-06-30: $11.2M; quema operativa media (últimos 4 trimestres): $14.0M; último trimestre: $21.0M; runway con esa caja: ~0.8 trimestres a la quema media de 4 trimestres, ~0.5 a la del último trimestre; últimas acciones en circulación declaradas: 243.4M (2026-08-14). Financiación registrada después del cierre del trimestre (424B): 2026-07-21, 2026-08-12, 2026-08-14 — no incluida en esa caja.</p><table><thead><tr><th>Trimestre</th><th>Caja</th><th>Ingresos</th><th>Resultado</th><th>Quema</th><th>Acciones</th><th>Dilución</th></tr></thead><tbody><tr><td>2025-09-30</td><td class=text-right>$8.1M</td><td class=text-right>-$0.1M</td><td class=text-right>-$13.3M</td><td class=text-right>$12.4M</td><td class=text-right>53.9M</td><td class=text-right>+23.9%</td></tr><tr><td>2025-12-31</td><td class=text-right>$8.7M</td><td class=text-right>-$1.2M</td><td class=text-right>-$23.1M</td><td class=text-right>$14.9M</td><td class=text-right>64.6M</td><td class=text-right>+19.8%</td></tr><tr><td>2026-03-31</td><td class=text-right>$7.7M</td><td class=text-right>$0.1M</td><td class=text-right>-$4.5M</td><td class=text-right>$7.8M</td><td class=text-right>104.6M</td><td class=text-right>+62.0%</td></tr><tr><td>2026-06-30</td><td class=text-right>$11.2M</td><td class=text-right>$0.0M</td><td class=text-right>-$20.3M</td><td class=text-right>$21.0M</td><td class=text-right>187.1M</td><td class=text-right>+78.8%</td></tr></tbody></table></div>
+    <div class="panel"><div class='panel-title'><span>👔 Insiders (Form 4)</span></div><p style='font-size:0.85rem;margin:0 0 6px'>Últimos 90 días: 4 compras (código P) · 0 ventas</p><ul style='font-size:0.85rem;padding-left:18px'><li style='margin:3px 0'>2026-08-14 · KENYON LAWRENCE A · Compra (mercado u oferta) 101,010 @ $0.9900</li><li style='margin:3px 0'>2026-08-14 · Jahr Robert Charles · Compra (mercado u oferta) 151,515 @ $0.9900</li><li style='margin:3px 0'>2026-08-12 · Sukhtian Ghiath M. / GMS Ventures &amp; Investments · Compra (mercado u oferta) 2,525,252 @ $0.9900</li><li style='margin:3px 0'>2026-07-29 · Sukhtian Faisal Ghiath · Compra (mercado u oferta) 95,398 @ $1.0482</li><li style='margin:3px 0'>2026-06-02 · Haddadin Yezan Munther · Compra (mercado u oferta) 29,000 @ $0.8326</li><li style='margin:3px 0'>2026-05-28 · Sukhtian Ghiath M. / GMS Ventures &amp; Investments · Compra (mercado u oferta) 8,539,709 @ $0.5855</li></ul><div class='panel-title' style='margin-top:14px'><span>📰 Noticias y comunicados</span></div><ul style='font-size:0.85rem;padding-left:18px'><li style='margin:3px 0'>2026-10-09 · <a href='https://outlooktherapeutics.com/careers/' target='_blank' style='color:var(--primary)'>Web de empleo: 8 vacantes (10 el 1-oct). Nueva: IT Manager. Retiradas desde el 1-oct: National Sales Director West, Supply Chain y 2 ARM (entre ellas Southwest). Siguen 3 ARM, FP&amp;A, Quality/GxP, Senior Legal Counsel US y Medical Manager Alemania</a></li><li style='margin:3px 0'>2026-10-09 · <a href='https://ir.outlooktherapeutics.com/news-and-events/press-releases/' target='_blank' style='color:var(--primary)'>Outlook Therapeutics nombra a Greg DiPasquale Chief Commercial Officer (ex-Regeneron EYLEA, Novartis BEOVU, Harrow); LYTENAVA disponible en EE.UU. antes de fin de 2026</a></li><li style='margin:3px 0'>2026-10-09 · <a href='https://www.aao.org/eyenet/academy-live/detail/lytenava-new-drug-questions-on-coverage-billing' target='_blank' style='color:var(--primary)'>AAO 2026 Daily: LYTENAVA se facturará con códigos NOC (J3490, J3590, C9399) a precio del pagador hasta que haya código J; se esperan copagos más altos que con el compuesto</a></li><li style='margin:3px 0'>2026-10-06 · <a href='https://www.globenewswire.com/search/organization/Outlook%20Therapeutics%C2%AE' target='_blank' style='color:var(--primary)'>Outlook Therapeutics explica qué supone el nombramiento del nuevo CFO Kevin Lundquist para la próxima etapa de la compañía, en un debate virtual con inversores</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.uhcprovider.com/en/resource-library/news/2026/sdub-updates-oct-2026.html' target='_blank' style='color:var(--primary)'>UnitedHealthcare incluye LYTENAVA (bevacizumab-vikg) en &#x27;Review at Launch&#x27; (Medical Benefit Specialty Medication Update Bulletin, octubre 2026)</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.globenewswire.com/news-release/2026/10/01/3372980/0/en/outlook-therapeutics-submits-hcpcs-level-ii-application-to-cms-for-permanent-j-code-for-lytenava-bevacizumab-vikg.html' target='_blank' style='color:var(--primary)'>Outlook Therapeutics presenta a CMS la solicitud HCPCS de nivel II para el J-Code permanente de LYTENAVA™ (bevacizumab-vikg)</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://outlooktherapeutics.com/careers/' target='_blank' style='color:var(--primary)'>Vacantes: la web baja de 21 a 10; nuevas FP&amp;A Manager, ARM Southwest (Phoenix) y Medical Manager Alemania</a></li><li style='margin:3px 0'>2026-10-01 · <a href='https://www.aetna.com/content/dam/aetna/pdfs/olu/officelink-updates-october-2026-olu.pdf' target='_blank' style='color:var(--primary)'>Aetna exige precertificación para LYTENAVA (J3490/J3590/C9399) desde el 1-sep-2026, en planes comerciales y Medicare (boletín OfficeLink de octubre)</a></li></ul></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom: 24px;">
+    <div class="panel"><div class="panel-title"><span>🔄 Qué ha cambiado desde la sesión anterior</span></div>
+      <ul style="font-size:0.88rem; padding-left:18px;"><li style='margin:3px 0'>Cierre $0.4700 -&gt; $0.5000 (+6.38%) respecto al 2026-10-14.</li><li style='margin:3px 0'>Short ratio 53.7% -&gt; 62.1% (media 20 sesiones 58.9%).</li><li style='margin:3px 0'>Racha bajo $1: 45 sesiones.</li><li style='margin:3px 0'>Préstamo: CTB 3.1% -&gt; 3.1%, disponibles 0.4M -&gt; 1.4M.</li><li style='margin:3px 0'>Opciones: 21 calls / 0 puts negociadas; OI calls +203, puts -12 vs 2026-10-14.</li></ul></div>
+    <div class="panel"><div class="panel-title"><span>🏛️ Filings SEC recientes</span></div>
+      <ul style="font-size:0.85rem; padding-left:18px;"><li style='margin:3px 0'>2026-10-13 (tras el cierre, 16:47 NY) 🟡 <a href='https://www.sec.gov/Archives/edgar/data/1649989/000091957426006871/xslSCHEDULE_13G_X02/primary_doc.xml' target='_blank' style='color:var(--primary)'>Participación significativa (13G)</a></li><li style='margin:3px 0'>2026-09-30 (tras el cierre, 20:30 NY) 🔴 <a href='https://www.sec.gov/Archives/edgar/data/1649989/000110465926112356/tm2626478d1_8k.htm' target='_blank' style='color:var(--primary)'>8-K (3.01): Nasdaq: aviso de incumplimiento / cotización</a></li></ul>
+      <div class="panel-title" style="margin-top:14px;"><span>🧾 Frescura de los datos</span></div>
+      <table><tbody><tr><td>Precio (cierre)</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr><tr><td>Volumen corto FINRA</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr><tr><td>Coste de préstamo (IBKR)</td><td class='text-right'>2026-10-16</td><td class='text-center'>✅</td></tr><tr><td>Short interest (quincenal)</td><td class='text-right'>2026-09-30</td><td class='text-center'>✅</td></tr><tr><td>Fails to deliver (SEC)</td><td class='text-right'>2026-09-30</td><td class='text-center'>✅</td></tr><tr><td>Volumen por mercado (ChartExchange)</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr><tr><td>Opciones (OI y volumen)</td><td class='text-right'>2026-10-15</td><td class='text-center'>✅</td></tr><tr><td>Filings SEC (EDGAR)</td><td class='text-right'>2026-10-16</td><td class='text-center'>✅</td></tr></tbody></table></div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer style="text-align: center; color: var(--text-muted); font-size: 0.82rem; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 24px;">
+    Outlook Therapeutics, Inc. (OTLK) — Kit de análisis cuantitativo 360° | Edición comunitaria | Actualizado: 2026-10-16 19:16:01
+  </footer>
+
+</div>
+
+<!-- THEME SWITCHER SCRIPT -->
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark');
+      html.classList.add('light');
+    } else {
+      html.classList.remove('light');
+      html.classList.add('dark');
+    }
+  }
+</script>
+</body>
+</html>
