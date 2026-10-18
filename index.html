@@ -1438,7 +1438,7 @@
           <span>Open Interest</span>
         </div>
         <div class="kpi-val">0.098</div>
-        <div class="kpi-sub">52,823 Calls vs 5,156 Puts</div>
+        <div class="kpi-sub">52,426 Calls vs 5,148 Puts</div>
         <span class="kpi-badge badge-green">🟢 91.1% Calls</span>
       </div>
 
@@ -1617,7 +1617,7 @@
           </div>
           <h4>The January 2027 Call Concentration</h4>
         </div>
-        <p>Over <strong>51.9% of all open Call options</strong> on OTLK (27,439 contracts = 2.74M shares) are clustered on <strong>January 15, 2027</strong>. Derivatives market positioning is heavily aligned with the US commercial rollout and the CMS J-code determination.</p>
+        <p>Over <strong>52.3% of all open Call options</strong> on OTLK (27,439 contracts = 2.74M shares) are clustered on <strong>January 15, 2027</strong>. Derivatives market positioning is heavily aligned with the US commercial rollout and the CMS J-code determination.</p>
       </div>
 
       <!-- CARD 3: CODIGO J -->
@@ -1780,7 +1780,7 @@
     <p><strong>Outlook Therapeutics (OTLK) · 360° Community Research</strong> · Independent open-source intelligence portal for collaborative tracking and quantitative analysis.</p>
     <p style="margin-top: 4px;">Official data sources: SEC EDGAR, FINRA TRACE/Off-Exchange, CBOE, OCC, and Outlook Therapeutics, Inc. public disclosures.</p>
     <p style="margin-top: 6px;"><em>Disclaimer: This portal is created solely for informational and independent community research purposes. It does not constitute financial advice or investment recommendations. Not affiliated with Outlook Therapeutics, Inc.</em></p>
-    <p style="margin-top: 8px;">Repository hosted on <a href="https://github.com/The-Slag-Brothers/OTLK-tracker" target="_blank" rel="noopener">GitHub Pages</a> · Last Updated: October 17, 2026</p>
+    <p style="margin-top: 8px;">Repository hosted on <a href="https://github.com/The-Slag-Brothers/OTLK-tracker" target="_blank" rel="noopener">GitHub Pages</a> · Last Updated: October 18, 2026</p>
   </footer>
 
 </div>
@@ -1802,18 +1802,18 @@
   new Chart(ctxOpt, {
     type: 'bar',
     data: {
-      labels: ["16-Oct-26", "20-Nov-26", "15-Jan-27", "19-Feb-27", "21-May-27"],
+      labels: ["20-Nov-26", "15-Jan-27", "19-Feb-27", "21-May-27"],
       datasets: [
         {
           label: 'Calls (Bullish)',
-          data: [397, 7176, 27439, 17277, 534],
+          data: [7176, 27439, 17277, 534],
           backgroundColor: gradCalls,
           borderRadius: 8,
           borderSkipped: false
         },
         {
           label: 'Puts (Bearish)',
-          data: [8, 1579, 3364, 197, 8],
+          data: [1579, 3364, 197, 8],
           backgroundColor: gradPuts,
           borderRadius: 8,
           borderSkipped: false
@@ -1848,7 +1848,7 @@
           callbacks: {
             afterBody: function(items) {
               if (items[0].label.includes("15-Jan-27")) {
-                return '\n⚡ Key Expiration: 51.9% of Total Open Interest (27.3k Calls)';
+                return '\n⚡ Key Expiration: 52.3% of Total Open Interest (27.3k Calls)';
               }
             }
           }

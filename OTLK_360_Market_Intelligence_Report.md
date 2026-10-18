@@ -1,9 +1,9 @@
 # 📑 OTLK 360° Market Radar — Shorts, Options & Fundamentals Report
 
 **Outlook Therapeutics, Inc. (NASDAQ: OTLK)**  
-*Issued:* **2026-10-17** | *Price/shorts session:* **2026-10-16** | *Options session:* **2026-10-16** | *Close:* **$0.4880**
+*Issued:* **2026-10-18** | *Price/shorts session:* **2026-10-16** | *Options session:* **2026-10-16** | *Close:* **$0.4880**
 
-*🔕 No market-structure alerts. OI P/C 0.10 · new puts +0 · min IBKR available (6 sess.) 200,000 · exempt short 0.15%*
+*🔕 No market-structure alerts. OI P/C 0.10 · new puts -8 · min IBKR available (6 sess.) 200,000 · exempt short 0.15%*
 
 ## 🔄 What changed since the previous session
 
@@ -11,7 +11,7 @@
 - Short volume ratio 62.1% -> 50.9% (20-session avg 58.0%).
 - Sub-$1 streak: 46 sessions.
 - Borrow: fee 3.1% -> 2.9%, available 1.4M -> 0.3M.
-- Options: 1,073 calls / 2 puts traded; call OI +14, put OI +0 vs 2026-10-15.
+- Options: 1,068 calls / 0 puts traded; call OI +14, put OI +0 vs 2026-10-15.
   - Block 2027-02-19 CALL $1.5: 1,000 @ $0.10, OI +0 -> mostly changing hands.
 
 ---
@@ -43,10 +43,10 @@
 - **Off-exchange volume:** **64.2% (20-session avg 66.8%, -2.7 pp)** | Trades at bid/mid/ask: 13% / 59% / 28% (2026-10-15)
 
 ### Options (session 2026-10-16)
-- **Open interest:** **52,823 calls vs 5,156 puts** (91.1% calls)
-- **Session volume:** **1,073 calls vs 2 puts** (P/C 0.002, call-skewed volume)
-- **Option holders' net delta:** **+1,713,965 share equivalents** (market makers, as counterparty, hold the opposite sign)
-- **Average implied volatility:** **218.6%**
+- **Open interest:** **52,426 calls vs 5,148 puts** (91.1% calls)
+- **Session volume:** **1,068 calls vs 0 puts** (P/C 0.000, call-skewed volume)
+- **Option holders' net delta:** **+1,713,337 share equivalents** (market makers, as counterparty, hold the opposite sign)
+- **Average implied volatility:** **243.3%**
 - **Max pain:** **$0.50** — ⚪ NOT MEANINGFUL ($0.50 = lowest strike)
 
 ---
@@ -55,28 +55,27 @@
 
 | Expiration | Days | Calls OI | Puts OI | P/C | Max Pain | Holders' delta | OI skew |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **2026-10-16** | -1d | 397 | 8 | 0.020 | $0.50* | +628 | Heavy call skew 🟢🟢 |
-| **2026-11-20** | 34d | 7,176 | 1,579 | 0.220 | $0.50* | +101,033 | Heavy call skew 🟢🟢 |
-| **2027-01-15** | 90d | 27,439 | 3,364 | 0.123 | $0.50* | +929,521 | Heavy call skew 🟢🟢 |
-| **2027-02-19** | 125d | 17,277 | 197 | 0.011 | $0.50* | +652,540 | Heavy call skew 🟢🟢 |
-| **2027-05-21** | 216d | 534 | 8 | 0.015 | $0.50* | +30,243 | Heavy call skew 🟢🟢 |
+| **2026-11-20** | 33d | 7,176 | 1,579 | 0.220 | $0.50* | +101,033 | Heavy call skew 🟢🟢 |
+| **2027-01-15** | 89d | 27,439 | 3,364 | 0.123 | $0.50* | +929,521 | Heavy call skew 🟢🟢 |
+| **2027-02-19** | 124d | 17,277 | 197 | 0.011 | $0.50* | +652,540 | Heavy call skew 🟢🟢 |
+| **2027-05-21** | 215d | 534 | 8 | 0.015 | $0.50* | +30,243 | Heavy call skew 🟢🟢 |
 
 \* Max pain at the lowest listed strike: a mechanical result, not a support level.
 
 > [!NOTE]
-> The 2027-01-15 expiry holds 27,439 calls (51.9% of all open calls).
+> The 2027-01-15 expiry holds 27,439 calls (52.3% of all open calls).
 
 ---
 
 ## 💡 4. Cross-Asset Reading
 
 ### Cash vs derivatives
-FINRA short-volume ratio 50.9% (5-day MA 56.9%): daily short-sale volume, which includes market-maker liquidity provision; it is not the same as new short positions. Official short interest is 21.0% of float (7.1 days to cover). Options open interest shows 10.2 calls per put (OI P/C 0.098); session volume P/C is 0.00 (call-skewed volume). On the same expiries, open calls moved from 52,215 (2026-10-02) to 52,823 (+1.2%): essentially flat. Caveat: open interest does not show who bought or sold; with implied volatility at 219%, part of these calls may be covered calls written by shareholders.
+FINRA short-volume ratio 50.9% (5-day MA 56.9%): daily short-sale volume, which includes market-maker liquidity provision; it is not the same as new short positions. Official short interest is 21.0% of float (7.1 days to cover). Options open interest shows 10.2 calls per put (OI P/C 0.098); session volume P/C is 0.00 (call-skewed volume). On the same expiries, open calls moved from 51,824 (2026-10-02) to 52,426 (+1.2%): essentially flat. Caveat: open interest does not show who bought or sold; with implied volatility at 243%, part of these calls may be covered calls written by shareholders.
 
 ### Borrow, squeeze & option hedging
 Cheap, available borrow (CTB 2.9%): no stress in stock lending. Squeeze score 38/100. Recent FTDs: 0 shares.
 
-Option holders' net delta: +1,713,965 share equivalents. If market makers are the short side, their hedge is the mirror image (already long stock); a rally forces further buying (gamma), a drop forces selling.
+Option holders' net delta: +1,713,337 share equivalents. If market makers are the short side, their hedge is the mirror image (already long stock); a rally forces further buying (gamma), a drop forces selling.
 
 ### Nasdaq minimum bid
 Nasdaq notice received 2026-09-25 (8-K filed 2026-09-30): second notice in 2026 after 30 consecutive sessions below $1 (current streak: 46). Cure period until 2027-03-24 (159 calendar days, ~113 sessions). Needs 10 consecutive closes ≥ $1 (now 0/10; price needs +104.9%). A second 180-day period may be available if other listing standards are met. Board already holds shareholder authorization for a 1:10–1:50 reverse split (Jul-16-2026), not yet used. Nasdaq notice filed in an 8-K on 2026-09-30.
@@ -93,8 +92,8 @@ Above $1.10, exercise of 55.6M warrants would bring up to $61.1M in cash by issu
 
 | Date | Filing | |
 | :--- | :--- | :--- |
-| 2026-10-13 (after the close, 16:47 NY) | 🟡 Significant holder (13G) | [link](https://www.sec.gov/Archives/edgar/data/1649989/000091957426006871/xslSCHEDULE_13G_X02/primary_doc.xml) |
-| 2026-09-30 (after the close, 20:30 NY) | 🔴 8-K (3.01): Nasdaq: listing deficiency notice | [link](https://www.sec.gov/Archives/edgar/data/1649989/000110465926112356/tm2626478d1_8k.htm) |
+| 2026-10-13 (during market hours, 12:47 NY) | 🟡 Significant holder (13G) | [link](https://www.sec.gov/Archives/edgar/data/1649989/000091957426006871/xslSCHEDULE_13G_X02/primary_doc.xml) |
+| 2026-09-30 (after the close, 16:30 NY) | 🔴 8-K (3.01): Nasdaq: listing deficiency notice | [link](https://www.sec.gov/Archives/edgar/data/1649989/000110465926112356/tm2626478d1_8k.htm) |
 
 ## 📑 Official financials (SEC XBRL)
 
@@ -137,12 +136,12 @@ Last 90 days: 4 purchases (code P) (2,873,175 sh., $2,849,995) and 0 sales (0 sh
 | :--- | :--- | :---: |
 | Price (close) | 2026-10-16 | ✅ |
 | FINRA short volume | 2026-10-16 | ✅ |
-| Borrow fee (IBKR) | 2026-10-17 | ✅ |
+| Borrow fee (IBKR) | 2026-10-18 | ✅ |
 | Short interest (bi-monthly) | 2026-09-30 | ✅ |
 | Fails to deliver (SEC) | 2026-09-30 | ✅ |
 | Exchange volume (ChartExchange) | 2026-10-16 | ✅ |
 | Options (OI & volume) | 2026-10-16 | ✅ |
-| SEC filings (EDGAR) | 2026-10-17 | ✅ |
+| SEC filings (EDGAR) | 2026-10-18 | ✅ |
 
 ## ⏳ 5. Next Catalyst
 
