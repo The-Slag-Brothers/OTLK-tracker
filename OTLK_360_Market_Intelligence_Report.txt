@@ -1,6 +1,6 @@
 ==============================================================================
   OTLK 360 MARKET RADAR — SHORTS, OPTIONS & FUNDAMENTALS
-  Issued: 2026-10-18 | Price/shorts session: 2026-10-16 | Options session: 2026-10-16
+  Issued: 2026-10-19 | Price/shorts session: 2026-10-16 | Options session: 2026-10-16
   Close : $0.4880 | Phase: ⚠️ Nasdaq Deficiency Risk (<$1)
 ==============================================================================
 
@@ -18,7 +18,7 @@
 1. DASHBOARD
 ------------------------------------------------------------------------------
   * FINRA short-volume ratio : ⚪ NEUTRAL        (50.85% | 5d MA 56.87%)
-  * Official short interest  : 21.0% of float | 7.1 days to cover
+  * Official short interest  : 21.0% of float (13.1% of shares outstanding) | 7.1 days to cover
   * Options open interest    : 🟢 OI HEAVILY CALL-SKEWED (P/C 0.098 | 10.2 calls/put)
   * Options volume           : P/C 0.000 (call-skewed volume)
   * Squeeze score            : 🟡 MODERATE       (38/100 | borrow fee 2.9%)
@@ -33,28 +33,37 @@
     - Basic market cap       : $118.80M (243.4M shares)
     - Fully diluted cap      : $182.51M (374.0M FD)
     - FINRA float            : 151,744,010 shares
-    - Official short interest: 21.0% (~31.9M shares)
+    - Official short interest: 21.0% (~31.9M shares) (13.1% of shares outstanding)
     - Short-volume ratio     : 50.85% (signal: ✅ Neutral Zone)
     - Cost to borrow         : 2.9%
     - Recent FTDs            : 0 shares
     - Off-exchange volume    : 64.2% (20-session avg 66.8%, -2.7 pp)
-    - Trades bid/mid/ask     : 13% / 59% / 28% (2026-10-15)
+    - Trades bid/mid/ask     : 24% / 59% / 18% (2026-10-16)
 
   OPTIONS (session 2026-10-16):
     - Open interest          : 52,426 calls vs 5,148 puts
     - Volume                 : 1,068 calls vs 0 puts (P/C 0.000)
     - Holders' net delta     : +1,713,337 share equiv. (MM counterparty: opposite sign)
-    - Implied volatility     : 243.3%
+    - Implied volatility     : 237.0%
     - Max pain               : $0.50 (lowest strike: not meaningful)
+
+  Technical context (simple moving averages)
+  * Daily · 2026-10-16 (closed): Close $0.4880  |  SMA50 $0.6714 (-27.3%)  |  SMA100 $0.9623 (-49.3%)  |  SMA200 $0.6706 (-27.2%)  |  RSI 32.9
+  * Weekly · 2026-10-16 (closed): Close $0.4880  |  SMA50 $0.8488 (-42.5%)  |  SMA100 $1.2814 (-61.9%)  |  SMA200 $7.7373 (-93.7%)  |  RSI 38.6
+  * Monthly · 2026-10-31 (in progress): Close $0.4880  |  SMA50 $8.4394 (-94.2%)  |  SMA100 $28.6555 (-98.3%)  |  SMA200 n/a (not enough history)  |  RSI 37.0
+  * Price below the SMAs → Daily: below 3 of 3 · Weekly: below 3 of 3 · Monthly: below 2 of 2
+  * Daily: bearish trend, weak (ADX 24.6) · stochastic 18.8 · CCI -145.5
+  * Weekly: no clear trend (ADX 14.5) · stochastic 4.4 · CCI -90.9
+  (The long weekly and monthly SMAs carry the reverse-split-adjusted prices from before the splits: read them as trend references, not as exact support or resistance. Same calculation as TradingView (cross-checked).)
 
 3. OPEN INTEREST BY EXPIRATION
 ------------------------------------------------------------------------------
   Expiration     Days   Calls OI   Puts OI   P/C OI   Max Pain   Holders' delta
   ------------------------------------------------------------------------
-  2026-11-20       33d      7,176     1,579    0.220     $0.50*       +101,033
-  2027-01-15       89d     27,439     3,364    0.123     $0.50*       +929,521
-  2027-02-19      124d     17,277       197    0.011     $0.50*       +652,540
-  2027-05-21      215d        534         8    0.015     $0.50*        +30,243
+  2026-11-20       32d      7,176     1,579    0.220     $0.50*       +101,033
+  2027-01-15       88d     27,439     3,364    0.123     $0.50*       +929,521
+  2027-02-19      123d     17,277       197    0.011     $0.50*       +652,540
+  2027-05-21      214d        534         8    0.015     $0.50*        +30,243
   * Max pain at the lowest listed strike: mechanical result, not a support level.
 
   NOTE: The 2027-01-15 expiry holds 27,439 calls (52.3% of all open calls).
@@ -62,7 +71,7 @@
 4. CROSS-ASSET READING
 ------------------------------------------------------------------------------
   [A] CASH VS DERIVATIVES:
-      FINRA short-volume ratio 50.9% (5-day MA 56.9%): daily short-sale volume, which includes market-maker liquidity provision; it is not the same as new short positions. Official short interest is 21.0% of float (7.1 days to cover). Options open interest shows 10.2 calls per put (OI P/C 0.098); session volume P/C is 0.00 (call-skewed volume). On the same expiries, open calls moved from 51,824 (2026-10-02) to 52,426 (+1.2%): essentially flat. Caveat: open interest does not show who bought or sold; with implied volatility at 243%, part of these calls may be covered calls written by shareholders.
+      FINRA short-volume ratio 50.9% (5-day MA 56.9%): daily short-sale volume, which includes market-maker liquidity provision; it is not the same as new short positions. Official short interest is 21.0% of float (13.1% of shares outstanding) (7.1 days to cover). Options open interest shows 10.2 calls per put (OI P/C 0.098); session volume P/C is 0.00 (call-skewed volume). On the same expiries, open calls moved from 51,824 (2026-10-02) to 52,426 (+1.2%): essentially flat. Caveat: open interest does not show who bought or sold; with implied volatility at 237%, part of these calls may be covered calls written by shareholders.
 
   [B] BORROW, SQUEEZE & HEDGING:
       Cheap, available borrow (CTB 2.9%): no stress in stock lending. Squeeze score 38/100. Recent FTDs: 0 shares.
@@ -101,6 +110,7 @@ INSIDERS (FORM 4)
 
 NEWS AND PRESS RELEASES (LAST 30 DAYS)
 ------------------------------------------------------------------------------
+  2026-10-15  Horizon BCBS NJ (via Prime Therapeutics): LYTENAVA moves to medical-necessity review (MNAR) under th
   2026-10-09  Careers page: 8 openings (10 on Oct 1). New: IT Manager. Removed since Oct 1: National Sales Directo
   2026-10-09  Outlook Therapeutics Names Greg DiPasquale Chief Commercial Officer
   2026-10-09  AAO 2026 Daily: LYTENAVA to be billed with NOC codes (J3490, J3590, C9399), carrier priced, until a 
@@ -108,18 +118,17 @@ NEWS AND PRESS RELEASES (LAST 30 DAYS)
   2026-10-01  UnitedHealthcare adds LYTENAVA (bevacizumab-vikg) to 'Review at Launch' (Medical Benefit Specialty M
   2026-10-01  Outlook Therapeutics Submits HCPCS Level II Application to CMS for Permanent J-Code for LYTENAVA™ (b
   2026-10-01  Careers page drops from 21 to 10 openings; new FP&A Manager, ARM Southwest (Phoenix) and Medical Man
-  2026-10-01  Aetna requires precertification for LYTENAVA (J3490/J3590/C9399) effective Sep 1, 2026, commercial a
 
 DATA FRESHNESS
 ------------------------------------------------------------------------------
   Price (close)                  2026-10-16   OK
   FINRA short volume             2026-10-16   OK
-  Borrow fee (IBKR)              2026-10-18   OK
+  Borrow fee (IBKR)              2026-10-19   OK
   Short interest (bi-monthly)    2026-09-30   OK
   Fails to deliver (SEC)         2026-09-30   OK
   Exchange volume (ChartExchange) 2026-10-16   OK
   Options (OI & volume)          2026-10-16   OK
-  SEC filings (EDGAR)            2026-10-18   OK
+  SEC filings (EDGAR)            2026-10-19   OK
 
 5. NEXT CATALYST
 ------------------------------------------------------------------------------
