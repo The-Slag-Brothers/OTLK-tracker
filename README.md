@@ -1,6 +1,6 @@
 # <img src="assets/ico-radar.svg" alt="" width="24" height="24" align="absmiddle"> OTLK 360° Quantitative Research Toolkit
 
-> <img src="assets/ico-globe.svg" alt="" width="24" height="24" align="absmiddle"> **Live site: <https://the-slag-brothers.github.io/OTLK-tracker/>** — English / Español portal, updated every trading day (last data session: **2026-10-21**).
+> <img src="assets/ico-globe.svg" alt="" width="24" height="24" align="absmiddle"> **Live site: <https://the-slag-brothers.github.io/OTLK-tracker/>** — English / Español portal, updated every trading day (last data session: **2026-10-22**).
 
 An independent, open quantitative research suite covering **Outlook Therapeutics, Inc. (NASDAQ: OTLK)** across three interconnected market dimensions:
 1. **Cash Equities & Short Flow Microstructure** (FINRA TRF Short Volume, Borrow Fees, SEC Failures to Deliver, SSR Rule 201).
@@ -81,7 +81,7 @@ Everything below is published on the live site and in this repository. Files are
 - **Historical Shares Ladder:**  
   Market capitalization is calculated using audited share count progression from official SEC 10-Q and 8-K filings (26.9M post-RS -> 120.8M -> 187.1M -> **243.4M Basic OS** / **374.0M Fully Diluted**), avoiding outdated third-party quote provider data.
 - **$1.10 Warrant Dynamics:**  
-  Figures as of the 2026-10-21 session. Distance to the 55,555,556 public warrants strike ($1.10). Full exercise would bring up to **$61,111,112 in cash**, but it is **dilutive**: it issues 55,555,556 new shares (+22.8% vs. shares outstanding).
+  Figures as of the 2026-10-22 session. Distance to the 55,555,556 public warrants strike ($1.10). Full exercise would bring up to **$61,111,112 in cash**, but it is **dilutive**: it issues 55,555,556 new shares (+22.8% vs. shares outstanding).
 
 ---
 

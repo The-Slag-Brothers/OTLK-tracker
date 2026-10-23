@@ -1,18 +1,22 @@
 # 📑 OTLK 360° Market Radar — Shorts, Options & Fundamentals Report
 
 **Outlook Therapeutics, Inc. (NASDAQ: OTLK)**  
-*Issued:* **2026-10-22** | *Price/shorts session:* **2026-10-21** | *Options session:* **2026-10-21** | *Close:* **$0.5610**
+*Issued:* **2026-10-23** | *Price/shorts session:* **2026-10-22** | *Options session:* **2026-10-22** | *Close:* **$0.5640**
 
-*🔕 No market-structure alerts. OI P/C 0.10 · new puts +1 · min IBKR available (6 sess.) 350,000 · exempt short 0.40%*
+> [!CAUTION]
+> **Data quality notes:**
+> - Stale source: Short interest (bi-monthly) (last data 2026-09-30).
+
+*🔕 No market-structure alerts. OI P/C 0.10 · new puts +1 · min IBKR available (6 sess.) 350,000 · exempt short 0.00%*
 
 ## 🔄 What changed since the previous session
 
-- Close $0.5200 -> $0.5610 (+7.88%) vs 2026-10-20.
-- Short volume ratio 73.1% -> 60.4% (20-session avg 59.0%).
-- Sub-$1 streak: 49 sessions.
-- Borrow: fee 2.7% -> 2.7%, available 0.9M -> 1.4M.
-- Options: 472 calls / 7 puts traded; call OI +222, put OI +1 vs 2026-10-20.
-  - Block 2027-01-15 CALL $0.5: 308 @ $0.15, OI -11 -> mostly changing hands.
+- Close $0.5610 -> $0.5640 (+0.53%) vs 2026-10-21.
+- Short volume ratio 60.4% -> 61.7% (20-session avg 59.0%).
+- Sub-$1 streak: 50 sessions.
+- Borrow: fee 2.7% -> 2.6%, available 1.4M -> 2.8M.
+- Options: 90 calls / 2 puts traded; call OI +71, put OI +1 vs 2026-10-21.
+- ⚠️ Short interest (bi-monthly) not updated (last data 2026-09-30).
 
 ---
 
@@ -20,12 +24,12 @@
 
 | Indicator | Value | Status | Reading |
 | :--- | :--- | :---: | :--- |
-| **FINRA short-volume ratio** | **60.43%** (5-day MA 61.44%) | 🟠 HIGH | Daily short-sale volume; includes market-maker liquidity |
+| **FINRA short-volume ratio** | **61.66%** (5-day MA 61.34%) | 🟠 HIGH | Daily short-sale volume; includes market-maker liquidity |
 | **Official short interest** | **21.0% of float** (13.1% of shares outstanding) | — | 7.1 days to cover |
-| **Options open interest** | P/C **0.098** (10.2 calls per put) | 🟢 OI HEAVILY CALL-SKEWED | Session volume P/C 0.01 (call-skewed volume) |
-| **Squeeze score** | **37 / 100** | 🟡 MODERATE | Borrow fee 2.7% |
-| **Sub-$1.00 streak** | **49 sessions** | 🔴 CURE PERIOD: until 2027-03-24 (153 days) · ≥ $1: 0/10 | Needs **+78.3%** |
-| **$1.10 warrants** | **+96.1%** away | 🔵 | Up to $61.1M cash / +55.6M new shares |
+| **Options open interest** | P/C **0.098** (10.2 calls per put) | 🟢 OI HEAVILY CALL-SKEWED | Session volume P/C 0.02 (very low volume (92 contracts): not meaningful) |
+| **Squeeze score** | **31 / 100** | 🟡 MODERATE | Borrow fee 2.6% |
+| **Sub-$1.00 streak** | **50 sessions** | 🔴 CURE PERIOD: until 2027-03-24 (152 days) · ≥ $1: 0/10 | Needs **+77.3%** |
+| **$1.10 warrants** | **+95.0%** away | 🔵 | Up to $61.1M cash / +55.6M new shares |
 | **Max pain** | $0.50 | ⚪ NOT MEANINGFUL ($0.50 = lowest strike) | With far more calls than puts the calculation lands on the lowest strike: not a support level |
 
 ---
@@ -33,29 +37,29 @@
 ## 📊 2. Market Microstructure
 
 ### Cash equity & short mechanics
-- **Close:** **$0.5610** | Market phase: ⚠️ Nasdaq Deficiency Risk (<$1)
-- **Basic market cap:** **$136.57M** (243.4M shares outstanding)
-- **Fully diluted market cap:** **$209.81M** (374.0M fully diluted)
+- **Close:** **$0.5640** | Market phase: ⚠️ Nasdaq Deficiency Risk (<$1)
+- **Basic market cap:** **$137.30M** (243.4M shares outstanding)
+- **Fully diluted market cap:** **$210.93M** (374.0M fully diluted)
 - **FINRA float estimate:** **151,744,010 shares**
 - **Official short interest:** **21.0%** (~31.9M shares) (13.1% of shares outstanding)
-- **Daily short-volume ratio:** **60.43%** | System signal: 🟠 High Pressure | ⚠️ Sustained Streak
-- **Cost to borrow:** **2.7%** | **Recent FTDs:** **0 shares**
-- **Off-exchange volume:** **67.7% (20-session avg 67.8%, -0.1 pp)** | Trades at bid/mid/ask: 20% / 62% / 16% (2026-10-21)
+- **Daily short-volume ratio:** **61.66%** | System signal: 🟠 High Pressure | ⚠️ Sustained Streak
+- **Cost to borrow:** **2.6%** | **Recent FTDs:** **0 shares**
+- **Off-exchange volume:** **56.7% (20-session avg 67.3%, -10.6 pp)** | Trades at bid/mid/ask: 21% / 62% / 16% (2026-10-22)
 
-### Options (session 2026-10-21)
-- **Open interest:** **52,837 calls vs 5,173 puts** (91.1% calls)
-- **Session volume:** **472 calls vs 7 puts** (P/C 0.015, call-skewed volume)
-- **Option holders' net delta:** **+1,964,829 share equivalents** (market makers, as counterparty, hold the opposite sign)
-- **Average implied volatility:** **255.1%**
+### Options (session 2026-10-22)
+- **Open interest:** **52,908 calls vs 5,174 puts** (91.1% calls)
+- **Session volume:** **90 calls vs 2 puts** (P/C 0.022, very low volume (92 contracts): not meaningful)
+- **Option holders' net delta:** **+1,942,369 share equivalents** (market makers, as counterparty, hold the opposite sign)
+- **Average implied volatility:** **216.5%**
 - **Max pain:** **$0.50** — ⚪ NOT MEANINGFUL ($0.50 = lowest strike)
 
 ### 2.3. Technical context (simple moving averages)
 
 | Timeframe | Close | SMA 50 | SMA 100 | SMA 200 | RSI | Trend and momentum |
 | :--- | ---: | ---: | ---: | ---: | ---: | :--- |
-| **Daily** (2026-10-21, closed) | $0.5610 | 0.6369 (-11.9%) | 0.9575 (-41.4%) | 0.6645 (-15.6%) | 45.6 | bearish trend, weak (ADX 23.9) · stochastic 46.9 · CCI -35.7 |
-| **Weekly** (2026-10-23, in progress) | $0.5610 | 0.8362 (-32.9%) | 1.2367 (-54.6%) | 7.6331 (-92.7%) | 41.7 | no clear trend (ADX 14.4) · stochastic 6.0 · CCI -78.5 |
-| **Monthly** (2026-10-31, in progress) | $0.5610 | 8.4409 (-93.4%) | 28.6562 (-98.0%) | n/a | 37.2 | no clear trend (ADX 4.7) · stochastic 14.8 · CCI -77.6 |
+| **Daily** (2026-10-22, closed) | $0.5640 | 0.6262 (-9.9%) | 0.9547 (-40.9%) | 0.6647 (-15.1%) | 46.1 | bearish trend, weak (ADX 22.4) · stochastic 60.6 · CCI +1.5 |
+| **Weekly** (2026-10-23, in progress) | $0.5640 | 0.8363 (-32.6%) | 1.2368 (-54.4%) | 7.6331 (-92.6%) | 41.9 | no clear trend (ADX 14.4) · stochastic 6.1 · CCI -78.3 |
+| **Monthly** (2026-10-31, in progress) | $0.5640 | 8.4409 (-93.3%) | 28.6563 (-98.0%) | n/a | 37.2 | no clear trend (ADX 4.7) · stochastic 14.8 · CCI -77.5 |
 
 Price below the SMAs → Daily: below 3 of 3 · Weekly: below 3 of 3 · Monthly: below 2 of 2.  
 *The long weekly and monthly SMAs carry the reverse-split-adjusted prices from before the splits: read them as trend references, not as exact support or resistance. Same calculation as TradingView (cross-checked).*
@@ -66,35 +70,35 @@ Price below the SMAs → Daily: below 3 of 3 · Weekly: below 3 of 3 · Monthly:
 
 | Expiration | Days | Calls OI | Puts OI | P/C | Max Pain | Holders' delta | OI skew |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **2026-11-20** | 29d | 7,180 | 1,584 | 0.221 | $0.50* | +155,951 | Heavy call skew 🟢🟢 |
-| **2026-12-18** | 57d | 10 | 0 | 0.000 | $0.50* | +1,000 | Heavy call skew 🟢🟢 |
-| **2027-01-15** | 85d | 27,650 | 3,384 | 0.122 | $0.50* | +1,089,902 | Heavy call skew 🟢🟢 |
-| **2027-02-19** | 120d | 17,265 | 197 | 0.011 | $0.50* | +672,809 | Heavy call skew 🟢🟢 |
-| **2027-05-21** | 211d | 732 | 8 | 0.011 | $0.50* | +45,167 | Heavy call skew 🟢🟢 |
+| **2026-11-20** | 28d | 7,210 | 1,584 | 0.220 | $0.50* | +150,458 | Heavy call skew 🟢🟢 |
+| **2026-12-18** | 56d | 10 | 0 | 0.000 | $0.50* | +1,000 | Heavy call skew 🟢🟢 |
+| **2027-01-15** | 84d | 27,660 | 3,384 | 0.122 | $0.50* | +1,076,364 | Heavy call skew 🟢🟢 |
+| **2027-02-19** | 119d | 17,259 | 197 | 0.011 | $0.50* | +666,514 | Heavy call skew 🟢🟢 |
+| **2027-05-21** | 210d | 769 | 9 | 0.012 | $0.50* | +48,033 | Heavy call skew 🟢🟢 |
 
 \* Max pain at the lowest listed strike: a mechanical result, not a support level.
 
 > [!NOTE]
-> The 2027-01-15 expiry holds 27,650 calls (52.3% of all open calls).
+> The 2027-01-15 expiry holds 27,660 calls (52.3% of all open calls).
 
 ---
 
 ## 💡 4. Cross-Asset Reading
 
 ### Cash vs derivatives
-FINRA short-volume ratio 60.4% (5-day MA 61.4%): daily short-sale volume, which includes market-maker liquidity provision; it is not the same as new short positions. Official short interest is 21.0% of float (13.1% of shares outstanding) (7.1 days to cover). Options open interest shows 10.2 calls per put (OI P/C 0.098); session volume P/C is 0.01 (call-skewed volume). On the same expiries, open calls moved from 51,954 (2026-10-07) to 52,827 (+1.7%): essentially flat. Caveat: open interest does not show who bought or sold; with implied volatility at 255%, part of these calls may be covered calls written by shareholders.
+FINRA short-volume ratio 61.7% (5-day MA 61.3%): daily short-sale volume, which includes market-maker liquidity provision; it is not the same as new short positions. Official short interest is 21.0% of float (13.1% of shares outstanding) (7.1 days to cover). Options open interest shows 10.2 calls per put (OI P/C 0.098); session volume P/C is 0.02 (very low volume (92 contracts): not meaningful). On the same expiries, open calls moved from 52,015 (2026-10-08) to 52,898 (+1.7%): essentially flat. Caveat: open interest does not show who bought or sold; with implied volatility at 217%, part of these calls may be covered calls written by shareholders.
 
 ### Borrow, squeeze & option hedging
-Cheap, available borrow (CTB 2.7%): no stress in stock lending. Squeeze score 37/100. Recent FTDs: 0 shares.
+Cheap, available borrow (CTB 2.6%): no stress in stock lending. Squeeze score 31/100. Recent FTDs: 0 shares.
 
-Option holders' net delta: +1,964,829 share equivalents. If market makers are the short side, their hedge is the mirror image (already long stock); a rally forces further buying (gamma), a drop forces selling.
+Option holders' net delta: +1,942,369 share equivalents. If market makers are the short side, their hedge is the mirror image (already long stock); a rally forces further buying (gamma), a drop forces selling.
 
 ### Nasdaq minimum bid
-Nasdaq notice received 2026-09-25 (8-K filed 2026-09-30): second notice in 2026 after 30 consecutive sessions below $1 (current streak: 49). Cure period until 2027-03-24 (153 calendar days, ~109 sessions). Needs 10 consecutive closes ≥ $1 (now 0/10; price needs +78.3%). A second 180-day period may be available if other listing standards are met. Board already holds shareholder authorization for a 1:10–1:50 reverse split (Jul-16-2026), not yet used. Nasdaq notice filed in an 8-K on 2026-09-30.
+Nasdaq notice received 2026-09-25 (8-K filed 2026-09-30): second notice in 2026 after 30 consecutive sessions below $1 (current streak: 50). Cure period until 2027-03-24 (152 calendar days, ~108 sessions). Needs 10 consecutive closes ≥ $1 (now 0/10; price needs +77.3%). A second 180-day period may be available if other listing standards are met. Board already holds shareholder authorization for a 1:10–1:50 reverse split (Jul-16-2026), not yet used. Nasdaq notice filed in an 8-K on 2026-09-30.
 
 ### Price thresholds
 ```
-$0.5610 (close) --> $1.00 (Nasdaq, +78.3%) --> $1.10 (warrants, +96.1%)
+$0.5640 (close) --> $1.00 (Nasdaq, +77.3%) --> $1.10 (warrants, +95.0%)
 ```
 Above $1.10, exercise of 55.6M warrants would bring up to $61.1M in cash by issuing 55.6M new shares (+22.8% vs 243.4M outstanding). Cash, but dilutive.
 
@@ -145,14 +149,14 @@ Last 90 days: 4 purchases (code P) (2,873,175 sh., $2,849,995) and 0 sales (0 sh
 
 | Source | Last data | Status |
 | :--- | :--- | :---: |
-| Price (close) | 2026-10-21 | ✅ |
-| FINRA short volume | 2026-10-21 | ✅ |
-| Borrow fee (IBKR) | 2026-10-22 | ✅ |
-| Short interest (bi-monthly) | 2026-09-30 | ✅ |
+| Price (close) | 2026-10-22 | ✅ |
+| FINRA short volume | 2026-10-22 | ✅ |
+| Borrow fee (IBKR) | 2026-10-23 | ✅ |
+| Short interest (bi-monthly) | 2026-09-30 | ⚠️ stale |
 | Fails to deliver (SEC) | 2026-09-30 | ✅ |
-| Exchange volume (ChartExchange) | 2026-10-21 | ✅ |
-| Options (OI & volume) | 2026-10-21 | ✅ |
-| SEC filings (EDGAR) | 2026-10-22 | ✅ |
+| Exchange volume (ChartExchange) | 2026-10-22 | ✅ |
+| Options (OI & volume) | 2026-10-22 | ✅ |
+| SEC filings (EDGAR) | 2026-10-23 | ✅ |
 
 ## ⏳ 5. Next Catalyst
 
@@ -168,13 +172,13 @@ Last 90 days: 4 purchases (code P) (2,873,175 sh., $2,849,995) and 0 sales (0 sh
 
 | Price | Lot value | Change vs close | Return | Reference |
 | :--- | :--- | :--- | :--- | :--- |
-| $0.5000 | $5,000.00 | -$610.00 | -10.9% | Bear case ($0.50) |
-| **$0.5610** | $5,610.00 | +$0.00 | +0.0% | Current close |
-| $1.0000 | $10,000.00 | +$4,390.00 | +78.3% | Regains $1 (10 straight closes before 2027-03-24) |
-| $1.1000 | $11,000.00 | +$5,390.00 | +96.1% | Warrant strike: up to $61.1M cash (dilutive) |
-| $2.5000 | $25,000.00 | +$19,390.00 | +345.6% | EU sales ramp |
-| $4.0000 | $40,000.00 | +$34,390.00 | +613.0% | US launch + permanent J-code |
-| $5.0000 | $50,000.00 | +$44,390.00 | +791.3% | $500M guidance (not yet reconciled with WAC×share) |
+| $0.5000 | $5,000.00 | -$640.00 | -11.3% | Bear case ($0.50) |
+| **$0.5640** | $5,640.00 | +$0.00 | +0.0% | Current close |
+| $1.0000 | $10,000.00 | +$4,360.00 | +77.3% | Regains $1 (10 straight closes before 2027-03-24) |
+| $1.1000 | $11,000.00 | +$5,360.00 | +95.0% | Warrant strike: up to $61.1M cash (dilutive) |
+| $2.5000 | $25,000.00 | +$19,360.00 | +343.3% | EU sales ramp |
+| $4.0000 | $40,000.00 | +$34,360.00 | +609.2% | US launch + permanent J-code |
+| $5.0000 | $50,000.00 | +$44,360.00 | +786.5% | $500M guidance (not yet reconciled with WAC×share) |
 
 *Scenarios above the close are thesis reference levels, not forecasts.*
 
